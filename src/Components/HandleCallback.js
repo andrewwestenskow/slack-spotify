@@ -10,7 +10,7 @@ const HandleCallback = props => {
     .then(response => {
       console.log(response.data)
       localStorage.setItem('access_token', response.data.access_token)
-      props.history.push('/dashboard')
+      props.history.push('auth/dashboard')
     })
     .catch(error => {
       console.log(error)

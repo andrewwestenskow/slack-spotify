@@ -1,22 +1,13 @@
 import React from 'react'
-import axios from 'axios'
+import PlayerWidget from '../PlayerWidget/PlayerWidget'
 
 const AppContainer = props => {
-  const login = async () => {
-    const response = await axios.get('/login')
-    window.location.href = response.data
-  }
-
-  const access_token = localStorage.getItem('access_token')
-  if (access_token) {
-    props.history.push('/dashboard')
-    return <div></div>
-  } else {
-    return (
-      <div>
-        <button onClick={login}>LOG IN HERE</button>
-      </div>
-    )
-  }
+  console.log(props.children)
+  return (
+    <>
+      <div>{props.children}</div>
+      <PlayerWidget />
+    </>
+  )
 }
 export default AppContainer

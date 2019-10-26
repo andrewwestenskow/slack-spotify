@@ -8,6 +8,8 @@ const HandleCallback = props => {
   axios
     .post(`/callback?code=${code}`)
     .then(response => {
+      console.log(response.data)
+      localStorage.setItem('access_token', response.data.access_token)
       props.history.push('/dashboard')
     })
     .catch(error => {

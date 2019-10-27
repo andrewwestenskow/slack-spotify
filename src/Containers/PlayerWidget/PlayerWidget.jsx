@@ -3,7 +3,7 @@ import Player from '../../Components/Player/Player'
 
 const PlayerWidget = props => {
   return (
-    <div>
+    <div style={{ position: 'fixed', bottom: 0 }}>
       {props.children}
       <Player />
     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import SearchResultsContainer from '../../Containers/SearchResults/SearchResultsContainer'
 import { search } from '../../functions/fetch'
+import { refreshToken } from '../../functions/auth'
 
 const Header = props => {
   const [searchResults, setSearchResults] = useState({})
@@ -23,6 +24,7 @@ const Header = props => {
       <div className="Header">
         <input onChange={e => handleSearch(e)} type="text" />
         <button onClick={deleteCode}>Reset code</button>
+        <button onClick={refreshToken}>Refresh code</button>
       </div>
       {searchResults.tracks && (
         <div className="search-container-hold">

@@ -1,10 +1,11 @@
 import React from 'react'
 import PlayerWidget from '../PlayerWidget/PlayerWidget'
+import Header from '../../Components/Header/Header'
 
 const AppContainer = props => {
-  console.log(props.children)
   return (
     <>
+      <Header />
       <div>{props.children}</div>
       <PlayerWidget />
     </>

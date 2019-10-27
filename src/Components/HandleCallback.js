@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { setAuth } from '../ducks/authReducer'
 
 const HandleCallback = props => {
   const urlQuery = new URLSearchParams(useLocation().search)
@@ -9,8 +11,7 @@ const HandleCallback = props => {
     .post(`/callback?code=${code}`)
     .then(response => {
       console.log(response.data)
-      localStorage.setItem('access_token', response.data.access_token)
-      localStorage.setItem('refresh_token', response.data.refresh_token)
+      props.setAuth(response)
       props.history.push('auth/dashboard')
     })
     .catch(error => {
@@ -19,4 +20,12 @@ const HandleCallback = props => {
     })
   return <div>Logging you in</div>
 }
-export default HandleCallback
+
+const mapStateToProps = state => {
+  return state.auth
+}
+
+export default connect(
+  mapStateToProps,
+  { setAuth },
+)(HandleCallback)

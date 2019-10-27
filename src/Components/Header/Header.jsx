@@ -4,6 +4,7 @@ import { search } from '../../functions/fetch'
 import { refreshToken } from '../../functions/auth'
 
 const Header = props => {
+  const access_token = localStorage.getItem('access_token')
   const [searchResults, setSearchResults] = useState({})
   const deleteCode = () => {
     localStorage.removeItem('access_token')
@@ -11,7 +12,7 @@ const Header = props => {
 
   const handleSearch = e => {
     if (e.target.value) {
-      search(e.target.value).then(res => {
+      search(e.target.value, access_token).then(res => {
         setSearchResults(res)
       })
     } else {

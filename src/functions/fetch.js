@@ -1,8 +1,7 @@
 const axios = require('axios')
-const access_token = localStorage.getItem('access_token')
 
 module.exports = {
-  search: async searchTerm => {
+  search: async (searchTerm, access_token) => {
     const term = encodeURIComponent(searchTerm.trim())
     const options = {
       url: `https://api.spotify.com/v1/search?q=${term}&type=track,artist,album&market=us&limit=10`,
@@ -12,7 +11,7 @@ module.exports = {
     const { data: searchResults } = await axios(options)
     return searchResults
   },
-  fetchTopArtists: async () => {
+  fetchTopArtists: async access_token => {
     const options = {
       url: 'https://api.spotify.com/v1/me/top/artists',
       method: 'GET',

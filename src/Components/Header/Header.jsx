@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import SearchResultsContainer from '../../Containers/SearchResults/SearchResultsContainer'
 import { search } from '../../functions/fetch'
-import { refreshToken } from '../../functions/auth'
+import { connect } from 'react-redux'
 
 const Header = props => {
-  const access_token = localStorage.getItem('access_token')
   const [searchResults, setSearchResults] = useState({})
   const deleteCode = () => {
     localStorage.removeItem('access_token')
@@ -12,7 +11,7 @@ const Header = props => {
 
   const handleSearch = e => {
     if (e.target.value) {
-      search(e.target.value, access_token).then(res => {
+      search(e.target.value, props.access_token).then(res => {
         setSearchResults(res)
       })
     } else {
@@ -25,7 +24,6 @@ const Header = props => {
       <div className="Header">
         <input onChange={e => handleSearch(e)} type="text" />
         <button onClick={deleteCode}>Reset code</button>
-        <button onClick={refreshToken}>Refresh code</button>
       </div>
       {searchResults.tracks && (
         <div className="search-container-hold">
@@ -35,4 +33,8 @@ const Header = props => {
     </>
   )
 }
-export default Header
+
+const mapStateToProps = state => {
+  return state.auth
+}
+export default connect(mapStateToProps)(Header)

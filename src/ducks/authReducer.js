@@ -5,7 +5,7 @@ const initialState = {
   refresh_token: '',
 }
 
-const SET_AUTH = 'HANDLE_AUTH'
+const SET_AUTH = 'SET_AUTH'
 const REFRESH_AUTH = 'REFRESH_AUTH'
 export const setAuth = response => {
   localStorage.setItem('access_token', response.data.access_token)
@@ -40,6 +40,7 @@ export const refreshAuth = async () => {
 }
 
 const authReducer = (state = initialState, action) => {
+  console.log(action)
   switch (action.type) {
     case SET_AUTH:
       return {

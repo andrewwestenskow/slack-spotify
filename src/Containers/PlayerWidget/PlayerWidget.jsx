@@ -9,7 +9,7 @@ const PlayerWidget = props => {
 
     if (window.Spotify !== null && !player) {
       const newPlayer = new window.Spotify.Player({
-        name: 'Slack Spotify Player',
+        name: 'Andrews fun biznach',
         getOAuthToken: cb => {
           cb(access_token)
         },
@@ -45,6 +45,7 @@ const PlayerWidget = props => {
   const checkInterval = setInterval(() => {
     checkForPlayer()
   }, 1000)
+
   return (
     <div style={{ position: 'fixed', bottom: 0 }}>
       {props.children}

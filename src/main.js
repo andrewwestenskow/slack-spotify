@@ -27,10 +27,6 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 750,
-    autoHideMenuBar: true,
-    webPreferences: {
-      plugins: true,
-    },
   })
   // and load the index.html of the app.
   mainWindow.loadURL('http://localhost:3000')

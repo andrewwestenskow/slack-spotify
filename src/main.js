@@ -2,11 +2,21 @@ const electron = require('electron')
 
 // Module to control application life.
 const app = electron.app
+const session = electron.session
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
+
+//  `libwidevinecdm.dylib` on macOS,
+//  `widevinecdm.dll` on Windows.
+// app.commandLine.appendSwitch(
+//   'widevine-cdm-path',
+//   '/Program Files (x86)/Google/Chrome/Application/77.0.3865.120/WidevineCdm/_platform_specific/win_x64/',
+// )
+// The version of plugin can be got from `chrome://components` page in Chrome.
+// app.commandLine.appendSwitch('widevine-cdm-version', ' 4.10.1503.4')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -14,8 +24,14 @@ let mainWindow
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 1200, height: 750 })
-
+  mainWindow = new BrowserWindow({
+    width: 1200,
+    height: 750,
+    autoHideMenuBar: true,
+    webPreferences: {
+      plugins: true,
+    },
+  })
   // and load the index.html of the app.
   mainWindow.loadURL('http://localhost:3000')
 
@@ -34,7 +50,9 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+// app.on('ready', createWindow)
+
+app.on('widevine-ready', createWindow)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {

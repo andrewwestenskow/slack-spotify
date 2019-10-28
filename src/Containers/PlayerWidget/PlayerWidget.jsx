@@ -20,7 +20,6 @@ const PlayerWidget = props => {
       })
       newPlayer.on('authentication_error', e => {
         console.error(e)
-        this.setState({ loggedIn: false })
       })
       newPlayer.on('account_error', e => {
         console.error(e)

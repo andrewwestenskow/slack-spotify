@@ -40,7 +40,6 @@ export const refreshAuth = async () => {
 }
 
 const authReducer = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
     case SET_AUTH:
       return {

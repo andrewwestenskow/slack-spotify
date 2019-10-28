@@ -12,12 +12,16 @@ module.exports = {
     return searchResults
   },
   fetchTopArtists: async access_token => {
-    const options = {
-      url: 'https://api.spotify.com/v1/me/top/artists',
-      method: 'GET',
-      headers: { Authorization: `Bearer ${access_token}` },
+    if (access_token) {
+      const options = {
+        url: 'https://api.spotify.com/v1/me/top/artists',
+        method: 'GET',
+        headers: { Authorization: `Bearer ${access_token}` },
+      }
+      const {
+        data: { items: topArtists },
+      } = await axios(options)
+      return topArtists
     }
-    const { data: topArtists } = await axios(options)
-    return topArtists
   },
 }

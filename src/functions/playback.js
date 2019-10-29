@@ -37,5 +37,38 @@ module.exports = {
       console.log(error)
     }
   },
-  playTrack: () => {},
+  playTracks: (access_token, deviceId, uris) => {
+    const body = {
+      uris,
+    }
+    const options = {
+      url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${access_token}` },
+      data: body,
+    }
+
+    try {
+      axios(options)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  playArtist: (access_token, deviceId, context_uri) => {
+    const body = {
+      context_uri: context_uri,
+    }
+    const options = {
+      url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${access_token}` },
+      data: body,
+    }
+
+    try {
+      axios(options)
+    } catch (error) {
+      console.log(error)
+    }
+  },
 }

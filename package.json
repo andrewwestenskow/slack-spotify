@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
-    "electron": "https://github.com/castlabs/electron-releases#v7.0.0-wvvmp",
+    "electron": "^7.0.0",
     "node-sass": "^4.13.0",
     "querystring": "^0.2.0",
     "react": "^16.11.0",
@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "node_modules\\electron\\dist\\electron.exe ."
+    "electron": "electron ."
   },
   "eslintConfig": {
     "extends": "react-app"

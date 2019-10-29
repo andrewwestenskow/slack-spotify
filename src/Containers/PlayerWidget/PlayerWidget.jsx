@@ -49,7 +49,7 @@ const PlayerWidget = props => {
   return (
     <div style={{ position: 'fixed', bottom: 0 }}>
       {props.children}
-      <Player />
+      <Player player={player} />
     </div>
   )
 }

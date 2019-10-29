@@ -3,6 +3,7 @@ import SearchResultsContainer from '../../Containers/SearchResults/SearchResults
 import { search } from '../../functions/fetch'
 import { connect } from 'react-redux'
 import { refreshAuth } from '../../ducks/authReducer'
+import { playAlbum } from '../../functions/playback'
 
 const Header = props => {
   const [searchResults, setSearchResults] = useState({})
@@ -13,11 +14,11 @@ const Header = props => {
   const handleSearch = async e => {
     if (e.target.value) {
       try {
-        const results = await search(e.target.value, props.access_token)
+        const results = await search(e.target.value, props.auth.access_token)
         setSearchResults(results)
       } catch (error) {
         await refreshAuth()
-        const results = await search(e.target.value, props.access_token)
+        const results = await search(e.target.value, props.auth.access_token)
         setSearchResults(results)
       }
     } else {
@@ -25,11 +26,21 @@ const Header = props => {
     }
   }
 
+  const handlePlayback = async () => {
+    playAlbum(
+      props.auth.access_token,
+      props.spotify.deviceId,
+      'spotify:album:6UjZgFbK6CQptu8aOobzPV',
+      0,
+    )
+  }
+
   return (
     <>
       <div className="Header">
         <input onChange={e => handleSearch(e)} type="text" />
         <button onClick={deleteCode}>Reset code</button>
+        <button onClick={handlePlayback}>Test changing track</button>
       </div>
       {searchResults.tracks && (
         <div className="search-container-hold">
@@ -41,7 +52,7 @@ const Header = props => {
 }
 
 const mapStateToProps = state => {
-  return state.auth
+  return { auth: state.auth, spotify: state.spotify }
 }
 export default connect(
   mapStateToProps,

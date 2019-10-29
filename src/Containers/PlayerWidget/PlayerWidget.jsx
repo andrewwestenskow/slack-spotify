@@ -1,6 +1,7 @@
 import React from 'react'
 import Player from '../../Components/Player/Player'
 import { connect } from 'react-redux'
+import { setPlayer } from '../../ducks/spotifyReducer'
 
 const PlayerWidget = props => {
   const [player, setPlayer] = React.useState(undefined)
@@ -38,6 +39,7 @@ const PlayerWidget = props => {
       newPlayer.on('ready', data => {
         console.log(data)
         setPlayer(newPlayer)
+        props.setPlayer({ player: newPlayer, deviceId: data.device_id })
       })
     }
   }
@@ -57,4 +59,7 @@ const PlayerWidget = props => {
 const mapStateToProps = state => {
   return state.auth
 }
-export default connect(mapStateToProps)(PlayerWidget)
+export default connect(
+  mapStateToProps,
+  { setPlayer },
+)(PlayerWidget)

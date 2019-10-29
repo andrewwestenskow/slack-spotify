@@ -71,4 +71,24 @@ module.exports = {
       console.log(error)
     }
   },
+  playPlaylist: (access_token, deviceId, context_uri, offset) => {
+    const body = {
+      context_uri: context_uri,
+      offset: {
+        position: offset,
+      },
+    }
+    const options = {
+      url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${access_token}` },
+      data: body,
+    }
+
+    try {
+      axios(options)
+    } catch (error) {
+      console.log(error)
+    }
+  },
 }

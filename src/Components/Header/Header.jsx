@@ -18,9 +18,11 @@ const Header = props => {
         const results = await search(e.target.value, props.auth.access_token)
         setSearchResults(results)
       } catch (error) {
-        await refreshAuth()
-        const results = await search(e.target.value, props.auth.access_token)
-        setSearchResults(results)
+        refreshAuth().then(() => {
+          search(e.target.value, props.auth.access_token).then(results => {
+            setSearchResults(results)
+          })
+        })
       }
     } else {
       setSearchTerm('')

@@ -2,6 +2,7 @@ import React from 'react'
 import Player from '../../Components/Player/Player'
 import { connect } from 'react-redux'
 import { setPlayer } from '../../ducks/spotifyReducer'
+import { setNowPlaying } from '../../ducks/nowPlaingReducer'
 
 const PlayerWidget = props => {
   const [player, setPlayer] = React.useState(undefined)
@@ -33,6 +34,11 @@ const PlayerWidget = props => {
       newPlayer.on('player_state_changed', state => {
         document.title = `${state.track_window.current_track.artists[0].name} - ${state.track_window.current_track.name}`
         console.log(state)
+        if (state.track_window) {
+          props.setNowPlaying(state.track_window)
+        } else {
+          props.setNowPlaying({})
+        }
       })
       // finally, connect!
       clearInterval(checkInterval)
@@ -62,5 +68,5 @@ const mapStateToProps = state => {
 }
 export default connect(
   mapStateToProps,
-  { setPlayer },
+  { setPlayer, setNowPlaying },
 )(PlayerWidget)

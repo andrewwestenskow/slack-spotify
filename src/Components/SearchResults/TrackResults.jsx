@@ -1,5 +1,6 @@
 import React from 'react'
 import { playTracks } from '../../functions/playback'
+import spotify from '../../assets/spotify.jpg'
 
 const TrackResults = props => {
   const handlePlay = element => {
@@ -8,18 +9,26 @@ const TrackResults = props => {
     props.clearSearch()
   }
   const mappedTracks = props.results.items.map(element => {
-    console.log(element)
     return (
       <li className="result" key={element.uri}>
-        <img
-          onClick={() => handlePlay(element)}
-          className="result-image"
-          src={element.album.images[0].url}
-          alt=""
-        />
-        <div className="track-detail">
-          <p className="track-title">{element.name}</p>
-          <p className="track-artist">{element.artists[0].name}</p>
+        {element.album.images[0] ? (
+          <img
+            onClick={() => handlePlay(element)}
+            className="result-image"
+            src={element.album.images[0].url}
+            alt=""
+          />
+        ) : (
+          <img
+            onClick={() => handlePlay(element)}
+            className="result-image"
+            src={spotify}
+            alt=""
+          />
+        )}
+        <div className="result-text">
+          <p className="result-title">{element.name}</p>
+          <p className="result-artist">{element.artists[0].name}</p>
         </div>
       </li>
     )

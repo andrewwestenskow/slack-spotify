@@ -5,6 +5,7 @@ import spotify from '../../assets/spotify.jpg'
 const ArtistResults = props => {
   const handlePlay = element => {
     playArtist(props.access_token, props.deviceId, element.uri)
+    props.clearSearch()
   }
   const mappedArtists = props.results.items.map(element => {
     return (

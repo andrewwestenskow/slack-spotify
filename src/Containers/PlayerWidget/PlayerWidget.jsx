@@ -31,6 +31,7 @@ const PlayerWidget = props => {
 
       // Playback status updates
       newPlayer.on('player_state_changed', state => {
+        document.title = `${state.track_window.current_track.artists[0].name} - ${state.track_window.current_track.name}`
         console.log(state)
       })
       // finally, connect!

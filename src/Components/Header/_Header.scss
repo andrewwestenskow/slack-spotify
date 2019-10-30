@@ -1,13 +1,27 @@
 .Header {
   width: 100vw;
   height: 50px;
-  background: black;
+  background-image: linear-gradient(
+    to bottom,
+    #0d0c0c,
+    #181717,
+    #212121,
+    #2a2a2a,
+    #343434
+  );
   color: white;
 }
 
 .search-container-hold {
   width: 100vw;
-  background: black;
+  background-image: linear-gradient(
+    to top,
+    #0d0c0c,
+    #181717,
+    #212121,
+    #2a2a2a,
+    #343434
+  );
   position: absolute;
   top: 50px;
   color: white;

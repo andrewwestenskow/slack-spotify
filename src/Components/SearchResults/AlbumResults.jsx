@@ -8,7 +8,6 @@ const AlbumResults = props => {
     props.clearSearch()
   }
   const mappedAlbums = props.results.items.map(element => {
-    console.log(element)
     return (
       <li className="result" key={element.uri}>
         {element.images[0] ? (

@@ -3,10 +3,10 @@ import SearchResultsContainer from '../../Containers/SearchResults/SearchResults
 import { search } from '../../functions/fetch'
 import { connect } from 'react-redux'
 import { refreshAuth } from '../../ducks/authReducer'
-import { playAlbum } from '../../functions/playback'
 
 const Header = props => {
   const [searchResults, setSearchResults] = useState({})
+  const [searchTerm, setSearchTerm] = useState('')
   const deleteCode = () => {
     localStorage.removeItem('access_token')
   }
@@ -14,6 +14,7 @@ const Header = props => {
   const handleSearch = async e => {
     if (e.target.value) {
       try {
+        setSearchTerm(e.target.value)
         const results = await search(e.target.value, props.auth.access_token)
         setSearchResults(results)
       } catch (error) {
@@ -22,29 +23,28 @@ const Header = props => {
         setSearchResults(results)
       }
     } else {
+      setSearchTerm('')
       setSearchResults({})
     }
   }
 
-  const handlePlayback = async () => {
-    playAlbum(
-      props.auth.access_token,
-      props.spotify.deviceId,
-      'spotify:album:6UjZgFbK6CQptu8aOobzPV',
-      0,
-    )
+  const clearSearch = () => {
+    setSearchTerm('')
+    setSearchResults({})
   }
 
   return (
     <>
       <div className="Header">
-        <input onChange={e => handleSearch(e)} type="text" />
+        <input value={searchTerm} onChange={e => handleSearch(e)} type="text" />
         <button onClick={deleteCode}>Reset code</button>
-        <button onClick={handlePlayback}>Test changing track</button>
       </div>
       {searchResults.tracks && (
         <div className="search-container-hold">
-          <SearchResultsContainer results={searchResults} />
+          <SearchResultsContainer
+            clearSearch={clearSearch}
+            results={searchResults}
+          />
         </div>
       )}
     </>

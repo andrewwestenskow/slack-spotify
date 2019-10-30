@@ -1,18 +1,45 @@
 import React from 'react'
-import SearchResults from '../../Components/SearchResults/SearchResults'
+import TrackResults from '../../Components/SearchResults/TrackResults'
+import ArtistResults from '../../Components/SearchResults/ArtistResults'
+import AlbumResults from '../../Components/SearchResults/AlbumResults'
+import { connect } from 'react-redux'
 
 const SearchResultsContainer = props => {
   return (
     <div
+      className="SearchResultsContainer"
       style={{
         width: '100%',
         display: 'flex',
       }}
     >
-      <SearchResults type="Tracks" results={props.results.tracks} />
-      <SearchResults type="Artists" results={props.results.artists} />
-      <SearchResults type="Albums" results={props.results.albums} />
+      <TrackResults
+        clearSearch={props.clearSearch}
+        access_token={props.auth.access_token}
+        deviceId={props.spotify.deviceId}
+        results={props.results.tracks}
+      />
+      <ArtistResults
+        clearSearch={props.clearSearch}
+        access_token={props.auth.access_token}
+        deviceId={props.spotify.deviceId}
+        results={props.results.artists}
+      />
+      <AlbumResults
+        clearSearch={props.clearSearch}
+        access_token={props.auth.access_token}
+        deviceId={props.spotify.deviceId}
+        results={props.results.albums}
+      />
     </div>
   )
 }
-export default SearchResultsContainer
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    spotify: state.spotify,
+  }
+}
+
+export default connect(mapStateToProps)(SearchResultsContainer)

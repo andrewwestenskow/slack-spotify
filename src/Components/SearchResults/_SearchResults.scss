@@ -1,3 +1,18 @@
-.SearchResults {
+.result-column {
   width: 33%;
+}
+
+.result {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  .result-image {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.track-detail {
+  display: flex;
+  flex-direction: column;
 }

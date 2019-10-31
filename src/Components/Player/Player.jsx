@@ -40,17 +40,29 @@ const Player = props => {
         </div>
       ) : (
         <div className="track-info-hold">
-          <p>Play something already</p>
+          <p className="player-title">Nothing playing</p>
         </div>
       )}
       <div className="control-button-hold">
-        <Icon.SkipBack onClick={() => previousTrack(props.player)} />
-        {!props.playerState.paused ? (
-          <Icon.Play onClick={() => togglePlay(props.player)} />
+        <Icon.SkipBack
+          className="control-button"
+          onClick={() => previousTrack(props.player)}
+        />
+        {props.playerState.paused || !props.current.name ? (
+          <Icon.Play
+            className="control-button"
+            onClick={() => togglePlay(props.player)}
+          />
         ) : (
-          <Icon.Pause onClick={() => togglePlay(props.player)} />
+          <Icon.Pause
+            className="control-button"
+            onClick={() => togglePlay(props.player)}
+          />
         )}
-        <Icon.SkipForward onClick={() => nextTrack(props.player)} />
+        <Icon.SkipForward
+          className="control-button"
+          onClick={() => nextTrack(props.player)}
+        />
       </div>
       <div className="volume-options-hold">
         <p>YUH</p>

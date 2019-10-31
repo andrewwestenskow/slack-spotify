@@ -28,6 +28,12 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    .control-button {
+      cursor: pointer;
+    }
+    .control-button:active {
+      color: gray;
+    }
   }
   .volume-options-hold {
     width: 15%;

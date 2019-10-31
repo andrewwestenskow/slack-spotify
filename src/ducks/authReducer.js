@@ -20,6 +20,7 @@ export const setAuth = response => {
 }
 
 export const refreshAuth = async () => {
+  console.log('refreshing')
   const access_token = localStorage.getItem('access_token')
   const refresh_token = localStorage.getItem('refresh_token')
   const refreshAuth = await axios.post('/refresh', {

@@ -3,6 +3,7 @@ import { togglePlay, nextTrack, previousTrack } from '../../functions/playback'
 import { connect } from 'react-redux'
 import analyze from 'rgbaster'
 import spotify from '../../assets/spotify.png'
+import * as Icon from 'react-feather'
 
 const Player = props => {
   const [gradient, setGradient] = useState('#000000')
@@ -32,10 +33,30 @@ const Player = props => {
       ) : (
         <img src={spotify} alt="" className="album-art" />
       )}
+      {props.current.name ? (
+        <div className="track-info-hold">
+          <p className="player-title">{props.current.name}</p>
+          <p className="player-artist">{props.current.artists[0].name}</p>
+        </div>
+      ) : (
+        <div className="track-info-hold">
+          <p>Play something already</p>
+        </div>
+      )}
       <div className="control-button-hold">
-        <button onClick={() => previousTrack(props.player)}>Previous</button>
-        <button onClick={() => togglePlay(props.player)}>Play</button>
-        <button onClick={() => nextTrack(props.player)}>Next</button>
+        <Icon.SkipBack onClick={() => previousTrack(props.player)} />
+        {!props.playerState.paused ? (
+          <Icon.Play onClick={() => togglePlay(props.player)} />
+        ) : (
+          <Icon.Pause onClick={() => togglePlay(props.player)} />
+        )}
+        <Icon.SkipForward onClick={() => nextTrack(props.player)} />
+      </div>
+      <div className="volume-options-hold">
+        <p>YUH</p>
+      </div>
+      <div className="device-info-hold">
+        <p>YUH</p>
       </div>
     </div>
   )

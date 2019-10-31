@@ -7,7 +7,7 @@ import * as Icon from 'react-feather'
 
 const Player = props => {
   const [gradient, setGradient] = useState('#000000')
-  const [width, setWidth] = useState('15')
+  const [width, setWidth] = useState('0')
 
   const style = {
     background: `rgb(0,0,0)`,

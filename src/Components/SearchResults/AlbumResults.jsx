@@ -1,5 +1,5 @@
 import React from 'react'
-import spotify from '../../assets/spotify.jpg'
+import spotify from '../../assets/spotify.png'
 import { playAlbum } from '../../functions/playback'
 
 const AlbumResults = props => {

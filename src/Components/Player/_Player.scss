@@ -1,22 +1,14 @@
 .Player {
-  background-image: linear-gradient(
-    to bottom,
-    #0d0c0c,
-    #181717,
-    #212121,
-    #2a2a2a,
-    #343434
-  );
   width: 100vw;
-  height: 75px;
+  height: 100px;
   position: relative;
   color: white;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
   .album-art {
     height: 100%;
     width: auto;
-    position: absolute;
-    left: 10px;
   }
 }

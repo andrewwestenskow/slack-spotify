@@ -1,6 +1,6 @@
 import React from 'react'
 import { playArtist } from '../../functions/playback'
-import spotify from '../../assets/spotify.jpg'
+import spotify from '../../assets/spotify.png'
 
 const ArtistResults = props => {
   const handlePlay = element => {

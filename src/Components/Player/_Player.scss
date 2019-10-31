@@ -6,7 +6,37 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px;
+  .seek-bar-hold {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    transition: 0.5s all;
+    height: 5px;
+    cursor: pointer;
+    .seek-bar {
+      position: absolute;
+      left: -10px;
+      background: green;
+      height: 100%;
+      .seek-button {
+        height: 10px;
+        width: 10px;
+        position: absolute;
+        right: -5px;
+        display: none;
+        background: green;
+        border-radius: 25px;
+        transform: translate(0, -25%);
+      }
+    }
+  }
+  .seek-bar-hold:hover {
+    background: grey;
+    .seek-button {
+      display: block;
+    }
+  }
   .album-art {
     height: 100%;
     width: auto;

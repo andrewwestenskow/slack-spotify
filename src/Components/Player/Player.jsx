@@ -7,6 +7,7 @@ import * as Icon from 'react-feather'
 
 const Player = props => {
   const [gradient, setGradient] = useState('#000000')
+  const [width, setWidth] = useState('15')
 
   const style = {
     background: `rgb(0,0,0)`,
@@ -24,6 +25,11 @@ const Player = props => {
   }, [gradient, props])
   return (
     <div className="Player" style={{ ...style }}>
+      <div className="seek-bar-hold">
+        <div style={{ width: `${width}%` }} className="seek-bar">
+          <div className="seek-button"></div>
+        </div>
+      </div>
       {props.current.album ? (
         <img
           src={props.current.album.images[0].url}

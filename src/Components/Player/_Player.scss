@@ -13,4 +13,10 @@
   color: white;
   display: flex;
   justify-content: center;
+  .album-art {
+    height: 100%;
+    width: auto;
+    position: absolute;
+    left: 10px;
+  }
 }

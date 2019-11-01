@@ -10,13 +10,16 @@ const HandleCallback = props => {
   axios
     .post(`/callback?code=${code}`)
     .then(response => {
-      console.log(response.data)
       props.setAuth(response)
       props.history.push('auth/dashboard')
     })
     .catch(error => {
-      console.log(error)
-      props.history.push('/')
+      if (!props.access_token) {
+        console.log('yeehaw')
+        props.history.push('/')
+      } else {
+        props.history.push('/auth/dashboard')
+      }
     })
   return <div>Logging you in</div>
 }

@@ -17,7 +17,22 @@ function App(props) {
           props.setAuth(session)
           props.history.push('/auth/dashboard')
         } catch (error) {
-          props.history.push('/')
+          const access_token = localStorage.getItem('access_token')
+          const refresh_token = localStorage.getItem('refresh_token')
+          if (access_token && refresh_token) {
+            try {
+              const { data: refresh } = await axios.post('/token', {
+                access_token,
+                refresh_token,
+              })
+              props.setAuth(refresh)
+              props.history.push('/auth/dashboard')
+            } catch (error) {
+              props.history.push('/')
+            }
+          } else {
+            props.history.push('/')
+          }
         }
       }
     }

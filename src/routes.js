@@ -10,11 +10,14 @@ export default (
     <Route exact path="/" component={Login} />
     <Route path="/callback" component={HandleCallback} />
     <Route
-      path="/auth"
+      path="/user"
       component={() => (
         <AppContainer>
           <Switch>
-            <Route path="/auth/dashboard" component={DashboardContainer} />
+            <Route
+              path="/user/spotify/dashboard"
+              component={DashboardContainer}
+            />
           </Switch>
         </AppContainer>
       )}

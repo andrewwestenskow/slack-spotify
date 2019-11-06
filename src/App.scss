@@ -3,3 +3,12 @@
 @import './Components/Header/Header';
 @import './Components/SearchResults/SearchResults';
 @import './Components/Dashboard/Dashboard';
+@import './Components/Sidebar/Sidebar';
+
+.app-children {
+  height: calc(100vh - 150px);
+  width: calc(100vw - 100px);
+  position: fixed;
+  left: 100px;
+  top: 50px;
+}

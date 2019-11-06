@@ -18,7 +18,7 @@ const HandleCallback = props => {
         console.log('yeehaw')
         props.history.push('/')
       } else {
-        props.history.push('/auth/dashboard')
+        props.history.push('/user/spotify/dashboard')
       }
     })
   return <div>Logging you in</div>

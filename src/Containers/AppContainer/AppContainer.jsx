@@ -1,12 +1,14 @@
 import React from 'react'
 import PlayerWidget from '../PlayerWidget/PlayerWidget'
 import Header from '../../Components/Header/Header'
+import Sidebar from '../../Components/Sidebar/Sidebar'
 
 const AppContainer = props => {
   return (
     <>
       <Header />
-      <div>{props.children}</div>
+      <Sidebar />
+      <div className="app-children">{props.children}</div>
       <PlayerWidget />
     </>
   )

@@ -1,7 +1,7 @@
 .Dashboard {
   min-height: 100%;
   background-image: $gradient-up;
-  padding: 25px;
+  padding: 25px, 0, 25px, 25px;
   .dashboard-section {
     height: 250px;
     .dashboard-section-label {
@@ -19,7 +19,6 @@
       .result {
         min-width: 200px;
         height: 100%;
-        border: 1px solid yellow;
         margin-right: 50px;
         background-size: 100%;
         background-position: center;

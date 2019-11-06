@@ -28,6 +28,7 @@ const Dashboard = props => {
   const featured = props.featured.map(element => {
     return (
       <FeaturedResult
+        key={element.id}
         access_token={props.access_token}
         deviceId={props.deviceId}
         info={element}
@@ -36,7 +37,6 @@ const Dashboard = props => {
   })
   return (
     <div className="Dashboard">
-      <h1>HOME</h1>
       <div className="dashboard-section recently-played">
         <div className="dashboard-section-label">Recently Played</div>
         <div className="dashboard-section-results">{recent}</div>

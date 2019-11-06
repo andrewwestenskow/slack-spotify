@@ -7,13 +7,14 @@
 @import './Components/Sidebar/Sidebar';
 
 * {
-  @include scrollbar;
+  @include spotify-scrollbar;
 }
 
 .app-children {
-  height: calc(100vh - #{$height-offset});
+  max-height: calc(100vh - #{$height-offset});
   width: calc(100vw - #{$width-offset});
   left: $sidebar-width;
   top: $header-height;
   position: fixed;
+  overflow-y: scroll;
 }

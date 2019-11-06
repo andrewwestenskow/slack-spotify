@@ -1,28 +1,50 @@
 .Dashboard {
   min-height: 100%;
   background-image: $gradient-up;
-  padding: 25px, 0, 25px, 25px;
+  padding: 25px 0 25px 25px;
+  @include spotify-scrollbar;
   .dashboard-section {
-    height: 250px;
+    height: 375px;
     .dashboard-section-label {
       height: 50px;
-      padding: 15px;
       display: flex;
       align-items: center;
       color: white;
       font-size: 1.5rem;
     }
     .dashboard-section-results {
-      height: 200px;
+      height: 325px;
       overflow-x: scroll;
+      overflow-y: hidden;
       display: flex;
-      .result {
+      .result-hold {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         min-width: 200px;
         height: 100%;
         margin-right: 50px;
-        background-size: 100%;
-        background-position: center;
-        cursor: pointer;
+        .result {
+          width: 200px;
+          height: 200px;
+          background-size: 100%;
+          background-position: center;
+          cursor: pointer;
+        }
+        .result-details {
+          height: 75px;
+          color: white;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+          .result-details-text {
+            width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
       }
     }
   }

@@ -8,9 +8,18 @@ const Dashboard = props => {
   return (
     <div className="Dashboard">
       <h1>HOME</h1>
-      <div className="recently-played">{recent}</div>
-      <div className="top-artists"></div>
-      <div className="featured"></div>
+      <div className="dashboard-section recently-played">
+        <div className="dashboard-section-label">Recently Played</div>
+        <div className="dashboard-section-results">{recent}</div>
+      </div>
+      <div className="dashboard-section top-artists">
+        <div className="dashboard-section-label">Top Artists</div>
+        <div className="dashboard-section-results"></div>
+      </div>
+      <div className="dashboard-section featured">
+        <div className="dashboard-section-label">Featured</div>
+        <div className="dashboard-section-results"></div>
+      </div>
     </div>
   )
 }

@@ -6,6 +6,10 @@
 @import './Components/Dashboard/Dashboard';
 @import './Components/Sidebar/Sidebar';
 
+* {
+  @include scrollbar;
+}
+
 .app-children {
   height: calc(100vh - #{$height-offset});
   width: calc(100vw - #{$width-offset});

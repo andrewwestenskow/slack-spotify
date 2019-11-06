@@ -2,4 +2,26 @@
   min-height: 100%;
   background-image: $gradient-up;
   padding: 25px;
+  .dashboard-section {
+    height: 250px;
+    .dashboard-section-label {
+      height: 50px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+    .dashboard-section-results {
+      height: 200px;
+      overflow-x: scroll;
+      display: flex;
+      .result {
+        min-width: 200px;
+        height: 100%;
+        border: 1px solid yellow;
+        margin-right: 15px;
+      }
+    }
+  }
 }

@@ -3,7 +3,6 @@ import RecentResult from './RecentResult'
 
 const Dashboard = props => {
   const recent = props.recent.map(element => {
-    console.log(element)
     return <RecentResult key={element.played_at} info={element} />
   })
   return (

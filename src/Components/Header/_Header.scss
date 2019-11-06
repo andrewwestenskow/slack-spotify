@@ -1,28 +1,23 @@
 .Header {
   width: 100vw;
-  height: 50px;
-  background-image: linear-gradient(
-    to bottom,
-    #0d0c0c,
-    #181717,
-    #212121,
-    #2a2a2a,
-    #343434
-  );
+  height: $header-height;
+  background-image: $gradient-down;
   color: white;
+  display: flex;
+  align-items: center;
+  padding-left: $sidebar-width;
+  input {
+    border-radius: 10px;
+    width: 200px;
+  }
 }
 
 .search-container-hold {
-  width: 100vw;
-  background-image: linear-gradient(
-    to top,
-    #0d0c0c,
-    #181717,
-    #212121,
-    #2a2a2a,
-    #343434
-  );
+  width: calc(100vw - #{$sidebar-width});
+  background-image: $gradient-up;
   position: absolute;
-  top: 50px;
+  top: $header-height;
+  left: $sidebar-width;
   color: white;
+  z-index: 10;
 }

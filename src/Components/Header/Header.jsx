@@ -7,9 +7,9 @@ import { refreshAuth } from '../../ducks/authReducer'
 const Header = props => {
   const [searchResults, setSearchResults] = useState({})
   const [searchTerm, setSearchTerm] = useState('')
-  const deleteCode = () => {
-    localStorage.removeItem('access_token')
-  }
+  // const deleteCode = () => {
+  //   localStorage.removeItem('access_token')
+  // }
 
   const handleSearch = async e => {
     if (e.target.value) {
@@ -38,8 +38,13 @@ const Header = props => {
   return (
     <>
       <div className="Header">
-        <input value={searchTerm} onChange={e => handleSearch(e)} type="text" />
-        <button onClick={deleteCode}>Reset code</button>
+        <input
+          placeholder="Search Spotify"
+          value={searchTerm}
+          onChange={e => handleSearch(e)}
+          type="text"
+        />
+        {/* <button onClick={deleteCode}>Reset code</button> */}
       </div>
       {searchResults.tracks && (
         <div className="search-container-hold">

@@ -1,4 +1,5 @@
 @import './reset.scss';
+@import './variables.scss';
 @import './Components/Player/Player';
 @import './Components/Header/Header';
 @import './Components/SearchResults/SearchResults';
@@ -6,9 +7,9 @@
 @import './Components/Sidebar/Sidebar';
 
 .app-children {
-  height: calc(100vh - 150px);
-  width: calc(100vw - 100px);
+  height: calc(100vh - #{$height-offset});
+  width: calc(100vw - #{$width-offset});
+  left: $sidebar-width;
+  top: $header-height;
   position: fixed;
-  left: 100px;
-  top: 50px;
 }

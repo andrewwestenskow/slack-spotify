@@ -21,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "electron ."
+    "electron": "electron .",
+    "server": "cd ../slack-spotify-server && nodemon"
   },
   "eslintConfig": {
     "extends": "react-app"

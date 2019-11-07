@@ -5,6 +5,7 @@
 @import './Components/SearchResults/SearchResults';
 @import './Components/Dashboard/Dashboard';
 @import './Components/Sidebar/Sidebar';
+@import './Components/PlayWidget/PlayWidget';
 
 * {
   @include spotify-scrollbar;

@@ -9,7 +9,7 @@ const TrackResults = props => {
   }
   const mappedTracks = props.results.items.map(element => {
     return (
-      <li className="result" key={element.uri}>
+      <li className="search-result" key={element.uri}>
         {element.album.images[0] ? (
           <img
             onClick={() => handlePlay(element)}

@@ -9,7 +9,7 @@ const ArtistResults = props => {
   }
   const mappedArtists = props.results.items.map(element => {
     return (
-      <li className="result" key={element.uri}>
+      <li className="search-result" key={element.uri}>
         {element.images[0] ? (
           <img
             onClick={() => handlePlay(element)}

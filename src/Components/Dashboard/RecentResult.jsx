@@ -1,5 +1,5 @@
 import React from 'react'
-import { playAlbum } from '../../functions/playback'
+import PlayWidget from '../PlayWidget/PlayWidget'
 
 const RecentResult = props => {
   const { info } = props
@@ -7,12 +7,17 @@ const RecentResult = props => {
   return (
     <div className="result-hold">
       <div
-        onClick={() =>
-          playAlbum(props.access_token, props.deviceId, info.track.album.uri, 0)
-        }
         style={{ backgroundImage: `url(${info.track.album.images[0].url}` }}
         className="result"
-      ></div>
+      >
+        <PlayWidget
+          access_token={props.access_token}
+          deviceId={props.deviceId}
+          type="album"
+          uri={info.track.album.uri}
+          offset={0}
+        />
+      </div>
       <div className="result-details">
         <p className="result-details-text">{info.track.album.name}</p>
         <p className="result-details-text">{info.track.artists[0].name}</p>

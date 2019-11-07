@@ -29,7 +29,14 @@
           height: 200px;
           background-size: 100%;
           background-position: center;
-          cursor: pointer;
+          &:hover {
+            .Play-Widget {
+              opacity: 100;
+            }
+          }
+        }
+        .top-artist-result {
+          border-radius: 200px;
         }
         .result-details {
           height: 75px;

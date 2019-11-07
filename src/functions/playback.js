@@ -17,6 +17,25 @@ module.exports = {
     })
   },
 
+  handlePlay: ({ access_token, deviceId, type, uri, offset }) => {
+    switch (type) {
+      case 'tracks':
+        module.exports.playTracks(access_token, deviceId, uri)
+        break
+      case 'album':
+        module.exports.playAlbum(access_token, deviceId, uri, offset)
+        break
+      case 'artist':
+        module.exports.playArtist(access_token, deviceId, uri)
+        break
+      case 'playlist':
+        module.exports.playPlaylist(access_token, deviceId, uri, offset)
+        break
+      default:
+        return
+    }
+  },
+
   playAlbum: (access_token, deviceId, context_uri, offset) => {
     const body = {
       context_uri: context_uri,

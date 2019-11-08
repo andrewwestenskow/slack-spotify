@@ -8,6 +8,7 @@ const Dashboard = props => {
   const recent = props.recent.map(element => {
     return (
       <RecentResult
+        toggleChange={props.toggleChange}
         access_token={props.access_token}
         deviceId={props.deviceId}
         key={element.played_at}

@@ -7,15 +7,24 @@ const DashboardContainer = props => {
   const [topArtists, setTopArtists] = useState([])
   const [recent, setRecent] = useState([])
   const [featured, setFeatured] = useState([])
+  const [change, setChange] = useState(false)
   useEffect(() => {
     fetchDashboardInfo(props.access_token).then(res => {
       setTopArtists(res.topArtists)
       setRecent(res.recent)
       setFeatured(res.featured)
     })
-  }, [props.access_token])
+  }, [props.access_token, change])
+  const toggleChange = () => {
+    setChange(!change)
+  }
   return (
-    <Dashboard featured={featured} recent={recent} topArtists={topArtists} />
+    <Dashboard
+      toggleChange={toggleChange}
+      featured={featured}
+      recent={recent}
+      topArtists={topArtists}
+    />
   )
 }
 

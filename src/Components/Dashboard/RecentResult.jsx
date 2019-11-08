@@ -11,11 +11,15 @@ const RecentResult = props => {
         className="result"
       >
         <PlayWidget
+          toggleChange={props.toggleChange}
+          id={info.track.album.id}
+          inLibrary={info.inLibrary}
           access_token={props.access_token}
           deviceId={props.deviceId}
           type="album"
           uri={info.track.album.uri}
           offset={0}
+          showMore={true}
         />
       </div>
       <div className="result-details">

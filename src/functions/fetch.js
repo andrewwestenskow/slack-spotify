@@ -56,11 +56,26 @@ module.exports = {
         return acc
       }
     }, [])
+    const idsToCheck = newRecent.map(element => {
+      return element.track.album.id
+    })
+    const checkOptions = {
+      url: `https://api.spotify.com/v1/me/albums/contains?ids=${idsToCheck.join(
+        ',',
+      )}`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+    const { data: inLibrary } = await axios(checkOptions)
+    const libraryCheckRecent = newRecent.map((element, index) => {
+      element.inLibrary = inLibrary[index]
+      return element
+    })
     const {
       data: {
         playlists: { items: featured },
       },
     } = await axios(featuredOptions)
-    return { topArtists, recent: newRecent, featured }
+    return { topArtists, recent: libraryCheckRecent, featured }
   },
 }

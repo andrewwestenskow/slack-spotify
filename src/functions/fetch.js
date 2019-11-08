@@ -11,19 +11,6 @@ module.exports = {
     const { data: searchResults } = await axios(options)
     return searchResults
   },
-  fetchTopArtists: async access_token => {
-    if (access_token) {
-      const options = {
-        url: 'https://api.spotify.com/v1/me/top/artists',
-        method: 'GET',
-        headers: { Authorization: `Bearer ${access_token}` },
-      }
-      const {
-        data: { items: topArtists },
-      } = await axios(options)
-      return topArtists
-    }
-  },
   fetchDashboardInfo: async access_token => {
     const topOptions = {
       url: 'https://api.spotify.com/v1/me/top/artists',

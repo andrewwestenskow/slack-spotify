@@ -3,7 +3,6 @@ import PlayWidget from '../PlayWidget/PlayWidget'
 
 const RecentResult = props => {
   const { info } = props
-  console.log(info)
   return (
     <div className="result-hold">
       <div

@@ -1,29 +1,37 @@
 import React from 'react'
-import { playArtist } from '../../functions/playback'
 import spotify from '../../assets/spotify.png'
+import PlayWidget from '../PlayWidget/PlayWidget'
 
 const ArtistResults = props => {
-  const handlePlay = element => {
-    playArtist(props.access_token, props.deviceId, element.uri)
-    props.clearSearch()
-  }
   const mappedArtists = props.results.items.map(element => {
     return (
       <li className="search-result" key={element.uri}>
         {element.images[0] ? (
-          <img
-            onClick={() => handlePlay(element)}
+          <div
+            onClick={props.clearSearch}
             className="result-image"
-            src={element.images[0].url}
-            alt=""
-          />
+            style={{ backgroundImage: `url(${element.images[0].url})` }}
+          >
+            <PlayWidget
+              access_token={props.access_token}
+              deviceId={props.deviceId}
+              type="artist"
+              uri={element.uri}
+            />
+          </div>
         ) : (
-          <img
-            onClick={() => handlePlay(element)}
+          <div
+            onClick={props.clearSearch}
             className="result-image"
-            src={spotify}
-            alt=""
-          />
+            style={{ backgroundImage: `url(${spotify})` }}
+          >
+            <PlayWidget
+              access_token={props.access_token}
+              deviceId={props.deviceId}
+              type="artist"
+              uri={element.uri}
+            />
+          </div>
         )}
         <div className="result-text">
           <p className="result-title">{element.name}</p>

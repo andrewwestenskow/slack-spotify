@@ -7,7 +7,11 @@ const ArtistContainer = props => {
   const { id } = props.match.params
   const [artist, setArtist] = useState({})
   useEffect(() => {
-    getArtist(props.access_token, id).then(res => setArtist(res))
+    const fetch = async () => {
+      const artist = await getArtist(props.access_token, id)
+      setArtist(artist)
+    }
+    fetch()
   }, [id, props.access_token])
   return <Artist info={artist} />
 }

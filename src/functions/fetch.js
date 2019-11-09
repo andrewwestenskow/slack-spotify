@@ -100,23 +100,16 @@ module.exports = {
       headers: { Authorization: `Bearer ${access_token}` },
     }
 
-    axios
-      .all([
-        axios(options),
-        axios(albumsOptions),
-        axios(topSongOptions),
-        axios(relatedOptions),
-      ])
-      .then(
-        axios.spread((artistInfo, albums, topSongs, relatedArtists) => {
-          const artist = {
-            info: artistInfo.data,
-            albums: albums.data.items,
-            topSongs: topSongs.data.tracks,
-            relatedArtists: relatedArtists.data.artists,
-          }
-          console.log(artist)
-        }),
-      )
+    const { data: artistInfo } = await axios(options)
+    const { data: albums } = await axios(albumsOptions)
+    const { data: topTracks } = await axios(topSongOptions)
+    const { data: relatedArtists } = await axios(relatedOptions)
+    const artist = {
+      info: artistInfo,
+      albums: albums.items,
+      topTracks: topTracks.tracks,
+      relatedArtists: relatedArtists.artists,
+    }
+    return artist
   },
 }

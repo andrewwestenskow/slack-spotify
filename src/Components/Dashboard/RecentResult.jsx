@@ -1,8 +1,10 @@
 import React from 'react'
 import PlayWidget from '../PlayWidget/PlayWidget'
+import { Link } from 'react-router-dom'
 
 const RecentResult = props => {
   const { info } = props
+  console.log(info)
   return (
     <div className="result-hold">
       <div
@@ -23,7 +25,12 @@ const RecentResult = props => {
       </div>
       <div className="result-details">
         <p className="result-details-text">{info.track.album.name}</p>
-        <p className="result-details-text">{info.track.artists[0].name}</p>
+        <Link
+          to={`/user/spotify/artist/${info.track.artists[0].id}`}
+          className="result-details-text"
+        >
+          {info.track.artists[0].name}
+        </Link>
       </div>
     </div>
   )

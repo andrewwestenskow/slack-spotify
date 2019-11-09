@@ -21,18 +21,22 @@ const PlayerWidget = props => {
       // this.createEventHandlers();
       newPlayer.on('initialization_error', e => {
         console.error(e)
+        console.log('INITIALIZATION ERROR')
       })
       newPlayer.on('authentication_error', e => {
         console.error(e)
+        console.log('AUTHENTICATION ERROR FIX THIS BUG')
         refreshAuth().then(() => {
           checkForPlayer()
         })
       })
       newPlayer.on('account_error', e => {
         console.error(e)
+        console.log('ACCOUNT ERROR')
       })
       newPlayer.on('playback_error', e => {
         console.error(e)
+        console.log('PLAYBACK ERROR')
       })
 
       // Playback status updates

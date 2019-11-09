@@ -75,4 +75,48 @@ module.exports = {
     const { data: nowPlaying } = await axios(options)
     return nowPlaying
   },
+  getArtist: async (access_token, id) => {
+    const options = {
+      url: `https://api.spotify.com/v1/artists/${id}`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    const albumsOptions = {
+      url: `https://api.spotify.com/v1/artists/${id}/albums?include_groups=album,single&market=us&limit=50`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    const topSongOptions = {
+      url: `https://api.spotify.com/v1/artists/${id}/top-tracks?country=us`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    const relatedOptions = {
+      url: `https://api.spotify.com/v1/artists/${id}/related-artists`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    axios
+      .all([
+        axios(options),
+        axios(albumsOptions),
+        axios(topSongOptions),
+        axios(relatedOptions),
+      ])
+      .then(
+        axios.spread((artistInfo, albums, topSongs, relatedArtists) => {
+          const artist = {
+            info: artistInfo.data,
+            albums: albums.data.items,
+            topSongs: topSongs.data.tracks,
+            relatedArtists: relatedArtists.data.artists,
+          }
+          console.log(artist)
+        }),
+      )
+  },
 }

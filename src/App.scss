@@ -13,7 +13,7 @@
 }
 
 .app-children {
-  max-height: calc(100vh - #{$height-offset});
+  height: calc(100vh - #{$height-offset});
   width: calc(100vw - #{$width-offset});
   left: $sidebar-width;
   top: $header-height;

@@ -9,12 +9,11 @@ import { setAuth } from './ducks/authReducer'
 function App(props) {
   const handleRender = async () => {
     if (props.access_token) {
-      props.history.push('/user/spotify/dashboard')
+      return
     } else {
       try {
         const session = await axios.get('/session')
         props.setAuth(session)
-        props.history.push('/user/spotify/dashboard')
       } catch (error) {
         const access_token = localStorage.getItem('access_token')
         const refresh_token = localStorage.getItem('refresh_token')

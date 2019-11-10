@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Dashboard from '../../Components/Dashboard/Dashboard'
 import { fetchDashboardInfo } from '../../functions/fetch'
 import { connect } from 'react-redux'
+import { SpotifyLoading } from '../../Components/Loading/Loading'
 
 const DashboardContainer = props => {
   const [topArtists, setTopArtists] = useState([])
@@ -18,14 +19,19 @@ const DashboardContainer = props => {
   const toggleChange = () => {
     setChange(!change)
   }
-  return (
-    <Dashboard
-      toggleChange={toggleChange}
-      featured={featured}
-      recent={recent}
-      topArtists={topArtists}
-    />
-  )
+
+  if (recent.length > 0) {
+    return (
+      <Dashboard
+        toggleChange={toggleChange}
+        featured={featured}
+        recent={recent}
+        topArtists={topArtists}
+      />
+    )
+  } else {
+    return <SpotifyLoading />
+  }
 }
 
 const mapStateToProps = state => {

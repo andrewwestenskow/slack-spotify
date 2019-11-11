@@ -1,6 +1,7 @@
 import React from 'react'
 import spotify from '../../assets/spotify.png'
 import PlayWidget from '../PlayWidget/PlayWidget'
+import { Link } from 'react-router-dom'
 
 const AlbumResults = props => {
   const mappedAlbums = props.results.items.map(element => {
@@ -35,12 +36,23 @@ const AlbumResults = props => {
           </div>
         )}
         <div className="result-text">
-          <p className="result-artist">{element.artists[0].name}</p>
+          <Link
+            to={`/user/spotify/artist/${element.artists[0].id}`}
+            className="result-artist"
+            onClick={props.clearSearch}
+          >
+            {element.artists[0].name}
+          </Link>
           <p className="result-title">{element.name}</p>
         </div>
       </li>
     )
   })
-  return <ul className="result-column">{mappedAlbums}</ul>
+  return (
+    <div className="result-section">
+      <p className="result-header">Albums</p>
+      <ul className="result-column">{mappedAlbums}</ul>
+    </div>
+  )
 }
 export default AlbumResults

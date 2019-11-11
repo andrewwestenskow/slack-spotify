@@ -20,7 +20,7 @@ module.exports = {
   handlePlay: ({ access_token, deviceId, type, uri, offset }) => {
     switch (type) {
       case 'tracks':
-        module.exports.playTracks(access_token, deviceId, uri)
+        module.exports.playTracks(access_token, deviceId, uri, offset)
         break
       case 'album':
         module.exports.playAlbum(access_token, deviceId, uri, offset)
@@ -56,9 +56,17 @@ module.exports = {
       console.log(error)
     }
   },
-  playTracks: (access_token, deviceId, uris) => {
-    const body = {
-      uris,
+  playTracks: (access_token, deviceId, uris, offset) => {
+    let body
+    if (offset) {
+      body = {
+        uris,
+        offset: { uri: offset },
+      }
+    } else {
+      body = {
+        uris,
+      }
     }
     const options = {
       url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
@@ -66,6 +74,8 @@ module.exports = {
       headers: { Authorization: `Bearer ${access_token}` },
       data: body,
     }
+
+    console.log(options)
 
     try {
       axios(options)

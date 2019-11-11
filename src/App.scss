@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Oxygen&display=swap');
 @import './reset.scss';
 @import './variables.scss';
 @import './Components/Player/Player';
@@ -11,6 +12,7 @@
 
 * {
   @include spotify-scrollbar;
+  font-family: 'Oxygen', sans-serif;
 }
 
 .app-children {
@@ -20,4 +22,5 @@
   top: $header-height;
   position: fixed;
   overflow-y: scroll;
+  font-family: 'Oxygen', sans-serif;
 }

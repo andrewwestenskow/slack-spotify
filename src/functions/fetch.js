@@ -75,6 +75,18 @@ module.exports = {
     const { data: nowPlaying } = await axios(options)
     return nowPlaying
   },
+  getPlayerInfo: async access_token => {
+    const options = {
+      url: 'https://api.spotify.com/v1/me/player',
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    const { data: playerInfo } = await axios(options)
+    console.log(playerInfo)
+    return playerInfo
+  },
+
   getArtist: async (access_token, id) => {
     const options = {
       url: `https://api.spotify.com/v1/artists/${id}`,

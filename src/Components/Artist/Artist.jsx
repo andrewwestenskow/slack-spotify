@@ -12,9 +12,9 @@ const Artist = props => {
   return (
     <div className="Artist">
       <div className="artist-info">
-        <img src={info.images[1].url} className="artist-info-image" alt="" />
         <div className="artist-info-text">
           <p className="artist-info-name">{info.name}</p>
+          <img src={info.images[1].url} className="artist-info-image" alt="" />
           <p className="artist-info-followers">
             {info.followers.total} Followers
           </p>

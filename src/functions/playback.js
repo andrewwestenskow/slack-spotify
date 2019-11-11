@@ -13,7 +13,7 @@ module.exports = {
   },
   previousTrack: player => {
     player.previousTrack().then(() => {
-      console.log('Next track')
+      console.log('Previous track')
     })
   },
 
@@ -74,8 +74,6 @@ module.exports = {
       headers: { Authorization: `Bearer ${access_token}` },
       data: body,
     }
-
-    console.log(options)
 
     try {
       axios(options)

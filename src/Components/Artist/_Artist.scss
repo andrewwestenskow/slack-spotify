@@ -6,17 +6,18 @@
   .artist-info {
     width: 100%;
     display: flex;
-    .artist-info-image {
-      height: 100%;
-      width: auto;
-      width: 25%;
-      border-radius: 500px;
-    }
+
     .artist-info-text {
-      width: 25%;
+      width: 50%;
       display: flex;
       flex-direction: column;
       padding-left: 10px;
+      justify-content: space-between;
+      .artist-info-image {
+        width: auto;
+        width: 50%;
+        border-radius: 500px;
+      }
       .artist-info-name {
         color: white;
         font-size: 3rem;

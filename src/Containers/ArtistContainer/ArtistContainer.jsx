@@ -7,16 +7,21 @@ import { SpotifyLoading } from '../../Components/Loading/Loading'
 const ArtistContainer = props => {
   const { id } = props.match.params
   const [artist, setArtist] = useState({})
+  const [change, setChange] = useState(false)
   useEffect(() => {
     const fetch = async () => {
       const artist = await getArtist(props.access_token, id)
       setArtist(artist)
     }
     fetch()
-  }, [id, props.access_token])
+  }, [id, props.access_token, change])
+
+  const toggleChange = () => {
+    setChange(!change)
+  }
 
   if (artist.info) {
-    return <Artist info={artist} />
+    return <Artist toggleChange={toggleChange} info={artist} />
   } else {
     return <SpotifyLoading />
   }

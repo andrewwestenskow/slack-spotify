@@ -35,7 +35,7 @@ module.exports = {
     } = await axios(recentOptions)
     const newRecent = recent.reduce((acc, element) => {
       const index = acc.findIndex(
-        el => el.track.album.name === element.track.album.name,
+        el => el.track.album.name === element.track.album.name
       )
       if (index === -1) {
         return [...acc, element]
@@ -48,7 +48,7 @@ module.exports = {
     })
     const checkOptions = {
       url: `https://api.spotify.com/v1/me/albums/contains?ids=${idsToCheck.join(
-        ',',
+        ','
       )}`,
       method: 'GET',
       headers: { Authorization: `Bearer ${access_token}` },
@@ -116,9 +116,24 @@ module.exports = {
     const { data: albums } = await axios(albumsOptions)
     const { data: topTracks } = await axios(topSongOptions)
     const { data: relatedArtists } = await axios(relatedOptions)
+    const idsToCheck = albums.items.map(element => {
+      return element.id
+    })
+    const checkOptions = {
+      url: `https://api.spotify.com/v1/me/albums/contains?ids=${idsToCheck.join(
+        ','
+      )}`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+    const { data: inLibrary } = await axios(checkOptions)
+    const artistAlbumLibraryCheck = albums.items.map((element, index) => {
+      element.inLibrary = inLibrary[index]
+      return element
+    })
     const artist = {
       info: artistInfo,
-      albums: albums.items,
+      albums: artistAlbumLibraryCheck,
       topTracks: topTracks.tracks,
       relatedArtists: relatedArtists.artists,
     }

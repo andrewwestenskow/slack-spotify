@@ -1,9 +1,9 @@
-import React from 'react'
-import PlayWidget from '../PlayWidget/PlayWidget'
-import { Link } from 'react-router-dom'
+import React from "react";
+import PlayWidget from "../PlayWidget/PlayWidget";
+import { Link } from "react-router-dom";
 
 const RecentResult = props => {
-  const { info } = props
+  const { info } = props;
   return (
     <div className="result-hold">
       <div
@@ -32,6 +32,6 @@ const RecentResult = props => {
         </Link>
       </div>
     </div>
-  )
-}
-export default RecentResult
+  );
+};
+export default RecentResult;

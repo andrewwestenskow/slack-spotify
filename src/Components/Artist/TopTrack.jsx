@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 
 const TopTrack = props => {
   const { info } = props
-  console.log(info)
   return (
     <div className="Top-Track">
       <div

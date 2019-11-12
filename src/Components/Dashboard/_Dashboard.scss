@@ -47,11 +47,12 @@
           justify-content: space-evenly;
           .result-details-text {
             color: white;
-            text-decoration: none;
             width: 200px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            text-decoration: none;
+            padding: 2px;
             &:hover {
               text-decoration: underline;
             }

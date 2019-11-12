@@ -95,7 +95,7 @@ module.exports = {
     }
 
     const albumsOptions = {
-      url: `https://api.spotify.com/v1/artists/${id}/albums?include_groups=album,single&market=us&limit=50`,
+      url: `https://api.spotify.com/v1/artists/${id}/albums?include_groups=album,single&country=us&limit=50`,
       method: 'GET',
       headers: { Authorization: `Bearer ${access_token}` },
     }
@@ -131,9 +131,43 @@ module.exports = {
       element.inLibrary = inLibrary[index]
       return element
     })
+
+    let lastArtistAlbums = []
+
+    if (albums.next) {
+      const secondOptions = {
+        url: albums.next,
+        method: 'GET',
+        headers: { Authorization: `Bearer ${access_token}` },
+      }
+
+      const { data: secondAlbums } = await axios(secondOptions)
+      const secondIds = secondAlbums.items.map(element => {
+        return element.id
+      })
+      const secondCheckOptions = {
+        url: `https://api.spotify.com/v1/me/albums/contains?ids=${secondIds.join(
+          ','
+        )}`,
+        method: 'GET',
+        headers: { Authorization: `Bearer ${access_token}` },
+      }
+
+      const { data: secondLibraryCheck } = await axios(secondCheckOptions)
+
+      const secondFormattedAlbums = secondAlbums.items.map((element, index) => {
+        element.inLibrary = secondLibraryCheck[index]
+        return element
+      })
+
+      lastArtistAlbums = [...artistAlbumLibraryCheck, ...secondFormattedAlbums]
+    } else {
+      lastArtistAlbums = [...artistAlbumLibraryCheck]
+    }
+
     const artist = {
       info: artistInfo,
-      albums: artistAlbumLibraryCheck,
+      albums: lastArtistAlbums,
       topTracks: topTracks.tracks,
       relatedArtists: relatedArtists.artists,
     }

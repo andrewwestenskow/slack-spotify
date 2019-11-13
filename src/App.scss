@@ -9,6 +9,7 @@
 @import './Components/PlayWidget/PlayWidget';
 @import './Components/Artist/Artist';
 @import './Components/Loading/Loading';
+@import './Components/Album/Album';
 
 * {
   @include spotify-scrollbar;

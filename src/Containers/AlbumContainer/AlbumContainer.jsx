@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { getAlbum } from '../../functions/fetch'
 import { connect } from 'react-redux'
+import Album from '../../Components/Album/Album'
+import { SpotifyLoading } from '../../Components/Loading/Loading'
 
 const AlbumContainer = props => {
   const { id } = props.match.params
@@ -10,7 +12,14 @@ const AlbumContainer = props => {
       setAlbum(res)
     })
   }, [id, props.access_token])
-  return <div>{props.match.params.id}</div>
+
+  console.log(album)
+
+  if (album.tracks) {
+    return <Album info={album} />
+  } else {
+    return <SpotifyLoading />
+  }
 }
 
 const mapStateToProps = state => {

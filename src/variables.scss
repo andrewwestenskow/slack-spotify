@@ -69,3 +69,12 @@ $spotify-green: #18d860;
     border-bottom: 1px solid white;
   }
 }
+
+@mixin link-cleanup {
+  color: white;
+  text-decoration: none;
+  padding: 1px;
+  &:hover {
+    text-decoration: underline;
+  }
+}

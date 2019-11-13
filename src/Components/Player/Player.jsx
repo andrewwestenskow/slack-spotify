@@ -19,7 +19,7 @@ const Player = props => {
       analyze(props.current.album.images[0].url, { scale: 0.5 }).then(
         result => {
           setGradient(result[0].color)
-        },
+        }
       )
     }
   }, [gradient, props])

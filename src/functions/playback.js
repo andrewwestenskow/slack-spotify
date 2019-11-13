@@ -7,6 +7,7 @@ module.exports = {
     })
   },
   nextTrack: player => {
+    console.log(player)
     player.nextTrack().then(() => {
       console.log('Next track')
     })

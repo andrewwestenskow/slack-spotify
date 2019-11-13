@@ -2,6 +2,7 @@ import React from 'react'
 import PlayWidget from '../PlayWidget/PlayWidget'
 import { trackTime } from '../../functions/conversion'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const TopTrack = props => {
   const { info } = props
@@ -19,7 +20,12 @@ const TopTrack = props => {
           type="tracks"
         />
       </div>
-      <p className="top-track-title">{info.name}</p>
+      <Link
+        to={`/user/spotify/album/${info.album.id}`}
+        className="top-track-title"
+      >
+        {info.name}
+      </Link>
       <p className="top-track-length">{trackTime(info.duration_ms)}</p>
     </div>
   )

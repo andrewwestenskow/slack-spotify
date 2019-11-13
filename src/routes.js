@@ -5,6 +5,7 @@ import HandleCallback from './Components/HandleCallback'
 import AppContainer from './Containers/AppContainer/AppContainer'
 import DashboardContainer from './Containers/DashboardContainer/DashboardContainer'
 import ArtistContainer from './Containers/ArtistContainer/ArtistContainer'
+import AlbumContainer from './Containers/AlbumContainer/AlbumContainer'
 
 export default (
   <Switch>
@@ -23,6 +24,7 @@ export default (
               path="/user/spotify/artist/:id"
               component={ArtistContainer}
             />
+            <Route path="/user/spotify/album/:id" component={AlbumContainer} />
           </Switch>
         </AppContainer>
       )}

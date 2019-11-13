@@ -36,7 +36,13 @@ const TrackResults = props => {
           </div>
         )}
         <div className="result-text">
-          <p className="result-title">{element.name}</p>
+          <Link
+            onClick={props.clearSearch}
+            to={`/user/spotify/album/${element.album.id}`}
+            className="result-title"
+          >
+            {element.name}
+          </Link>
           <Link
             to={`/user/spotify/artist/${element.artists[0].id}`}
             className="result-artist"

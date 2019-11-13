@@ -43,7 +43,13 @@ const AlbumResults = props => {
           >
             {element.artists[0].name}
           </Link>
-          <p className="result-title">{element.name}</p>
+          <Link
+            onClick={props.clearSearch}
+            to={`/user/spotify/album/${element.id}`}
+            className="result-title"
+          >
+            {element.name}
+          </Link>
         </div>
       </li>
     )

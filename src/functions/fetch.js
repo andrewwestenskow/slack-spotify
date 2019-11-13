@@ -173,4 +173,12 @@ module.exports = {
     }
     return artist
   },
+
+  getAlbum: async (access_token, id) => {
+    const options = {
+      url: `https://api.spotify.com/v1/artists/${id}`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+  },
 }

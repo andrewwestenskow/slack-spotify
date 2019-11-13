@@ -1,6 +1,7 @@
 import React from 'react'
 import PlayWidget from '../PlayWidget/PlayWidget'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const ArtistAlbum = props => {
   const { info } = props
@@ -23,7 +24,12 @@ const ArtistAlbum = props => {
         />
       </div>
       <div className="artist-album-info">
-        <p className="artist-album-name">{info.name}</p>
+        <Link
+          to={`/user/spotify/album/${info.id}`}
+          className="artist-album-name"
+        >
+          {info.name}
+        </Link>
         <p className="artist-album-release">{info.release_date.slice(0, 4)}</p>
         <p className="artist-album-tracks">{`${info.total_tracks} track${
           info.total_tracks > 1 ? 's' : ''

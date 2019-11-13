@@ -9,11 +9,9 @@ const ArtistContainer = props => {
   const [artist, setArtist] = useState({})
   const [change, setChange] = useState(false)
   useEffect(() => {
-    const fetch = async () => {
-      const artist = await getArtist(props.access_token, id)
-      setArtist(artist)
-    }
-    fetch()
+    getArtist(props.access_token, id).then(res => {
+      setArtist(res)
+    })
   }, [id, props.access_token, change])
 
   const toggleChange = () => {

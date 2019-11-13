@@ -3,6 +3,7 @@ import TopTrack from './TopTrack'
 import { connect } from 'react-redux'
 import { handlePlay } from '../../functions/playback'
 import ArtistAlbum from './ArtistAlbum'
+import TopArtistResult from '../Dashboard/TopArtistResult'
 
 const Artist = props => {
   const { info, albums, topTracks, relatedArtists } = props.info
@@ -16,6 +17,16 @@ const Artist = props => {
     return (
       <ArtistAlbum
         toggleChange={props.toggleChange}
+        key={element.id}
+        info={element}
+      />
+    )
+  })
+  const relatedMap = relatedArtists.map(element => {
+    return (
+      <TopArtistResult
+        access_token={props.access_token}
+        deviceId={props.deviceId}
         key={element.id}
         info={element}
       />
@@ -59,6 +70,8 @@ const Artist = props => {
         <div className="artist-info-top-tracks">
           <p className="top-tracks-header">Top songs</p>
           {topMappedTracks}
+          <p className="top-tracks-header">Related Artists</p>
+          <div className="artist-related-artists-hold">{relatedMap}</div>
         </div>
       </div>
     </div>

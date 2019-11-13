@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 const ArtistAlbum = props => {
   const { info } = props
-  console.log(info)
   return (
     <div className="Artist-Album">
       <div
@@ -26,7 +25,9 @@ const ArtistAlbum = props => {
       <div className="artist-album-info">
         <p className="artist-album-name">{info.name}</p>
         <p className="artist-album-release">{info.release_date.slice(0, 4)}</p>
-        <p className="artist-album-tracks">{info.total_tracks} tracks</p>
+        <p className="artist-album-tracks">{`${info.total_tracks} track${
+          info.total_tracks > 1 ? 's' : ''
+        }`}</p>
         <p className="artist-album-tracks">{info.album_group}</p>
       </div>
     </div>

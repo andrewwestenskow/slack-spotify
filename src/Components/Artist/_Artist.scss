@@ -62,9 +62,17 @@
         color: white;
         font-size: 2rem;
         width: 100%;
-        border-bottom: 1px solid white;
         padding-bottom: 5px;
         margin-bottom: 5px;
+        @include white-border;
+      }
+      .artist-related-artists-hold {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        .result {
+          margin: 10px;
+        }
       }
     }
 
@@ -77,9 +85,9 @@
         color: white;
         font-size: 2rem;
         width: 100%;
-        border-bottom: 1px solid white;
         padding-bottom: 5px;
         margin-bottom: 10px;
+        @include white-border;
       }
       .artist-info-albums {
         display: flex;
@@ -156,6 +164,41 @@
       color: white;
       font-size: 1.5rem;
       text-transform: capitalize;
+    }
+  }
+}
+
+.result {
+  width: 200px;
+  height: 200px;
+  background-size: 100%;
+  background-position: center;
+  &:hover {
+    .Play-Widget {
+      opacity: 100;
+    }
+  }
+}
+.top-artist-result {
+  border-radius: 200px;
+}
+.result-details {
+  height: 75px;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  .result-details-text {
+    color: white;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    padding: 2px;
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

@@ -56,3 +56,16 @@ $spotify-green: #18d860;
     background: transparent;
   }
 }
+
+@mixin white-border {
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 80%;
+    border-bottom: 1px solid white;
+  }
+}

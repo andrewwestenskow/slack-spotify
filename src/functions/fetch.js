@@ -1,4 +1,5 @@
 const axios = require('axios')
+const { trackTime, albumTime } = require('./conversion')
 
 module.exports = {
   search: async (searchTerm, access_token) => {
@@ -176,9 +177,32 @@ module.exports = {
 
   getAlbum: async (access_token, id) => {
     const options = {
-      url: `https://api.spotify.com/v1/artists/${id}`,
+      url: `https://api.spotify.com/v1/albums/${id}`,
       method: 'GET',
       headers: { Authorization: `Bearer ${access_token}` },
     }
+
+    const { data: album } = await axios(options)
+
+    const totalTime = album.tracks.items.reduce((acc, element) => {
+      return (acc += element.duration_ms)
+    }, 0)
+
+    album.tracks.items.forEach(element => {
+      element.length = trackTime(element.duration_ms)
+    })
+
+    album.length = albumTime(totalTime)
+
+    const checkOptions = {
+      url: `https://api.spotify.com/v1/me/albums/contains?ids=${id}`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+    const { data: inLibrary } = await axios(checkOptions)
+
+    album.inLibrary = inLibrary[0]
+
+    return album
   },
 }

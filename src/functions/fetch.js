@@ -120,6 +120,8 @@ module.exports = {
     const idsToCheck = albums.items.map(element => {
       return element.id
     })
+
+    console.log(albums)
     const checkOptions = {
       url: `https://api.spotify.com/v1/me/albums/contains?ids=${idsToCheck.join(
         ','
@@ -188,8 +190,15 @@ module.exports = {
       return (acc += element.duration_ms)
     }, 0)
 
+    album.tracks.formatted = []
+
     album.tracks.items.forEach(element => {
       element.length = trackTime(element.duration_ms)
+      if (album.tracks.formatted[element.disc_number - 1]) {
+        album.tracks.formatted[element.disc_number - 1].push(element)
+      } else {
+        album.tracks.formatted[element.disc_number - 1] = [element]
+      }
     })
 
     album.length = albumTime(totalTime)

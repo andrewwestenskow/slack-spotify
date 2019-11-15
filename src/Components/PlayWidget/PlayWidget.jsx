@@ -16,7 +16,7 @@ const PlayWidget = props => {
     }
   }
   return (
-    <div className="Play-Widget">
+    <div style={{ ...props.style }} className="Play-Widget">
       {props.inLibrary !== undefined ? (
         !props.inLibrary ? (
           <Icon.PlusCircle

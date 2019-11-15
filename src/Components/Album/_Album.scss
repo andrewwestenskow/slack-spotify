@@ -38,4 +38,53 @@
       }
     }
   }
+  .album-track-list-hold {
+    width: 80%;
+    .album-track-list-disc {
+      color: $spotify-green;
+      .album-track-list-label-hold {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+        .album-track-list-disc-label {
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+}
+
+.Album-Track {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding-right: 15px;
+  &:hover {
+    background: rgb(25, 25, 25);
+    .Play-Widget {
+      opacity: 100;
+    }
+    .album-track-number-number {
+      opacity: 0;
+    }
+  }
+  .album-track-info-left {
+    display: flex;
+    align-items: center;
+    .album-track-track-number {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      position: relative;
+      .album-track-number-number {
+        position: absolute;
+      }
+    }
+    .album-track-title {
+      padding-left: 5px;
+    }
+  }
 }

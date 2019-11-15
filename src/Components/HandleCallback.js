@@ -11,7 +11,7 @@ const HandleCallback = props => {
     .post(`/callback?code=${code}`)
     .then(response => {
       props.setAuth(response)
-      props.history.push('auth/dashboard')
+      props.history.push('/user/spotify/dashboard')
     })
     .catch(error => {
       if (!props.access_token) {
@@ -30,5 +30,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setAuth },
+  { setAuth }
 )(HandleCallback)

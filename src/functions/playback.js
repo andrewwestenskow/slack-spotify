@@ -19,21 +19,52 @@ module.exports = {
   },
 
   handlePlay: ({ access_token, deviceId, type, uri, offset }) => {
-    switch (type) {
-      case 'tracks':
-        module.exports.playTracks(access_token, deviceId, uri, offset)
-        break
-      case 'album':
-        module.exports.playAlbum(access_token, deviceId, uri, offset)
-        break
-      case 'artist':
-        module.exports.playArtist(access_token, deviceId, uri)
-        break
-      case 'playlist':
-        module.exports.playPlaylist(access_token, deviceId, uri, offset)
-        break
-      default:
-        return
+    console.log(offset)
+    if (access_token && deviceId && type && uri) {
+      switch (type) {
+        case 'tracks':
+          if (offset || offset === 0) {
+            module.exports.playTracks(access_token, deviceId, uri, offset)
+          } else {
+            console.log('Missing media offset')
+          }
+          break
+        case 'album':
+          if (offset || offset === 0) {
+            module.exports.playAlbum(access_token, deviceId, uri, offset)
+          } else {
+            console.log('Missing media offset')
+          }
+          break
+        case 'artist':
+          module.exports.playArtist(access_token, deviceId, uri)
+          break
+        case 'playlist':
+          if (offset || offset === 0) {
+            module.exports.playPlaylist(access_token, deviceId, uri, offset)
+          } else {
+            console.log('Missing media offset')
+          }
+          break
+        default:
+          return
+      }
+    } else {
+      if (!access_token) {
+        console.log('Missing Spotify access token')
+      }
+
+      if (!deviceId) {
+        console.log('No valid Spotify device id provided')
+      }
+
+      if (!uri) {
+        console.log('Missing Spotify uri')
+      }
+
+      if (!type) {
+        console.log('Missing valid media type')
+      }
     }
   },
 

@@ -13,7 +13,7 @@ const PlayerWidget = props => {
 
     if (window.Spotify !== null && !player) {
       const newPlayer = new window.Spotify.Player({
-        name: 'Carve',
+        name: 'Humidify',
         getOAuthToken: cb => {
           cb(access_token)
         },

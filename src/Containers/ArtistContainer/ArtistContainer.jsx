@@ -19,7 +19,14 @@ const ArtistContainer = props => {
   }
 
   if (artist.info) {
-    return <Artist toggleChange={toggleChange} info={artist} />
+    return (
+      <Artist
+        access_token={props.access_token}
+        deviceId={props.deviceId}
+        toggleChange={toggleChange}
+        info={artist}
+      />
+    )
   } else {
     return <SpotifyLoading />
   }
@@ -28,6 +35,7 @@ const ArtistContainer = props => {
 const mapStateToProps = state => {
   return {
     access_token: state.auth.access_token,
+    deviceId: state.spotify.deviceId,
   }
 }
 

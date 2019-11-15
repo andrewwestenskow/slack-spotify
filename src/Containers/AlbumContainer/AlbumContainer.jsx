@@ -13,10 +13,16 @@ const AlbumContainer = props => {
     })
   }, [id, props.access_token])
 
-  console.log(album)
+  // console.log(album)
 
   if (album.tracks) {
-    return <Album info={album} />
+    return (
+      <Album
+        access_token={props.access_token}
+        deviceId={props.deviceId}
+        info={album}
+      />
+    )
   } else {
     return <SpotifyLoading />
   }
@@ -25,6 +31,7 @@ const AlbumContainer = props => {
 const mapStateToProps = state => {
   return {
     access_token: state.auth.access_token,
+    deviceId: state.spotify.deviceId,
   }
 }
 

@@ -1,0 +1,49 @@
+.Login {
+  background-image: $gradient-up;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  .login-info-hold {
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .login-button {
+    background: $spotify-green;
+    padding: 5px 15px;
+    font-size: 1.5rem;
+    border: 1px solid black;
+    border-radius: 25px;
+  }
+  .login-available-apps {
+    display: flex;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    width: 80%;
+    padding: 50px 0;
+    margin-top: 25px;
+  }
+  .login-currently-supported {
+    font-size: 2rem;
+    padding: 10px 0;
+  }
+}
+
+.Available-App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  .available-app-image {
+    height: 75px;
+  }
+  .available-app-name {
+    padding-top: 15px;
+    font-size: 2rem;
+  }
+}

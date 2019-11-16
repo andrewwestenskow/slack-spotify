@@ -12,23 +12,23 @@
     position: absolute;
     top: 0;
     transition: 0.5s all;
-    height: 5px;
+    height: 10px;
     cursor: pointer;
     .seek-bar {
       position: absolute;
       left: -10px;
       background: green;
       height: 100%;
-      transition: 0.5s all;
+      // transition: 5s all;
       .seek-button {
-        height: 10px;
-        width: 10px;
+        height: 15px;
+        width: 15px;
         position: absolute;
         right: -5px;
         display: none;
         background: green;
         border-radius: 25px;
-        transform: translate(0, -25%);
+        transform: translate(0, -20%);
       }
     }
   }

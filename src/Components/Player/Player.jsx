@@ -6,8 +6,11 @@ import spotify from '../../assets/spotify.png'
 import * as Icon from 'react-feather'
 
 const Player = props => {
+  const { playerState } = props
+  console.log(playerState)
   const [gradient, setGradient] = useState('#000000')
-  const [width] = useState('15')
+  const [width, setWidth] = useState(0)
+  const [seekInterval, setSeekInterval] = useState(0)
 
   const style = {
     background: `rgb(0,0,0)`,
@@ -23,6 +26,22 @@ const Player = props => {
       )
     }
   }, [gradient, props])
+
+  useEffect(() => {
+    console.log(seekInterval)
+    if (playerState.paused === false && !seekInterval && playerState.duration) {
+      console.log('NEW INTERVAL')
+      const newInterval = setInterval(() => {
+        props.player.getCurrentState().then(newState => {
+          setWidth((newState.position / newState.duration) * 100)
+        })
+      }, 1000)
+      setSeekInterval(newInterval)
+    } else if (playerState.paused) {
+      clearInterval(seekInterval)
+      setSeekInterval(0)
+    }
+  }, [playerState, seekInterval, props.player])
   return (
     <div className="Player" style={{ ...style }}>
       <div className="seek-bar-hold">
@@ -45,9 +64,7 @@ const Player = props => {
           <p className="player-artist">{props.current.artists[0].name}</p>
         </div>
       ) : (
-        <div className="track-info-hold">
-          <p className="player-title">Nothing playing</p>
-        </div>
+        <div className="track-info-hold"></div>
       )}
       <div className="control-button-hold">
         <Icon.SkipBack

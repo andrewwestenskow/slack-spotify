@@ -21,7 +21,6 @@ const PlayerWidget = props => {
       // finally, connect!
       clearInterval(checkInterval)
       newPlayer.connect().then(success => {
-        console.log(success)
         if (success) {
           newPlayer.on('ready', data => {
             setPlayer(newPlayer)

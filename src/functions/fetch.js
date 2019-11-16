@@ -84,7 +84,6 @@ module.exports = {
     }
 
     const { data: playerInfo } = await axios(options)
-    console.log(playerInfo)
     return playerInfo
   },
 
@@ -121,7 +120,6 @@ module.exports = {
       return element.id
     })
 
-    console.log(albums)
     const checkOptions = {
       url: `https://api.spotify.com/v1/me/albums/contains?ids=${idsToCheck.join(
         ','

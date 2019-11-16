@@ -6,7 +6,6 @@
   .artist-info {
     width: 100%;
     display: flex;
-
     .artist-info-main {
       width: 50%;
       display: flex;
@@ -109,6 +108,7 @@
   .top-track-title {
     color: white;
     margin-left: 10px;
+    @include link-cleanup;
   }
   .top-track-length {
     color: white;

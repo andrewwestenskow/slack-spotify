@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { togglePlay, nextTrack, previousTrack } from '../../functions/playback'
+import { play, pause, nextTrack, previousTrack } from '../../functions/playback'
 import { connect } from 'react-redux'
 import analyze from 'rgbaster'
 import spotify from '../../assets/spotify.png'
@@ -7,7 +7,6 @@ import * as Icon from 'react-feather'
 
 const Player = props => {
   const { playerState } = props
-  console.log(playerState)
   const [gradient, setGradient] = useState('#000000')
   const [width, setWidth] = useState(0)
   const [seekInterval, setSeekInterval] = useState(0)
@@ -28,12 +27,13 @@ const Player = props => {
   }, [gradient, props])
 
   useEffect(() => {
-    console.log(seekInterval)
     if (playerState.paused === false && !seekInterval && playerState.duration) {
       console.log('NEW INTERVAL')
       const newInterval = setInterval(() => {
         props.player.getCurrentState().then(newState => {
-          setWidth((newState.position / newState.duration) * 100)
+          if (newState) {
+            setWidth((newState.position / newState.duration) * 100)
+          }
         })
       }, 1000)
       setSeekInterval(newInterval)
@@ -69,22 +69,22 @@ const Player = props => {
       <div className="control-button-hold">
         <Icon.SkipBack
           className="control-button"
-          onClick={() => previousTrack(props.player)}
+          onClick={() => previousTrack(props.nowPlaying, props.access_token)}
         />
         {props.playerState.paused || !props.current.name ? (
           <Icon.Play
             className="control-button"
-            onClick={() => togglePlay(props.player)}
+            onClick={() => play(props.access_token)}
           />
         ) : (
           <Icon.Pause
             className="control-button"
-            onClick={() => togglePlay(props.player)}
+            onClick={() => pause(props.access_token)}
           />
         )}
         <Icon.SkipForward
           className="control-button"
-          onClick={() => nextTrack(props.player)}
+          onClick={() => nextTrack(props.nowPlaying, props.access_token)}
         />
       </div>
       <div className="volume-options-hold">

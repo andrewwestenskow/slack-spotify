@@ -76,13 +76,22 @@ const PlayerWidget = props => {
   return (
     <div style={{ position: 'fixed', bottom: 0 }}>
       {props.children}
-      <Player playerState={playerState} player={player} />
+      <Player
+        access_token={props.access_token}
+        nowPlaying={props.nowPlaying}
+        playerState={playerState}
+        player={player}
+      />
     </div>
   )
 }
 
 const mapStateToProps = state => {
-  return state.auth
+  return {
+    access_token: state.auth.access_token,
+    refresh_token: state.auth.refresh_token,
+    nowPlaying: state.nowPlaying,
+  }
 }
 export default connect(
   mapStateToProps,

@@ -5,6 +5,7 @@ import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setAuth } from './ducks/authReducer'
+import { setUser } from './ducks/userReducer'
 
 function App(props) {
   const handleRender = async () => {
@@ -14,6 +15,7 @@ function App(props) {
       try {
         const session = await axios.get('/session')
         props.setAuth(session.data.tokens)
+        props.setUser(session.data.user)
       } catch (error) {
         const access_token = localStorage.getItem('access_token')
         const refresh_token = localStorage.getItem('refresh_token')
@@ -25,6 +27,7 @@ function App(props) {
             })
             console.log(refresh)
             props.setAuth(refresh)
+            props.setUser(refresh.data.user)
             props.history.push('/user/spotify/dashboard')
           } catch (error) {
             props.history.push('/')
@@ -53,5 +56,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setAuth }
+  { setAuth, setUser }
 )(withRouter(App))

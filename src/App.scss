@@ -11,6 +11,7 @@
 @import './Components/Loading/Loading';
 @import './Components/Album/Album';
 @import './Components/Login/Login';
+@import './Components/Playlist/Playlist';
 
 * {
   @include spotify-scrollbar;

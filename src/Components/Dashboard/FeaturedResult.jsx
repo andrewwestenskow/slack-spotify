@@ -1,5 +1,6 @@
 import React from 'react'
 import PlayWidget from '../PlayWidget/PlayWidget'
+import { Link } from 'react-router-dom'
 
 const FeaturedResult = props => {
   const { info } = props
@@ -18,7 +19,12 @@ const FeaturedResult = props => {
         />
       </div>
       <div className="result-details">
-        <p className="result-details-text">{info.name}</p>
+        <Link
+          to={`/user/spotify/playlist/${info.id}`}
+          className="result-details-text"
+        >
+          {info.name}
+        </Link>
       </div>
     </div>
   )

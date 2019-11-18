@@ -222,4 +222,14 @@ module.exports = {
 
     return album
   },
+  getPlaylist: async (access_token, id) => {
+    const playlistOptions = {
+      url: `https://api.spotify.com/v1/playlists/${id}`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    const { data: playlist } = await axios(playlistOptions)
+    return playlist
+  },
 }

@@ -13,7 +13,7 @@ function App(props) {
     } else {
       try {
         const session = await axios.get('/session')
-        props.setAuth(session)
+        props.setAuth(session.data.tokens)
       } catch (error) {
         const access_token = localStorage.getItem('access_token')
         const refresh_token = localStorage.getItem('refresh_token')
@@ -23,6 +23,7 @@ function App(props) {
               access_token,
               refresh_token,
             })
+            console.log(refresh)
             props.setAuth(refresh)
             props.history.push('/user/spotify/dashboard')
           } catch (error) {
@@ -52,5 +53,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setAuth },
+  { setAuth }
 )(withRouter(App))

@@ -4,11 +4,18 @@ const axios = require('axios')
 const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, REDIRECT_URI } = process.env
 
 module.exports = {
-  sessionCheck: (req, res) => {
+  sessionCheck: async (req, res) => {
     console.log('SESSION CHECK')
     const { tokens } = req.session
     if (tokens) {
-      res.status(200).send(tokens)
+      const options = {
+        url: 'https://api.spotify.com/v1/me',
+        method: 'GET',
+        headers: { Authorization: `Bearer ${tokens.access_token}` },
+      }
+
+      const { data: user } = await axios(options)
+      res.status(200).send({ tokens, user })
     } else {
       res.status(404).send('No session found')
     }
@@ -53,9 +60,18 @@ module.exports = {
         refresh_token: spotifyAuth.refresh_token,
       }
 
+      const userOptions = {
+        url: 'https://api.spotify.com/v1/me',
+        method: 'GET',
+        headers: { Authorization: `Bearer ${spotifyAuth.access_token}` },
+      }
+
+      const { data: user } = await axios(userOptions)
+
       res.status(200).send({
         access_token: spotifyAuth.access_token,
         refresh_token: spotifyAuth.refresh_token,
+        user,
       })
     } catch (error) {
       res.status(500).send('Error authenticating')
@@ -86,7 +102,15 @@ module.exports = {
           refreshSpotifyAuth.refresh_token || req.body.refresh_token,
       }
 
-      res.status(200).send(refreshSpotifyAuth)
+      const userOptions = {
+        url: 'https://api.spotify.com/v1/me',
+        method: 'GET',
+        headers: { Authorization: `Bearer ${refreshSpotifyAuth.access_token}` },
+      }
+
+      const { data: user } = await axios(userOptions)
+
+      res.status(200).send({ refreshSpotifyAuth, user })
     } catch (error) {
       console.log('ERROR REFRESHING')
       res.status(500).send('Error refreshing auth')
@@ -104,12 +128,12 @@ module.exports = {
     }
 
     try {
-      await axios(options)
+      const { data: user } = await axios(options)
       req.session.tokens = {
         access_token,
         refresh_token,
       }
-      res.status(200).send({ access_token, refresh_token })
+      res.status(200).send({ access_token, refresh_token, user })
     } catch (error) {
       module.exports.refresh(req, res)
     }

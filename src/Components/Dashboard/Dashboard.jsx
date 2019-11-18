@@ -36,6 +36,17 @@ const Dashboard = props => {
       />
     )
   })
+
+  const myPlaylists = props.myPlaylists.map(element => {
+    return (
+      <FeaturedResult
+        key={element.id}
+        access_token={props.access_token}
+        deviceId={props.deviceId}
+        info={element}
+      />
+    )
+  })
   return (
     <div className="Dashboard">
       <div className="dashboard-section recently-played">
@@ -45,6 +56,10 @@ const Dashboard = props => {
       <div className="dashboard-section top-artists">
         <div className="dashboard-section-label">Top Artists</div>
         <div className="dashboard-section-results">{topArtists}</div>
+      </div>
+      <div className="dashboard-section top-artists">
+        <div className="dashboard-section-label">My Playlists</div>
+        <div className="dashboard-section-results">{myPlaylists}</div>
       </div>
       <div className="dashboard-section featured">
         <div className="dashboard-section-label">Featured</div>

@@ -28,6 +28,12 @@ module.exports = {
       method: 'GET',
       headers: { Authorization: `Bearer ${access_token}` },
     }
+
+    const playlistOptions = {
+      url: 'https://api.spotify.com/v1/me/playlists?limit=50',
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
     const {
       data: { items: topArtists },
     } = await axios(topOptions)
@@ -64,7 +70,11 @@ module.exports = {
         playlists: { items: featured },
       },
     } = await axios(featuredOptions)
-    return { topArtists, recent: libraryCheckRecent, featured }
+
+    const {
+      data: { items: myPlaylists },
+    } = await axios(playlistOptions)
+    return { topArtists, recent: libraryCheckRecent, featured, myPlaylists }
   },
   getNowPlaying: async access_token => {
     const options = {

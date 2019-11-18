@@ -8,12 +8,14 @@ const DashboardContainer = props => {
   const [topArtists, setTopArtists] = useState([])
   const [recent, setRecent] = useState([])
   const [featured, setFeatured] = useState([])
+  const [myPlaylists, setMyPlaylists] = useState([])
   const [change, setChange] = useState(false)
   useEffect(() => {
     fetchDashboardInfo(props.access_token).then(res => {
       setTopArtists(res.topArtists)
       setRecent(res.recent)
       setFeatured(res.featured)
+      setMyPlaylists(res.myPlaylists)
     })
   }, [props.access_token, change])
   const toggleChange = () => {
@@ -27,6 +29,7 @@ const DashboardContainer = props => {
         featured={featured}
         recent={recent}
         topArtists={topArtists}
+        myPlaylists={myPlaylists}
       />
     )
   } else {

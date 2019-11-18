@@ -2,4 +2,35 @@
   background-image: $gradient-up;
   min-height: 100%;
   width: 100%;
+  padding: 25px 0 25px 25px;
+  .playlist-info {
+    display: flex;
+    width: 100%;
+    height: 250px;
+    @include white-border;
+    .playlist-info-image {
+      height: 250px;
+      width: 250px;
+      background-size: cover;
+      &:hover {
+        .Play-Widget {
+          opacity: 100;
+        }
+      }
+    }
+    .playlist-info-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: white;
+      flex: 1;
+      padding: 0 0 15px 15px;
+      .playlist-info-top {
+        .playlist-info-title {
+          font-size: 2.5rem;
+          font-weight: 700;
+        }
+      }
+    }
+  }
 }

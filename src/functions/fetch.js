@@ -230,6 +230,11 @@ module.exports = {
     }
 
     const { data: playlist } = await axios(playlistOptions)
+
+    const playlistLength = playlist.tracks.items.reduce((acc, element) => {
+      return (acc += element.track.duration_ms)
+    }, 0)
+    playlist.length = albumTime(playlistLength)
     return playlist
   },
 }

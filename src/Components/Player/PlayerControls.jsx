@@ -8,8 +8,11 @@ import {
   previousTrack,
   seek,
   toggleShuffle,
+  toggleRepeat,
 } from '../../functions/playback'
 import * as Icon from 'react-feather'
+import RepeatOneSharp from '@material-ui/icons/RepeatOneSharp'
+import RepeatSharp from '@material-ui/icons/RepeatSharp'
 
 const PlayerControls = props => {
   const { playerState } = props
@@ -28,6 +31,23 @@ const PlayerControls = props => {
       previousTrack(props.player)
     } else {
       seek(props.player, 0)
+    }
+  }
+
+  const handleRepeat = () => {
+    switch (repeatMode) {
+      case 0:
+        toggleRepeat(props.access_token, props.deviceId, 1)
+        break
+      case 1:
+        toggleRepeat(props.access_token, props.deviceId, 2)
+        break
+      case 2:
+        toggleRepeat(props.access_token, props.deviceId, 0)
+        break
+      default:
+        toggleRepeat(props.access_token, props.deviceId, 0)
+        break
     }
   }
 
@@ -53,21 +73,42 @@ const PlayerControls = props => {
   }, [playerState.shuffle])
 
   useEffect(() => {
-    switch (repeatMode) {
+    // 0 = off
+    // 1 = context
+    // 2 = track
+    switch (playerState.repeat_mode) {
       case 0:
-        setRepeat(<Icon.Repeat className="control-button" />)
+        setRepeat(
+          <RepeatSharp onClick={handleRepeat} className="control-button" />
+        )
+        setRepeatMode(0)
         break
       case 1:
-        setRepeat(<Icon.Repeat className="control-button" />)
+        setRepeat(
+          <RepeatSharp
+            onClick={handleRepeat}
+            className="control-button-active"
+          />
+        )
+        setRepeatMode(1)
         break
       case 2:
-        setRepeat(<Icon.Repeat className="control-button" />)
+        setRepeat(
+          <RepeatOneSharp
+            onClick={handleRepeat}
+            className="control-button-active"
+          />
+        )
+        setRepeatMode(2)
         break
       default:
-        setRepeat(<Icon.Repeat className="control-button" />)
+        setRepeat(
+          <RepeatSharp onClick={handleRepeat} className="control-button" />
+        )
+        setRepeatMode(0)
         break
     }
-  }, [repeatMode])
+  }, [playerState.repeat_mode, repeatMode])
 
   return (
     <div className="Player-Controls">

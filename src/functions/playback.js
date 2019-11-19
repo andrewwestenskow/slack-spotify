@@ -34,6 +34,35 @@ module.exports = {
     await axios(options)
   },
 
+  toggleRepeat: async (access_token, deviceId, mode) => {
+    console.log(mode)
+    let repeatMode
+    switch (mode) {
+      case 0:
+        repeatMode = 'off'
+        break
+      case 1:
+        repeatMode = 'context'
+        break
+      case 2:
+        repeatMode = 'track'
+        break
+      default:
+        repeatMode = 'off'
+        break
+    }
+
+    console.log(repeatMode)
+
+    const options = {
+      url: `https://api.spotify.com/v1/me/player/repeat?device_id=${deviceId}&state=${repeatMode}`,
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    await axios(options)
+  },
+
   handlePlay: ({ access_token, deviceId, type, uri, offset }) => {
     console.log(offset)
     if (access_token && deviceId && type && uri) {

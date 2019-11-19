@@ -72,6 +72,8 @@ const PlayerWidget = props => {
     checkForPlayer()
   }, 1000)
 
+  console.log(playerState)
+
   return (
     <div style={{ position: 'fixed', bottom: 0 }}>
       {props.children}

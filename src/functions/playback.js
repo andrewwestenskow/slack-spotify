@@ -1,27 +1,22 @@
 const axios = require('axios')
 
 module.exports = {
-  play: async access_token => {
-    const options = {
-      url: `https://api.spotify.com/v1/me/player/play`,
-      method: 'PUT',
-      headers: { Authorization: `Bearer ${access_token}` },
-    }
-    await axios(options)
+  togglePlayback: player => {
+    console.log(player)
+    player.togglePlay().then(() => {
+      console.log('Toggled')
+    })
   },
-
-  pause: async access_token => {
-    const options = {
-      url: `https://api.spotify.com/v1/me/player/pause`,
-      method: 'PUT',
-      headers: { Authorization: `Bearer ${access_token}` },
-    }
-    await axios(options)
+  nextTrack: player => {
+    player.nextTrack().then(() => {
+      console.log('Next track')
+    })
   },
-  nextTrack: (nowPlaying, access_token) => {
-    console.log(nowPlaying, access_token)
+  previousTrack: player => {
+    player.previousTrack().then(() => {
+      console.log('Previous track')
+    })
   },
-  previousTrack: (nowPlaying, access_token) => {},
 
   handlePlay: ({ access_token, deviceId, type, uri, offset }) => {
     console.log(offset)

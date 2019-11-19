@@ -80,7 +80,6 @@ module.exports = {
   refresh: async (req, res) => {
     console.log('REFRESHING')
     const { refresh_token } = req.body
-    console.log(refresh_token)
     try {
       const body = {
         grant_type: 'refresh_token',
@@ -121,7 +120,6 @@ module.exports = {
   checkLocalToken: async (req, res) => {
     console.log('CHECKING TOKEN')
     const { access_token, refresh_token } = req.body
-    console.log(req.body)
 
     const options = {
       url: 'https://api.spotify.com/v1/me',

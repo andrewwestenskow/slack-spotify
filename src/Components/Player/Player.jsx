@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { play, pause, nextTrack, previousTrack } from '../../functions/playback'
+import {
+  togglePlayback,
+  nextTrack,
+  previousTrack,
+} from '../../functions/playback'
 import { connect } from 'react-redux'
 import analyze from 'rgbaster'
 import spotify from '../../assets/spotify.png'
@@ -69,22 +73,22 @@ const Player = props => {
       <div className="control-button-hold">
         <Icon.SkipBack
           className="control-button"
-          onClick={() => previousTrack(props.nowPlaying, props.access_token)}
+          onClick={() => previousTrack(props.player)}
         />
         {props.playerState.paused || !props.current.name ? (
           <Icon.Play
             className="control-button"
-            onClick={() => play(props.access_token)}
+            onClick={() => togglePlayback(props.player)}
           />
         ) : (
           <Icon.Pause
             className="control-button"
-            onClick={() => pause(props.access_token)}
+            onClick={() => togglePlayback(props.player)}
           />
         )}
         <Icon.SkipForward
           className="control-button"
-          onClick={() => nextTrack(props.nowPlaying, props.access_token)}
+          onClick={() => nextTrack(props.player)}
         />
       </div>
       <div className="volume-options-hold">

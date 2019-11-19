@@ -9,6 +9,7 @@
     "express-session": "^1.17.0",
     "node-sass": "^4.13.0",
     "querystring": "^0.2.0",
+    "rc-slider": "^8.7.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-feather": "^2.0.3",

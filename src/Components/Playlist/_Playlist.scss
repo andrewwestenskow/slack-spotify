@@ -94,12 +94,15 @@
       flex: 1;
       .playlist-track-track-name {
         width: 33%;
+        @include link-cleanup;
       }
       .playlist-track-artist {
         width: 33%;
+        @include link-cleanup;
       }
       .playlist-track-album {
         width: 33%;
+        @include link-cleanup;
       }
     }
   }

@@ -1,6 +1,7 @@
 import React from 'react'
 import PlayWidget from '../PlayWidget/PlayWidget'
 import { trackTime } from '../../functions/conversion'
+import { Link } from 'react-router-dom'
 
 const PlaylistTrack = props => {
   const { info } = props
@@ -16,8 +17,18 @@ const PlaylistTrack = props => {
         </div>
         <div className="playlist-track-track-info">
           <p className="playlist-track-track-name">{info.name}</p>
-          <p className="playlist-track-artist">{info.artists[0].name} </p>
-          <p className="playlist-track-album">{info.album.name}</p>
+          <Link
+            to={`/user/spotify/artist/${info.artists[0].id}`}
+            className="playlist-track-artist"
+          >
+            {info.artists[0].name}{' '}
+          </Link>
+          <Link
+            to={`/user/spotify/album/${info.album.id}`}
+            className="playlist-track-album"
+          >
+            {info.album.name}
+          </Link>
         </div>
       </div>
       <div className="playlist-track-track-time">

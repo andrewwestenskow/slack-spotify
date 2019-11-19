@@ -57,6 +57,10 @@
     }
     .control-button-active {
       color: $spotify-green;
+      cursor: pointer;
+      &:active {
+        color: grey;
+      }
     }
     .control-button:active {
       color: gray;

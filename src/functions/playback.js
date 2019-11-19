@@ -26,7 +26,7 @@ module.exports = {
 
   toggleShuffle: async (access_token, deviceId, state) => {
     const options = {
-      url: `https://api.spotify.com/v1/me/player/shuffle?device_id=$${deviceId}&state=${state}`,
+      url: `https://api.spotify.com/v1/me/player/shuffle?device_id=${deviceId}&state=${state}`,
       method: 'PUT',
       headers: { Authorization: `Bearer ${access_token}` },
     }

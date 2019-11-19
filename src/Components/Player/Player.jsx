@@ -46,6 +46,8 @@ const Player = props => {
         current={props.current}
         player={props.player}
         playerState={playerState}
+        access_token={props.access_token}
+        deviceId={props.deviceId}
       />
       <div className="volume-options-hold">
         <p>YUH</p>

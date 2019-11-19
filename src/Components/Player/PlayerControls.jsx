@@ -7,6 +7,7 @@ import {
   nextTrack,
   previousTrack,
   seek,
+  toggleShuffle,
 } from '../../functions/playback'
 import * as Icon from 'react-feather'
 
@@ -48,6 +49,10 @@ const PlayerControls = props => {
   }, [playerState, seekInterval, props.player])
 
   useEffect(() => {
+    setShuffle(playerState.shuffle)
+  }, [playerState.shuffle])
+
+  useEffect(() => {
     switch (repeatMode) {
       case 0:
         setRepeat(<Icon.Repeat className="control-button" />)
@@ -83,7 +88,12 @@ const PlayerControls = props => {
         </p>
       </div>
       <div className="control-button-hold">
-        <Icon.Shuffle className="control-button" />
+        <Icon.Shuffle
+          className={`${!shuffle ? 'control-button' : 'control-button-active'}`}
+          onClick={() =>
+            toggleShuffle(props.access_token, props.deviceId, !shuffle)
+          }
+        />
         <Icon.SkipBack className="control-button" onClick={handlePrevious} />
         {props.playerState.paused || !props.current.name ? (
           <Icon.Play

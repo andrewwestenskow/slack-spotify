@@ -80,6 +80,7 @@ const PlayerWidget = props => {
         nowPlaying={props.nowPlaying}
         playerState={playerState}
         player={player}
+        deviceId={props.deviceId}
       />
     </div>
   )
@@ -89,6 +90,7 @@ const mapStateToProps = state => {
   return {
     access_token: state.auth.access_token,
     refresh_token: state.auth.refresh_token,
+    deviceId: state.spotify.deviceId,
     nowPlaying: state.nowPlaying,
   }
 }

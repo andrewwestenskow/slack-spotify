@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import analyze from 'rgbaster'
 import spotify from '../../assets/spotify.png'
 import PlayerControls from './PlayerControls'
+import VolumeWidget from './VolumeWidget'
 
 const Player = props => {
   const { playerState } = props
@@ -49,9 +50,7 @@ const Player = props => {
         access_token={props.access_token}
         deviceId={props.deviceId}
       />
-      <div className="volume-options-hold">
-        <p>YUH</p>
-      </div>
+      <VolumeWidget player={props.player} playerState={playerState} />
       <div className="device-info-hold">
         <p>YUH</p>
       </div>

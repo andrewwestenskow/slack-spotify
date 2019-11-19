@@ -23,12 +23,6 @@
       font-weight: 700;
     }
   }
-  .volume-options-hold {
-    width: 15%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
   .device-info-hold {
     width: 15%;
     display: flex;
@@ -73,5 +67,16 @@
     .seek-bar-hold {
       width: 80%;
     }
+  }
+}
+
+.Volume-Widget {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .volume-slider {
+    width: 60%;
+    margin-left: 10px;
   }
 }

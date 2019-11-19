@@ -60,6 +60,12 @@ module.exports = {
     await axios(options)
   },
 
+  handleVolume: (player, volume) => {
+    player.setVolume(volume / 100).then(() => {
+      console.log(`Volume set to ${volume}`)
+    })
+  },
+
   handlePlay: ({ access_token, deviceId, type, uri, offset }) => {
     console.log(offset)
     if (access_token && deviceId && type && uri) {

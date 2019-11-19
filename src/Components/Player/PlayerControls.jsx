@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import { trackTime } from '../../functions/conversion'
@@ -51,6 +51,12 @@ const PlayerControls = props => {
     }
   }
 
+  const memoHandleRepeat = useCallback(handleRepeat, [
+    props.access_token,
+    props.deviceId,
+    repeatMode,
+  ])
+
   useEffect(() => {
     if (playerState.paused === false && !seekInterval && playerState.duration) {
       console.log('NEW INTERVAL')
@@ -79,14 +85,14 @@ const PlayerControls = props => {
     switch (playerState.repeat_mode) {
       case 0:
         setRepeat(
-          <RepeatSharp onClick={handleRepeat} className="control-button" />
+          <RepeatSharp onClick={memoHandleRepeat} className="control-button" />
         )
         setRepeatMode(0)
         break
       case 1:
         setRepeat(
           <RepeatSharp
-            onClick={handleRepeat}
+            onClick={memoHandleRepeat}
             className="control-button-active"
           />
         )
@@ -95,7 +101,7 @@ const PlayerControls = props => {
       case 2:
         setRepeat(
           <RepeatOneSharp
-            onClick={handleRepeat}
+            onClick={memoHandleRepeat}
             className="control-button-active"
           />
         )
@@ -103,12 +109,12 @@ const PlayerControls = props => {
         break
       default:
         setRepeat(
-          <RepeatSharp onClick={handleRepeat} className="control-button" />
+          <RepeatSharp onClick={memoHandleRepeat} className="control-button" />
         )
         setRepeatMode(0)
         break
     }
-  }, [playerState.repeat_mode, repeatMode])
+  }, [playerState.repeat_mode, repeatMode, memoHandleRepeat])
 
   return (
     <div className="Player-Controls">

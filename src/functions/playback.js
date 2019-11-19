@@ -24,6 +24,16 @@ module.exports = {
     })
   },
 
+  toggleShuffle: async (access_token, deviceId, state) => {
+    const options = {
+      url: `https://api.spotify.com/v1/me/player/shuffle?device_id=$${deviceId}&state=${state}`,
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    await axios(options)
+  },
+
   handlePlay: ({ access_token, deviceId, type, uri, offset }) => {
     console.log(offset)
     if (access_token && deviceId && type && uri) {

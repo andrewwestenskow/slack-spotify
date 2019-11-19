@@ -18,6 +18,9 @@ const Player = props => {
   const [gradient, setGradient] = useState('#000000')
   const [position, setPosition] = useState(0)
   const [seekInterval, setSeekInterval] = useState(0)
+  const [repeat, setRepeat] = useState(<></>)
+  const [repeatMode, setRepeatMode] = useState(0)
+  const [shuffle, setShuffle] = useState(false)
 
   const style = {
     background: `rgb(0,0,0)`,
@@ -39,6 +42,23 @@ const Player = props => {
   }, [gradient, props])
 
   useEffect(() => {
+    switch (repeatMode) {
+      case 0:
+        setRepeat(<Icon.Repeat className="control-button" />)
+        break
+      case 1:
+        setRepeat(<Icon.Repeat className="control-button" />)
+        break
+      case 2:
+        setRepeat(<Icon.Repeat className="control-button" />)
+        break
+      default:
+        setRepeat(<Icon.Repeat className="control-button" />)
+        break
+    }
+  }, [repeatMode])
+
+  useEffect(() => {
     if (playerState.paused === false && !seekInterval && playerState.duration) {
       console.log('NEW INTERVAL')
       const newInterval = setInterval(() => {
@@ -54,6 +74,8 @@ const Player = props => {
       setSeekInterval(0)
     }
   }, [playerState, seekInterval, props.player])
+
+  console.log(playerState)
 
   return (
     <div className="Player" style={{ ...style }}>
@@ -92,6 +114,7 @@ const Player = props => {
           </p>
         </div>
         <div className="control-button-hold">
+          <Icon.Shuffle className="control-button" />
           <Icon.SkipBack
             className="control-button"
             onClick={() => previousTrack(props.player)}
@@ -111,6 +134,7 @@ const Player = props => {
             className="control-button"
             onClick={() => nextTrack(props.player)}
           />
+          {repeat}
         </div>
       </div>
       <div className="volume-options-hold">

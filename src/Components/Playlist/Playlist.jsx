@@ -1,10 +1,16 @@
 import React from 'react'
 import PlayWidget from '../PlayWidget/PlayWidget'
-// import { Link } from 'react-router-dom'
+import PlaylistTrack from './PlaylistTrack'
+import PersonSharp from '@material-ui/icons/PersonSharp'
+import Album from '@material-ui/icons/Album'
+import MusicNoteSharp from '@material-ui/icons/MusicNoteSharp'
+import AccessTimeSharp from '@material-ui/icons/AccessTimeSharp'
 
 const Playlist = props => {
   const { info } = props
-  console.log(info)
+  const mappedTracks = info.tracks.items.map(element => {
+    return <PlaylistTrack info={element.track} key={element.track.id} />
+  })
   return (
     <div className="Playlist">
       <div className="playlist-info">
@@ -28,6 +34,24 @@ const Playlist = props => {
           </div>
         </div>
       </div>
+      <div className="playlist-tracks-header">
+        <div className="playlist-tracks-header-left">
+          <div className="album-art-hold"></div>
+          <div className="playlist-tracks-header-icon-hold">
+            <MusicNoteSharp />
+          </div>
+          <div className="playlist-tracks-header-icon-hold">
+            <PersonSharp />
+          </div>
+          <div className="playlist-tracks-header-icon-hold">
+            <Album />
+          </div>
+        </div>
+        <div className="playlist-tracks-header-time-hold">
+          <AccessTimeSharp />
+        </div>
+      </div>
+      <div className="playlist-tracks-hold">{mappedTracks}</div>
     </div>
   )
 }

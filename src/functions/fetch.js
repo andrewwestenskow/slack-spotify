@@ -223,6 +223,7 @@ module.exports = {
     return album
   },
   getPlaylist: async (access_token, id) => {
+    let nextUrl = null
     const playlistOptions = {
       url: `https://api.spotify.com/v1/playlists/${id}`,
       method: 'GET',
@@ -231,10 +232,27 @@ module.exports = {
 
     const { data: playlist } = await axios(playlistOptions)
 
+    nextUrl = playlist.tracks.next
+
+    while (nextUrl !== null) {
+      const nextTracksOptions = {
+        url: nextUrl,
+        method: 'GET',
+        headers: { Authorization: `Bearer ${access_token}` },
+      }
+
+      const { data: moreTracks } = await axios(nextTracksOptions)
+
+      playlist.tracks.items = [...playlist.tracks.items, ...moreTracks.items]
+
+      nextUrl = moreTracks.next
+    }
+
     const playlistLength = playlist.tracks.items.reduce((acc, element) => {
       return (acc += element.track.duration_ms)
     }, 0)
     playlist.length = albumTime(playlistLength)
+
     return playlist
   },
 }

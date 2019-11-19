@@ -8,14 +8,18 @@ module.exports = {
     console.log('SESSION CHECK')
     const { tokens } = req.session
     if (tokens) {
-      const options = {
-        url: 'https://api.spotify.com/v1/me',
-        method: 'GET',
-        headers: { Authorization: `Bearer ${tokens.access_token}` },
-      }
+      try {
+        const options = {
+          url: 'https://api.spotify.com/v1/me',
+          method: 'GET',
+          headers: { Authorization: `Bearer ${tokens.access_token}` },
+        }
 
-      const { data: user } = await axios(options)
-      res.status(200).send({ tokens, user })
+        const { data: user } = await axios(options)
+        res.status(200).send({ tokens, user })
+      } catch (error) {
+        console.log(error)
+      }
     } else {
       res.status(404).send('No session found')
     }

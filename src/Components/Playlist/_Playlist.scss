@@ -7,7 +7,6 @@
     display: flex;
     width: 100%;
     height: 250px;
-    @include white-border;
     .playlist-info-image {
       height: 250px;
       width: 250px;
@@ -30,6 +29,77 @@
           font-size: 2.5rem;
           font-weight: 700;
         }
+      }
+    }
+  }
+  .playlist-tracks-header {
+    margin-top: 10px;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    border-bottom: white 1px solid;
+    padding-bottom: 5px;
+    color: white;
+    .playlist-tracks-header-left {
+      display: flex;
+      flex: 1;
+      .album-art-hold {
+        width: 50px;
+      }
+      .playlist-tracks-header-icon-hold {
+        width: 32.2%;
+        display: flex;
+        justify-content: flex-start;
+      }
+    }
+    .playlist-tracks-header-time-hold {
+      min-width: 35px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+  .playlist-tracks-hold {
+    width: 80%;
+  }
+}
+
+.Playlist-Track {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+  color: white;
+  justify-content: space-between;
+  &:hover {
+    background: rgb(25, 25, 25);
+    .Play-Widget {
+      opacity: 100;
+    }
+    .playlist-track-number-number {
+      opacity: 0;
+    }
+  }
+  .playlist-track-left-side {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    .playlist-track-album-art {
+      height: 50px;
+      width: 50px;
+      background-size: cover;
+    }
+    .playlist-track-track-info {
+      padding-left: 15px;
+      display: flex;
+      flex: 1;
+      .playlist-track-track-name {
+        width: 33%;
+      }
+      .playlist-track-artist {
+        width: 33%;
+      }
+      .playlist-track-album {
+        width: 33%;
       }
     }
   }

@@ -10,7 +10,7 @@ const HandleCallback = props => {
   axios
     .post(`/callback?code=${code}`)
     .then(response => {
-      props.setAuth(response)
+      props.setAuth(response.data)
       props.history.push('/user/spotify/dashboard')
     })
     .catch(error => {

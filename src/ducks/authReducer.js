@@ -8,13 +8,13 @@ const initialState = {
 const SET_AUTH = 'SET_AUTH'
 const REFRESH_AUTH = 'REFRESH_AUTH'
 export const setAuth = response => {
-  localStorage.setItem('access_token', response.data.access_token)
-  localStorage.setItem('refresh_token', response.data.refresh_token)
+  localStorage.setItem('access_token', response.access_token)
+  localStorage.setItem('refresh_token', response.refresh_token)
   return {
     type: SET_AUTH,
     payload: {
-      access_token: response.data.access_token,
-      refresh_token: response.data.refresh_token,
+      access_token: response.access_token,
+      refresh_token: response.refresh_token,
     },
   }
 }

@@ -1,0 +1,6 @@
+.Library {
+  min-height: 100%;
+  background-image: $gradient-up;
+  padding: 25px 0 25px 25px;
+  @include spotify-scrollbar;
+}

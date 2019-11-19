@@ -7,6 +7,7 @@ import DashboardContainer from './Containers/DashboardContainer/DashboardContain
 import ArtistContainer from './Containers/ArtistContainer/ArtistContainer'
 import AlbumContainer from './Containers/AlbumContainer/AlbumContainer'
 import PlaylistContainer from './Containers/PlaylistContainer/PlaylistContainer'
+import LibraryContainer from './Containers/LibraryContainer/LibraryContainer'
 
 export default (
   <Switch>
@@ -29,6 +30,10 @@ export default (
             <Route
               path="/user/spotify/playlist/:id"
               component={PlaylistContainer}
+            />
+            <Route
+              path="/user/spotify/library/:type"
+              component={LibraryContainer}
             />
           </Switch>
         </AppContainer>

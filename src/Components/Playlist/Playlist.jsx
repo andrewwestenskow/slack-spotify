@@ -8,7 +8,6 @@ import AccessTimeSharp from '@material-ui/icons/AccessTimeSharp'
 
 const Playlist = props => {
   const { info } = props
-  console.log(info)
   const mappedTracks = info.tracks.items.map((element, index) => {
     return (
       <PlaylistTrack

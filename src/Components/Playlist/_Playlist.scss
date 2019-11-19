@@ -72,9 +72,6 @@
   justify-content: space-between;
   &:hover {
     background: rgb(25, 25, 25);
-    .Play-Widget {
-      opacity: 100;
-    }
     .playlist-track-number-number {
       opacity: 0;
     }
@@ -87,6 +84,11 @@
       height: 50px;
       width: 50px;
       background-size: cover;
+      &:hover {
+        .Play-Widget {
+          opacity: 100;
+        }
+      }
     }
     .playlist-track-track-info {
       padding-left: 15px;
@@ -94,7 +96,6 @@
       flex: 1;
       .playlist-track-track-name {
         width: 33%;
-        @include link-cleanup;
       }
       .playlist-track-artist {
         width: 33%;

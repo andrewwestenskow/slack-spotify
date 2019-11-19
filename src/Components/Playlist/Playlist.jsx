@@ -8,8 +8,18 @@ import AccessTimeSharp from '@material-ui/icons/AccessTimeSharp'
 
 const Playlist = props => {
   const { info } = props
-  const mappedTracks = info.tracks.items.map(element => {
-    return <PlaylistTrack info={element.track} key={element.track.id} />
+  console.log(info)
+  const mappedTracks = info.tracks.items.map((element, index) => {
+    return (
+      <PlaylistTrack
+        access_token={props.access_token}
+        deviceId={props.deviceId}
+        context={info.uri}
+        info={element.track}
+        key={element.track.id}
+        position={index}
+      />
+    )
   })
   return (
     <div className="Playlist">
@@ -19,7 +29,15 @@ const Playlist = props => {
           style={{ backgroundImage: `url(${info.images[0].url})` }}
           alt=""
         >
-          <PlayWidget inLibrary={info.inLibrary} showMore={true} />
+          <PlayWidget
+            access_token={props.access_token}
+            deviceId={props.deviceId}
+            inLibrary={info.inLibrary}
+            uri={info.uri}
+            showMore={true}
+            type="playlist"
+            offset={0}
+          />
         </div>
         <div className="playlist-info-text">
           <div className="playlist-info-top">

@@ -18,6 +18,12 @@ module.exports = {
     })
   },
 
+  seek: (player, ms) => {
+    player.seek(ms).then(() => {
+      console.log(`Seek to ${ms}`)
+    })
+  },
+
   handlePlay: ({ access_token, deviceId, type, uri, offset }) => {
     console.log(offset)
     if (access_token && deviceId && type && uri) {

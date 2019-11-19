@@ -3,21 +3,28 @@ import {
   togglePlayback,
   nextTrack,
   previousTrack,
+  seek,
 } from '../../functions/playback'
 import { connect } from 'react-redux'
 import analyze from 'rgbaster'
 import spotify from '../../assets/spotify.png'
 import * as Icon from 'react-feather'
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css'
 
 const Player = props => {
   const { playerState } = props
   const [gradient, setGradient] = useState('#000000')
-  const [width, setWidth] = useState(0)
+  const [position, setPosition] = useState(0)
   const [seekInterval, setSeekInterval] = useState(0)
 
   const style = {
     background: `rgb(0,0,0)`,
     backgroundImage: `linear-gradient(312deg, rgba(0,0,0,1) 80%, ${gradient} 99%)`,
+  }
+
+  const handleSeek = e => {
+    seek(props.player, e)
   }
 
   useEffect(() => {
@@ -36,7 +43,7 @@ const Player = props => {
       const newInterval = setInterval(() => {
         props.player.getCurrentState().then(newState => {
           if (newState) {
-            setWidth((newState.position / newState.duration) * 100)
+            setPosition(newState.position)
           }
         })
       }, 1000)
@@ -46,13 +53,19 @@ const Player = props => {
       setSeekInterval(0)
     }
   }, [playerState, seekInterval, props.player])
+
   return (
     <div className="Player" style={{ ...style }}>
-      <div className="seek-bar-hold">
-        <div style={{ width: `${width}%` }} className="seek-bar">
-          <div className="seek-button"></div>
-        </div>
-      </div>
+      {playerState.duration && (
+        <Slider
+          value={position}
+          min={0}
+          max={playerState.duration}
+          className="seek-bar-hold"
+          onAfterChange={e => handleSeek(e)}
+          onChange={e => setPosition(e)}
+        />
+      )}
       {props.current.album ? (
         <img
           src={props.current.album.images[0].url}

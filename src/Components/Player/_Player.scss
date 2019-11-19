@@ -10,10 +10,7 @@
   .seek-bar-hold {
     width: 100%;
     position: absolute;
-    top: 0;
-    transition: 0.5s all;
-    height: 10px;
-    cursor: pointer;
+    top: -5px;
     .seek-bar {
       position: absolute;
       left: -10px;
@@ -30,12 +27,6 @@
         border-radius: 25px;
         transform: translate(0, -20%);
       }
-    }
-  }
-  .seek-bar-hold:hover {
-    background: grey;
-    .seek-button {
-      display: block;
     }
   }
   .album-art {

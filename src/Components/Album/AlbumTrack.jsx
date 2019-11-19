@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 
 const AlbumTrack = props => {
   const { info } = props
-  console.log(info)
   const defaultOptions = {
     loop: true,
     autoplay: true,

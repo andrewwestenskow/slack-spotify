@@ -35,7 +35,7 @@ const PlayerWidget = props => {
           newPlayer.on('authentication_error', e => {
             console.error(e)
             console.log('AUTHENTICATION ERROR FIX THIS BUG')
-            refreshAuth().then(() => {
+            props.refreshAuth().then(() => {
               checkForPlayer()
             })
           })
@@ -72,8 +72,6 @@ const PlayerWidget = props => {
     checkForPlayer()
   }, 1000)
 
-  console.log(playerState)
-
   return (
     <div style={{ position: 'fixed', bottom: 0 }}>
       {props.children}
@@ -98,5 +96,5 @@ const mapStateToProps = state => {
 }
 export default connect(
   mapStateToProps,
-  { setPlayer, setNowPlaying }
+  { setPlayer, setNowPlaying, refreshAuth }
 )(PlayerWidget)

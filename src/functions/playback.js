@@ -35,7 +35,6 @@ module.exports = {
   },
 
   toggleRepeat: async (access_token, deviceId, mode) => {
-    console.log(mode)
     let repeatMode
     switch (mode) {
       case 0:
@@ -51,8 +50,6 @@ module.exports = {
         repeatMode = 'off'
         break
     }
-
-    console.log(repeatMode)
 
     const options = {
       url: `https://api.spotify.com/v1/me/player/repeat?device_id=${deviceId}&state=${repeatMode}`,

@@ -25,7 +25,6 @@ function App(props) {
           refresh_token &&
           refresh_token !== 'undefined'
         ) {
-          console.log(access_token)
           try {
             const refresh = await axios.post('/token', {
               access_token,

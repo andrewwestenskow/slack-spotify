@@ -11,6 +11,7 @@ import spotify from '../../assets/spotify.png'
 import * as Icon from 'react-feather'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import { trackTime } from '../../functions/conversion'
 
 const Player = props => {
   const { playerState } = props
@@ -56,16 +57,6 @@ const Player = props => {
 
   return (
     <div className="Player" style={{ ...style }}>
-      {playerState.duration && (
-        <Slider
-          value={position}
-          min={0}
-          max={playerState.duration}
-          className="seek-bar-hold"
-          onAfterChange={e => handleSeek(e)}
-          onChange={e => setPosition(e)}
-        />
-      )}
       {props.current.album ? (
         <img
           src={props.current.album.images[0].url}
@@ -83,26 +74,44 @@ const Player = props => {
       ) : (
         <div className="track-info-hold"></div>
       )}
-      <div className="control-button-hold">
-        <Icon.SkipBack
-          className="control-button"
-          onClick={() => previousTrack(props.player)}
-        />
-        {props.playerState.paused || !props.current.name ? (
-          <Icon.Play
-            className="control-button"
-            onClick={() => togglePlayback(props.player)}
+      <div className="player-controls-hold">
+        <div className="player-controls-slider-hold">
+          <p className="player-controls-slider-time">{trackTime(position)}</p>
+          <Slider
+            value={position}
+            min={0}
+            max={playerState.duration}
+            className="seek-bar-hold"
+            onAfterChange={e => handleSeek(e)}
+            onChange={e => setPosition(e)}
+            trackStyle={{ backgroundColor: '#18d860' }}
+            handleStyle={{ backgroundColor: '#18d860', border: 'none' }}
           />
-        ) : (
-          <Icon.Pause
+          <p className="player-controls-slider-time">
+            {playerState.duration ? trackTime(playerState.duration) : '0:00'}
+          </p>
+        </div>
+        <div className="control-button-hold">
+          <Icon.SkipBack
             className="control-button"
-            onClick={() => togglePlayback(props.player)}
+            onClick={() => previousTrack(props.player)}
           />
-        )}
-        <Icon.SkipForward
-          className="control-button"
-          onClick={() => nextTrack(props.player)}
-        />
+          {props.playerState.paused || !props.current.name ? (
+            <Icon.Play
+              className="control-button"
+              onClick={() => togglePlayback(props.player)}
+            />
+          ) : (
+            <Icon.Pause
+              className="control-button"
+              onClick={() => togglePlayback(props.player)}
+            />
+          )}
+          <Icon.SkipForward
+            className="control-button"
+            onClick={() => nextTrack(props.player)}
+          />
+        </div>
       </div>
       <div className="volume-options-hold">
         <p>YUH</p>

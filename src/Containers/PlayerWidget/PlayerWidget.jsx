@@ -50,7 +50,6 @@ const PlayerWidget = props => {
 
           // Playback status updates
           newPlayer.on('player_state_changed', state => {
-            console.log(state)
             if (state) {
               document.title = `${state.track_window.current_track.artists[0].name} - ${state.track_window.current_track.name}`
               let favicon = document.querySelector("link[rel*='icon']")

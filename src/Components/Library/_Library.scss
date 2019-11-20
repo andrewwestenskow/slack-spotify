@@ -12,6 +12,7 @@
 
 .Library-Album {
   padding: 25px;
+  width: 250px;
   .library-album-art {
     height: 200px;
     width: 200px;
@@ -20,6 +21,23 @@
       .Play-Widget {
         opacity: 100;
       }
+    }
+  }
+  .library-album-text-hold {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .library-album-album {
+      @include link-cleanup;
+      padding: 6px 0;
+      font-size: 1rem;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+    .library-album-artist {
+      @include link-cleanup;
+      padding: 5px 0;
+      color: grey;
     }
   }
 }

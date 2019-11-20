@@ -1,5 +1,6 @@
 import React from 'react'
 import PlayWidget from '../PlayWidget/PlayWidget'
+import { Link } from 'react-router-dom'
 
 const LibraryAlbum = props => {
   const { info } = props
@@ -20,6 +21,20 @@ const LibraryAlbum = props => {
           offset={0}
           uri={info.uri}
         />
+      </div>
+      <div className="library-album-text-hold">
+        <Link
+          className="library-album-album"
+          to={`/user/spotify/album/${info.id}`}
+        >
+          {info.name}
+        </Link>
+        <Link
+          className="library-album-artist"
+          to={`/user/spotify/artist/${info.artists[0].id}`}
+        >
+          {info.artists[0].name}
+        </Link>
       </div>
     </div>
   )

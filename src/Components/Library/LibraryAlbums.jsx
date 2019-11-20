@@ -6,7 +6,7 @@ import { SpotifyLoadingTransparent } from '../Loading/Loading'
 const LibraryAlbums = props => {
   const { info } = props
   const mappedAlbums = info.map(element => {
-    return <LibraryAlbum info={element.album} />
+    return <LibraryAlbum key={element.album.id} info={element.album} />
   })
   return (
     <div className="Library-Albums Library">

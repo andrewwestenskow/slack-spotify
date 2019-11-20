@@ -1,0 +1,21 @@
+.Spotify-Nav {
+  width: 100%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  .spotify-nav-link {
+    @include link-cleanup;
+    padding: 5px 15px;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .spotify-nav-link-active {
+    @include link-cleanup;
+    padding: 5px 15px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $spotify-green;
+    text-decoration: underline;
+  }
+}

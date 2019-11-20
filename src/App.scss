@@ -13,6 +13,7 @@
 @import './Components/Login/Login';
 @import './Components/Playlist/Playlist';
 @import './Components/Library/Library';
+@import './Components/Navigation/SpotifyNav';
 
 * {
   @include spotify-scrollbar;

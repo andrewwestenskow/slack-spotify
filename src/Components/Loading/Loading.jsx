@@ -17,3 +17,19 @@ export const SpotifyLoading = props => {
     </div>
   )
 }
+
+export const SpotifyLoadingTransparent = props => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: spotifyData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  }
+  return (
+    <div className="Spotify-Loading-Transparent">
+      <Lottie height={500} width={500} options={defaultOptions} />
+    </div>
+  )
+}

@@ -2,6 +2,8 @@ import React from 'react'
 import RecentResult from './RecentResult'
 import TopArtistResult from './TopArtistResult'
 import FeaturedResult from './FeaturedResult'
+import SpotifyNav from '../Navigation/SpotifyNav'
+import { SpotifyLoadingTransparent } from '../Loading/Loading'
 import { connect } from 'react-redux'
 
 const Dashboard = props => {
@@ -49,22 +51,29 @@ const Dashboard = props => {
   })
   return (
     <div className="Dashboard">
-      <div className="dashboard-section recently-played">
-        <div className="dashboard-section-label">Recently Played</div>
-        <div className="dashboard-section-results">{recent}</div>
-      </div>
-      <div className="dashboard-section top-artists">
-        <div className="dashboard-section-label">Top Artists</div>
-        <div className="dashboard-section-results">{topArtists}</div>
-      </div>
-      <div className="dashboard-section top-artists">
-        <div className="dashboard-section-label">My Playlists</div>
-        <div className="dashboard-section-results">{myPlaylists}</div>
-      </div>
-      <div className="dashboard-section featured">
-        <div className="dashboard-section-label">Featured</div>
-        <div className="dashboard-section-results">{featured}</div>
-      </div>
+      <SpotifyNav />
+      {props.recent.length > 0 ? (
+        <>
+          <div className="dashboard-section recently-played">
+            <div className="dashboard-section-label">Recently Played</div>
+            <div className="dashboard-section-results">{recent}</div>
+          </div>
+          <div className="dashboard-section top-artists">
+            <div className="dashboard-section-label">Top Artists</div>
+            <div className="dashboard-section-results">{topArtists}</div>
+          </div>
+          <div className="dashboard-section top-artists">
+            <div className="dashboard-section-label">My Playlists</div>
+            <div className="dashboard-section-results">{myPlaylists}</div>
+          </div>
+          <div className="dashboard-section featured">
+            <div className="dashboard-section-label">Featured</div>
+            <div className="dashboard-section-results">{featured}</div>
+          </div>
+        </>
+      ) : (
+        <SpotifyLoadingTransparent />
+      )}
     </div>
   )
 }

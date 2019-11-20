@@ -3,4 +3,23 @@
   background-image: $gradient-up;
   padding: 25px 0 25px 25px;
   @include spotify-scrollbar;
+  .library-content-hold {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+
+.Library-Album {
+  padding: 25px;
+  .library-album-art {
+    height: 200px;
+    width: 200px;
+    background-size: cover;
+    &:hover {
+      .Play-Widget {
+        opacity: 100;
+      }
+    }
+  }
 }

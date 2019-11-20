@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PlayWidget from '../PlayWidget/PlayWidget'
 import AlbumTrack from './AlbumTrack'
 import * as Icon from 'react-feather'
+import analyze from 'rgbaster'
 
 const Album = props => {
   const { info } = props
@@ -29,12 +30,27 @@ const Album = props => {
       </div>
     )
   })
+
+  const [gradient, setGradient] = useState('#000000')
+
+  const style = {
+    // background: `transparent`,
+    // backgroundImage: `linear-gradient(to left, transparent 86%, ${gradient} 99%)`,
+    boxShadow: `8px -4px 15px -1px ${gradient}`,
+  }
+
+  useEffect(() => {
+    analyze(info.images[0].url, { scale: 0.5 }).then(result => {
+      setGradient(result[0].color)
+    })
+  }, [gradient, info])
+
   return (
     <div className="Album">
       <div className="album-info">
         <div
           className="album-info-image"
-          style={{ backgroundImage: `url(${info.images[0].url})` }}
+          style={{ ...style, backgroundImage: `url(${info.images[0].url})` }}
           alt=""
         >
           <PlayWidget inLibrary={info.inLibrary} showMore={true} />

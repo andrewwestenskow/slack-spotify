@@ -255,4 +255,44 @@ module.exports = {
 
     return playlist
   },
+
+  getLibraryAlbums: async access_token => {
+    let nextUrl = null
+
+    const options = {
+      url: 'https://api.spotify.com/v1/me/albums?limit=50',
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    const { data: albums } = await axios(options)
+
+    nextUrl = albums.next
+
+    while (nextUrl !== null) {
+      const moreOptions = {
+        url: nextUrl,
+        method: 'GET',
+        headers: { Authorization: `Bearer ${access_token}` },
+      }
+
+      const { data: moreAlbums } = await axios(moreOptions)
+      albums.items = [...albums.items, ...moreAlbums.items]
+      nextUrl = moreAlbums.next
+    }
+
+    albums.items.forEach(element => {
+      element.album.inLibrary = true
+    })
+
+    albums.items.sort((a, b) => {
+      if (a.album.artists[0].name > b.album.artists[0].name) {
+        return 1
+      } else {
+        return -1
+      }
+    })
+
+    return albums
+  },
 }

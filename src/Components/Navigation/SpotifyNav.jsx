@@ -14,16 +14,16 @@ const SpotifyNav = props => {
       <NavLink
         activeClassName="spotify-nav-link-active"
         className="spotify-nav-link"
-        to="/user/spotify/library/artists"
+        to="/user/spotify/library/albums"
       >
-        Artists
+        Albums
       </NavLink>
       <NavLink
         activeClassName="spotify-nav-link-active"
         className="spotify-nav-link"
-        to="/user/spotify/library/albums"
+        to="/user/spotify/library/artists"
       >
-        Albums
+        Artists
       </NavLink>
     </div>
   )

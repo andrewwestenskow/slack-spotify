@@ -248,6 +248,16 @@ module.exports = {
       nextUrl = moreTracks.next
     }
 
+    const notNull = playlist.tracks.items.filter(element => {
+      if (element.track) {
+        return true
+      } else {
+        return false
+      }
+    })
+
+    playlist.tracks.items = notNull
+
     const playlistLength = playlist.tracks.items.reduce((acc, element) => {
       return (acc += element.track.duration_ms)
     }, 0)
@@ -294,5 +304,21 @@ module.exports = {
     })
 
     return albums
+  },
+
+  getFollowedArtists: async access_token => {
+    const options = {
+      url: 'https://api.spotify.com/v1/me/following?type=artist&limit=50',
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    const {
+      data: {
+        artists: { items: followedArtists },
+      },
+    } = await axios(options)
+
+    return followedArtists
   },
 }

@@ -53,7 +53,17 @@ const Album = props => {
           style={{ ...style, backgroundImage: `url(${info.images[0].url})` }}
           alt=""
         >
-          <PlayWidget inLibrary={info.inLibrary} showMore={true} />
+          <PlayWidget
+            type="album"
+            id={info.id}
+            inLibrary={info.inLibrary}
+            showMore={true}
+            offset={0}
+            uri={info.uri}
+            toggleChange={props.toggleChange}
+            access_token={props.access_token}
+            deviceId={props.deviceId}
+          />
         </div>
         <div className="album-info-text">
           <div className="album-info-top">

@@ -7,17 +7,23 @@ import { SpotifyLoading } from '../../Components/Loading/Loading'
 const AlbumContainer = props => {
   const { id } = props.match.params
   const [album, setAlbum] = useState({})
+  const [change, setChange] = useState(false)
   useEffect(() => {
     getAlbum(props.access_token, id).then(res => {
       setAlbum(res)
     })
-  }, [id, props.access_token])
+  }, [id, props.access_token, change])
+
+  const toggleChange = () => {
+    setChange(!change)
+  }
 
   // console.log(album)
 
   if (album.tracks) {
     return (
       <Album
+        toggleChange={toggleChange}
         access_token={props.access_token}
         deviceId={props.deviceId}
         info={album}

@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 module.exports = {
-  addToLibrary: ({ id, type, access_token }) => {
+  addToLibrary: async ({ id, type, access_token }) => {
     const albumOptions = {
       url: `https://api.spotify.com/v1/me/albums?ids=${id}`,
       method: 'PUT',
@@ -10,13 +10,13 @@ module.exports = {
 
     switch (type) {
       case 'album':
-        axios(albumOptions)
+        await axios(albumOptions)
         break
       default:
         return
     }
   },
-  removeFromLibrary: ({ id, type, access_token }) => {
+  removeFromLibrary: async ({ id, type, access_token }) => {
     const albumOptions = {
       url: `https://api.spotify.com/v1/me/albums?ids=${id}`,
       method: 'DELETE',
@@ -25,7 +25,7 @@ module.exports = {
 
     switch (type) {
       case 'album':
-        axios(albumOptions)
+        await axios(albumOptions)
         break
       default:
         return

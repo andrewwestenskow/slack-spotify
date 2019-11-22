@@ -6,12 +6,14 @@ import { addToLibrary, removeFromLibrary } from '../../functions/library'
 const PlayWidget = props => {
   const handleChange = action => {
     if (action === 'add') {
-      addToLibrary(props)
-      props.toggleChange()
+      addToLibrary(props).then(() => {
+        props.toggleChange()
+      })
       return
     } else {
-      removeFromLibrary(props)
-      props.toggleChange()
+      removeFromLibrary(props).then(() => {
+        props.toggleChange()
+      })
       return
     }
   }

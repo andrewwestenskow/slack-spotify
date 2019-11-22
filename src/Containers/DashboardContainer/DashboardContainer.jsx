@@ -22,6 +22,8 @@ const DashboardContainer = props => {
   }
   return (
     <Dashboard
+      access_token={props.access_token}
+      deviceId={props.deviceId}
       toggleChange={toggleChange}
       featured={featured}
       recent={recent}

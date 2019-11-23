@@ -23,12 +23,12 @@ app.use(express.static(`${__dirname}/../build`))
 //*SPOTIFY LOGIN ENDPOINTS
 app.get('/login', spotifyAuthCtrl.login)
 app.post('/callback', spotifyAuthCtrl.callback)
-app.get('/callback', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'))
-})
 app.post('/refresh', spotifyAuthCtrl.refresh)
 app.get('/session', spotifyAuthCtrl.sessionCheck)
 app.post('/token', spotifyAuthCtrl.checkLocalToken)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'))
+})
 
 //*SPOTIFY CONTROL ENDPOINTS
 

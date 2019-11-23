@@ -17,6 +17,8 @@ app.use(
   })
 )
 
+app.use(express.static(`${__dirname}/../build`))
+
 //*SPOTIFY LOGIN ENDPOINTS
 app.get('/login', spotifyAuthCtrl.login)
 app.post('/callback', spotifyAuthCtrl.callback)

@@ -8,6 +8,7 @@ import discord_login from '../../assets/discord_login.png'
 const Login = props => {
   const login = async () => {
     const response = await axios.get('/login')
+    console.log(response.data)
     window.location.href = response.data
   }
 

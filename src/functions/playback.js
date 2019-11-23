@@ -73,24 +73,24 @@ export const handlePlay = ({ access_token, deviceId, type, uri, offset }) => {
     switch (type) {
       case 'tracks':
         if (offset || offset === 0) {
-          module.exports.playTracks(access_token, deviceId, uri, offset)
+          playTracks(access_token, deviceId, uri, offset)
         } else {
           console.log('Missing media offset')
         }
         break
       case 'album':
         if (offset || offset === 0) {
-          module.exports.playAlbum(access_token, deviceId, uri, offset)
+          playAlbum(access_token, deviceId, uri, offset)
         } else {
           console.log('Missing media offset')
         }
         break
       case 'artist':
-        module.exports.playArtist(access_token, deviceId, uri)
+        playArtist(access_token, deviceId, uri)
         break
       case 'playlist':
         if (offset || offset === 0) {
-          module.exports.playPlaylist(access_token, deviceId, uri, offset)
+          playPlaylist(access_token, deviceId, uri, offset)
         } else {
           console.log('Missing media offset')
         }

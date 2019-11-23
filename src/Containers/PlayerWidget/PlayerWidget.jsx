@@ -20,49 +20,55 @@ const PlayerWidget = props => {
       })
       // finally, connect!
       clearInterval(checkInterval)
-      newPlayer.connect().then(success => {
-        if (success) {
-          newPlayer.on('ready', data => {
-            setPlayer(newPlayer)
-            props.setPlayer({ player: newPlayer, deviceId: data.device_id })
-          })
+      newPlayer
+        .connect()
+        .then(success => {
+          if (success) {
+            console.log('Player connected')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
 
-          // this.createEventHandlers();
-          newPlayer.on('initialization_error', e => {
-            console.error(e)
-            console.log('INITIALIZATION ERROR')
-          })
-          newPlayer.on('authentication_error', e => {
-            console.error(e)
-            console.log('AUTHENTICATION ERROR FIX THIS BUG')
-            props.refreshAuth().then(() => {
-              checkForPlayer()
-            })
-          })
-          newPlayer.on('account_error', e => {
-            console.error(e)
-            console.log('ACCOUNT ERROR')
-          })
-          newPlayer.on('playback_error', e => {
-            console.error(e.message)
-            console.log('PLAYBACK ERROR')
-          })
+      newPlayer.on('ready', data => {
+        setPlayer(newPlayer)
+        props.setPlayer({ player: newPlayer, deviceId: data.device_id })
+      })
 
-          // Playback status updates
-          newPlayer.on('player_state_changed', state => {
-            if (state) {
-              document.title = `${state.track_window.current_track.artists[0].name} - ${state.track_window.current_track.name}`
-              let favicon = document.querySelector("link[rel*='icon']")
-              favicon.href =
-                state.track_window.current_track.album.images[0].url
-              setPlayerState(state)
-              if (state.track_window) {
-                props.setNowPlaying(state.track_window)
-              } else {
-                props.setNowPlaying({})
-              }
-            }
-          })
+      // this.createEventHandlers();
+      newPlayer.on('initialization_error', e => {
+        console.error(e)
+        console.log('INITIALIZATION ERROR')
+      })
+      newPlayer.on('authentication_error', e => {
+        console.error(e)
+        console.log('AUTHENTICATION ERROR FIX THIS BUG')
+        props.refreshAuth().then(() => {
+          checkForPlayer()
+        })
+      })
+      newPlayer.on('account_error', e => {
+        console.error(e)
+        console.log('ACCOUNT ERROR')
+      })
+      newPlayer.on('playback_error', e => {
+        console.error(e.message)
+        console.log('PLAYBACK ERROR')
+      })
+
+      // Playback status updates
+      newPlayer.on('player_state_changed', state => {
+        if (state) {
+          document.title = `${state.track_window.current_track.artists[0].name} - ${state.track_window.current_track.name}`
+          let favicon = document.querySelector("link[rel*='icon']")
+          favicon.href = state.track_window.current_track.album.images[0].url
+          setPlayerState(state)
+          if (state.track_window) {
+            props.setNowPlaying(state.track_window)
+          } else {
+            props.setNowPlaying({})
+          }
         }
       })
     }

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const TopArtistResult = props => {
   const { info } = props
   return (
-    <div className="result-hold">
+    <div style={{ ...props.style }} className="result-hold">
       <div
         style={{ backgroundImage: `url(${info.images[0].url})` }}
         className="result top-artist-result"

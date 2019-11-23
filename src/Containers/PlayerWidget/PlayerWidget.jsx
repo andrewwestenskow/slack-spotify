@@ -33,6 +33,8 @@ const PlayerWidget = props => {
 
       newPlayer.on('ready', data => {
         setPlayer(newPlayer)
+        console.log(newPlayer)
+        console.log(data)
         props.setPlayer({ player: newPlayer, deviceId: data.device_id })
       })
 

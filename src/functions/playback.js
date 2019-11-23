@@ -68,7 +68,6 @@ export const handleVolume = (player, volume) => {
 }
 
 export const handlePlay = ({ access_token, deviceId, type, uri, offset }) => {
-  console.log(offset)
   if (access_token && deviceId && type && uri) {
     switch (type) {
       case 'tracks':

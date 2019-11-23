@@ -22,19 +22,13 @@ const PlayerWidget = props => {
       clearInterval(checkInterval)
       newPlayer
         .connect()
-        .then(success => {
-          if (success) {
-            console.log('Player connected')
-          }
-        })
+        .then(success => {})
         .catch(err => {
           console.log(err)
         })
 
       newPlayer.on('ready', data => {
         setPlayer(newPlayer)
-        console.log(newPlayer)
-        console.log(data)
         props.setPlayer({ player: newPlayer, deviceId: data.device_id })
       })
 

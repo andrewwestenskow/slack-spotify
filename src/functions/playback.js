@@ -1,7 +1,6 @@
 const axios = require('axios')
 
 export const togglePlayback = player => {
-  console.log(player)
   player.togglePlay().then(() => {})
 }
 

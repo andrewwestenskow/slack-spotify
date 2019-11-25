@@ -40,9 +40,7 @@ const PlayerWidget = props => {
       newPlayer.on('authentication_error', e => {
         console.error(e)
         console.log('AUTHENTICATION ERROR FIX THIS BUG')
-        props.refreshAuth().then(() => {
-          checkForPlayer()
-        })
+        props.refreshAuth()
       })
       newPlayer.on('account_error', e => {
         console.error(e)

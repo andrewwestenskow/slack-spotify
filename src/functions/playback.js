@@ -2,27 +2,19 @@ const axios = require('axios')
 
 export const togglePlayback = player => {
   console.log(player)
-  player.togglePlay().then(() => {
-    console.log('Toggled')
-  })
+  player.togglePlay().then(() => {})
 }
 
 export const nextTrack = player => {
-  player.nextTrack().then(() => {
-    console.log('Next track')
-  })
+  player.nextTrack().then(() => {})
 }
 
 export const previousTrack = player => {
-  player.previousTrack().then(() => {
-    console.log('Previous track')
-  })
+  player.previousTrack().then(() => {})
 }
 
 export const seek = (player, ms) => {
-  player.seek(ms).then(() => {
-    console.log(`Seek to ${ms}`)
-  })
+  player.seek(ms).then(() => {})
 }
 
 export const toggleShuffle = async (access_token, deviceId, state) => {
@@ -62,9 +54,7 @@ export const toggleRepeat = async (access_token, deviceId, mode) => {
 }
 
 export const handleVolume = (player, volume) => {
-  player.setVolume(volume / 100).then(() => {
-    console.log(`Volume set to ${volume}`)
-  })
+  player.setVolume(volume / 100).then(() => {})
 }
 
 export const handlePlay = ({ access_token, deviceId, type, uri, offset }) => {

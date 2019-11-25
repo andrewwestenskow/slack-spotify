@@ -9,6 +9,7 @@ import AlbumContainer from './Containers/AlbumContainer/AlbumContainer'
 import PlaylistContainer from './Containers/PlaylistContainer/PlaylistContainer'
 import LibraryArtistsContainer from './Containers/LibraryContainer/LibraryArtistsContainer'
 import LibraryAlbumsContainer from './Containers/LibraryContainer/LibraryAlbumsContainer'
+import SlackMainContainer from './Containers/Slack/Main/SlackMainContainer'
 
 export default (
   <Switch>
@@ -40,6 +41,7 @@ export default (
               path="/user/spotify/library/artists"
               component={LibraryArtistsContainer}
             />
+            <Route path="/user/slack/main" component={SlackMainContainer} />
           </Switch>
         </AppContainer>
       )}

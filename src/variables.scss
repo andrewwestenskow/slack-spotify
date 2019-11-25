@@ -78,3 +78,9 @@ $spotify-green: #18d860;
     text-decoration: underline;
   }
 }
+
+@mixin container-setup {
+  min-height: 100%;
+  padding: 25px 0 25px 25px;
+  @include spotify-scrollbar;
+}

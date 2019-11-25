@@ -59,7 +59,6 @@ const PlayerControls = props => {
 
   useEffect(() => {
     if (playerState.paused === false && !seekInterval && playerState.duration) {
-      console.log('NEW INTERVAL')
       const newInterval = setInterval(() => {
         props.player.getCurrentState().then(newState => {
           if (newState) {

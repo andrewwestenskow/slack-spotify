@@ -27,6 +27,10 @@ const PlayerWidget = props => {
           console.log(err)
         })
 
+      window.onbeforeunload = () => {
+        newPlayer.disconnect()
+      }
+
       newPlayer.on('ready', data => {
         setPlayer(newPlayer)
         props.setPlayer({ player: newPlayer, deviceId: data.device_id })

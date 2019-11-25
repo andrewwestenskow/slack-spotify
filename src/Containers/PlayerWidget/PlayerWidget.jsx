@@ -11,10 +11,11 @@ const PlayerWidget = props => {
   const checkForPlayer = () => {
     const { access_token } = props
 
-    if (window.Spotify !== null && !player) {
+    if (window.Spotify !== null && !player && access_token) {
       const newPlayer = new window.Spotify.Player({
         name: 'Humidify',
         getOAuthToken: cb => {
+          console.log(cb, access_token)
           cb(access_token)
         },
       })

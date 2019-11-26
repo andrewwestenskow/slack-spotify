@@ -18,7 +18,15 @@ const Player = props => {
     if (props.current.album) {
       analyze(props.current.album.images[0].url, { scale: 0.5 }).then(
         result => {
-          setGradient(result[0].color)
+          let currentIndex = 0
+          while (
+            +result[currentIndex].color.match(/\d+/g)[0] < 50 ||
+            +result[currentIndex].color.match(/\d+/g)[1] < 50 ||
+            +result[currentIndex].color.match(/\d+/g)[2] < 50
+          ) {
+            currentIndex++
+          }
+          setGradient(result[currentIndex].color)
         }
       )
     }

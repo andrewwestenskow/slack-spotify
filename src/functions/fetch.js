@@ -225,7 +225,7 @@ export const getAlbum = async (access_token, id) => {
   return album
 }
 
-export const getPlaylist = async (access_token, id) => {
+export const getPlaylist = async (access_token, id, userId) => {
   let nextUrl = null
   const playlistOptions = {
     url: `https://api.spotify.com/v1/playlists/${id}`,
@@ -266,7 +266,22 @@ export const getPlaylist = async (access_token, id) => {
   }, 0)
   playlist.length = albumTime(playlistLength)
 
-  return playlist
+  if (userId) {
+    const followOptions = {
+      url: `https://api.spotify.com/v1/playlists/${playlist.id}/followers/contains?ids=${userId}`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+
+    const {
+      data: [follows],
+    } = await axios(followOptions)
+
+    playlist.inLibrary = follows
+    return playlist
+  } else {
+    return playlist
+  }
 }
 
 export const getLibraryAlbums = async access_token => {

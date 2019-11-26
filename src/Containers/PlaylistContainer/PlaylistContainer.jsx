@@ -6,14 +6,23 @@ import { SpotifyLoading } from '../../Components/Loading/Loading'
 
 const PlaylistContainer = props => {
   const [playlist, setPlaylist] = useState({})
+  const [change, setChange] = useState(false)
   useEffect(() => {
-    getPlaylist(props.access_token, props.match.params.id).then(res => {
-      setPlaylist(res)
-    })
-  }, [props.access_token, props.match.params.id])
+    getPlaylist(props.access_token, props.match.params.id, props.userId).then(
+      res => {
+        setPlaylist(res)
+      }
+    )
+  }, [props.access_token, props.match.params.id, props.userId, change])
+
+  const toggleChange = () => {
+    setChange(!change)
+  }
+
   if (playlist.tracks) {
     return (
       <Playlist
+        toggleChange={toggleChange}
         info={playlist}
         access_token={props.access_token}
         deviceId={props.deviceId}
@@ -28,6 +37,7 @@ const mapStateToProps = state => {
   return {
     access_token: state.auth.access_token,
     deviceId: state.spotify.deviceId,
+    userId: state.user.id,
   }
 }
 export default connect(mapStateToProps)(PlaylistContainer)

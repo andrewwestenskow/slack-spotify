@@ -29,6 +29,8 @@ const Playlist = props => {
           alt=""
         >
           <PlayWidget
+            id={info.id}
+            toggleChange={props.toggleChange}
             access_token={props.access_token}
             deviceId={props.deviceId}
             inLibrary={info.inLibrary}

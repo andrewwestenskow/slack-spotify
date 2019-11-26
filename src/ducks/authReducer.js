@@ -32,14 +32,6 @@ export const refreshAuth = () => {
     type: REFRESH_AUTH,
     payload: refreshAuth,
   }
-
-  // return {
-  //   type: REFRESH_AUTH,
-  //   payload: {
-  //     access_token: refreshAuth.data.access_token,
-  //     refresh_token: refreshAuth.data.access_token || refresh_token,
-  //   },
-  // }
 }
 
 const authReducer = (state = initialState, action) => {
@@ -56,7 +48,6 @@ const authReducer = (state = initialState, action) => {
       }
     case `${REFRESH_AUTH}_FULFILLED`:
       const { refreshSpotifyAuth: auth } = action.payload.data
-      console.log(auth)
       localStorage.setItem('access_token', auth.access_token)
       if (auth.refresh_token) {
         localStorage.setItem('refresh_token', auth.refresh_token)

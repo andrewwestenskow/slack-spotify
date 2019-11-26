@@ -4,7 +4,6 @@ import analyze from 'rgbaster'
 import spotify from '../../assets/spotify.png'
 import PlayerControls from './PlayerControls'
 import VolumeWidget from './VolumeWidget'
-import { refreshAuth } from '../../ducks/authReducer'
 
 const Player = props => {
   const { playerState } = props
@@ -53,7 +52,6 @@ const Player = props => {
         access_token={props.access_token}
         deviceId={props.deviceId}
       />
-      <button onClick={props.refreshAuth}>Refresh</button>
       <VolumeWidget player={props.player} playerState={playerState} />
       {/* <div className="device-info-hold">
         <p>YUH</p>
@@ -66,7 +64,4 @@ const mapStateToProps = state => {
   return state.nowPlaying
 }
 
-export default connect(
-  mapStateToProps,
-  { refreshAuth }
-)(Player)
+export default connect(mapStateToProps)(Player)

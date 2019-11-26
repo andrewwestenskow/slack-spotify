@@ -57,6 +57,10 @@
               text-decoration: underline;
             }
           }
+          .result-details-artist {
+            @extend .result-details-text;
+            color: grey !important;
+          }
         }
       }
     }

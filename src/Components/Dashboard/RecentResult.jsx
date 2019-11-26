@@ -31,7 +31,7 @@ const RecentResult = props => {
         </Link>
         <Link
           to={`/user/spotify/artist/${info.track.artists[0].id}`}
-          className="result-details-text"
+          className="result-details-artist"
         >
           {info.track.artists[0].name}
         </Link>

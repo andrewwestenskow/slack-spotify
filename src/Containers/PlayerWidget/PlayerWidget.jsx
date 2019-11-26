@@ -41,6 +41,8 @@ const PlayerWidget = props => {
         console.error(e)
         console.log('AUTHENTICATION ERROR FIX THIS BUG')
         props.refreshAuth()
+        newPlayer.disconnect()
+        checkForPlayer()
       })
       newPlayer.on('account_error', e => {
         console.error(e)
@@ -49,6 +51,8 @@ const PlayerWidget = props => {
       newPlayer.on('playback_error', e => {
         console.error(e)
         props.refreshAuth()
+        newPlayer.disconnect()
+        checkForPlayer()
         console.log('PLAYBACK ERROR')
       })
 

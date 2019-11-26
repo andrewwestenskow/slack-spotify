@@ -4,15 +4,18 @@ import { connect } from 'react-redux'
 import { handlePlay } from '../../functions/playback'
 import ArtistAlbum from './ArtistAlbum'
 import TopArtistResult from '../Dashboard/TopArtistResult'
+import { addToLibrary, removeFromLibrary } from '../../functions/library'
 
 const Artist = props => {
   const { info, albums, topTracks, relatedArtists } = props.info
   const topUris = topTracks.map(element => {
     return element.uri
   })
+
   const topMappedTracks = topTracks.map(element => {
     return <TopTrack top={topUris} key={element.id} info={element} />
   })
+
   const artistAlbumsMap = albums.map(element => {
     return (
       <ArtistAlbum
@@ -22,6 +25,7 @@ const Artist = props => {
       />
     )
   })
+
   const relatedMap = relatedArtists.map(element => {
     return (
       <TopArtistResult
@@ -32,6 +36,24 @@ const Artist = props => {
       />
     )
   })
+
+  const handleLibraryChange = () => {
+    if (info.inLibrary) {
+      removeFromLibrary({
+        id: info.id,
+        access_token: props.access_token,
+        type: 'artist',
+      })
+      props.toggleChange()
+    } else {
+      addToLibrary({
+        id: info.id,
+        access_token: props.access_token,
+        type: 'artist',
+      })
+      props.toggleChange()
+    }
+  }
   return (
     <div className="Artist">
       <div className="artist-info">
@@ -59,6 +81,9 @@ const Artist = props => {
                 className="play-button"
               >
                 Play
+              </button>
+              <button onClick={handleLibraryChange} className="play-button">
+                {info.inLibrary ? 'Unfollow' : 'Follow'}
               </button>
             </div>
           </div>

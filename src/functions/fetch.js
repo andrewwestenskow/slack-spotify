@@ -178,6 +178,18 @@ export const getArtist = async (access_token, id) => {
     lastArtistAlbums = [...artistAlbumLibraryCheck]
   }
 
+  const artistFollowOptions = {
+    url: `https://api.spotify.com/v1/me/following/contains?type=artist&ids=${artistInfo.id}`,
+    method: 'GET',
+    headers: { Authorization: `Bearer ${access_token}` },
+  }
+
+  const {
+    data: [follows],
+  } = await axios(artistFollowOptions)
+
+  artistInfo.inLibrary = follows
+
   const artist = {
     info: artistInfo,
     albums: lastArtistAlbums,

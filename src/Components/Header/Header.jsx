@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import SearchResultsContainer from '../../Containers/SearchResults/SearchResultsContainer'
+import UserDetails from './UserDetails'
 import { search } from '../../functions/fetch'
 import { connect } from 'react-redux'
 import { refreshAuth } from '../../ducks/authReducer'
@@ -46,6 +47,7 @@ const Header = props => {
           type="text"
         />
         <button onClick={deleteCode}>Reset code</button>
+        <UserDetails />
       </div>
       {searchResults.tracks && (
         <div className="search-container-hold">

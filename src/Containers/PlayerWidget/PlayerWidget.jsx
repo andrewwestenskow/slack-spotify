@@ -48,6 +48,7 @@ const PlayerWidget = props => {
       })
       newPlayer.on('playback_error', e => {
         console.error(e)
+        props.refreshAuth()
         console.log('PLAYBACK ERROR')
       })
 

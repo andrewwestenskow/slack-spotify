@@ -6,6 +6,8 @@
   display: flex;
   align-items: center;
   padding-left: $sidebar-width;
+  justify-content: space-between;
+  padding-right: 10px;
   input {
     border-radius: 10px;
     width: 200px;
@@ -21,4 +23,20 @@
   left: $sidebar-width;
   color: white;
   z-index: 10;
+}
+
+.User-Details {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  .user-name {
+    color: white;
+    font-size: 1.2rem;
+    padding-right: 10px;
+  }
+  .profile-picture {
+    max-height: 80%;
+    width: auto;
+    border-radius: 50px;
+  }
 }

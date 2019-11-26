@@ -13,6 +13,7 @@ import {
 import * as Icon from 'react-feather'
 import RepeatOneSharp from '@material-ui/icons/RepeatOneSharp'
 import RepeatSharp from '@material-ui/icons/RepeatSharp'
+import WakeLock from 'react-wakelock-react16'
 
 const PlayerControls = props => {
   const { playerState } = props
@@ -147,10 +148,13 @@ const PlayerControls = props => {
             onClick={() => togglePlayback(props.player)}
           />
         ) : (
-          <Icon.Pause
-            className="control-button"
-            onClick={() => togglePlayback(props.player)}
-          />
+          <>
+            <Icon.Pause
+              className="control-button"
+              onClick={() => togglePlayback(props.player)}
+            />
+            <WakeLock />
+          </>
         )}
         <Icon.SkipForward
           className="control-button"

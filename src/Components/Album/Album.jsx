@@ -16,8 +16,12 @@ const Album = props => {
         </div>
         <div className="album-track-list">
           {disc.map(element => {
+            const trackNumber = info.tracks.items.findIndex(
+              listItem => listItem.id === element.id
+            )
             return (
               <AlbumTrack
+                trackNumber={trackNumber}
                 access_token={props.access_token}
                 deviceId={props.deviceId}
                 context={info.uri}

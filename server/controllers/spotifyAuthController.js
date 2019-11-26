@@ -19,6 +19,7 @@ module.exports = {
         res.status(200).send({ tokens, user })
       } catch (error) {
         console.log(error)
+        module.exports.refresh(req, res)
       }
     } else {
       res.status(404).send('No session found')

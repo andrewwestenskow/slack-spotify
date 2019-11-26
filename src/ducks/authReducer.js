@@ -19,25 +19,27 @@ export const setAuth = response => {
   }
 }
 
-export const refreshAuth = async () => {
+export const refreshAuth = () => {
   console.log('refreshing')
   const access_token = localStorage.getItem('access_token')
   const refresh_token = localStorage.getItem('refresh_token')
-  const refreshAuth = await axios.post('/refresh', {
+  const refreshAuth = axios.post('/refresh', {
     access_token,
     refresh_token,
   })
-  localStorage.setItem('access_token', refreshAuth.data.access_token)
-  if (refreshAuth.data.refresh_token) {
-    localStorage.setItem('refresh_token', refreshAuth.data.refresh_token)
-  }
+
   return {
     type: REFRESH_AUTH,
-    payload: {
-      access_token: refreshAuth.data.access_token,
-      refresh_token: refreshAuth.data.access_token || refresh_token,
-    },
+    payload: refreshAuth,
   }
+
+  // return {
+  //   type: REFRESH_AUTH,
+  //   payload: {
+  //     access_token: refreshAuth.data.access_token,
+  //     refresh_token: refreshAuth.data.access_token || refresh_token,
+  //   },
+  // }
 }
 
 const authReducer = (state = initialState, action) => {
@@ -48,11 +50,30 @@ const authReducer = (state = initialState, action) => {
         access_token: action.payload.access_token,
         refresh_token: action.payload.refresh_token,
       }
-    case REFRESH_AUTH:
+    case `${REFRESH_AUTH}_PENDING`:
       return {
         ...state,
-        access_token: action.payload.access_token,
-        refresh_token: action.payload.refresh_token,
+      }
+    case `${REFRESH_AUTH}_FULFILLED`:
+      const { refreshSpotifyAuth: auth } = action.payload.data
+      console.log(auth)
+      localStorage.setItem('access_token', auth.access_token)
+      if (auth.refresh_token) {
+        localStorage.setItem('refresh_token', auth.refresh_token)
+        return {
+          ...state,
+          access_token: auth.access_token,
+          refresh_token: auth.refresh_token,
+        }
+      } else {
+        return {
+          ...state,
+          access_token: auth.access_token,
+        }
+      }
+    case `${REFRESH_AUTH}_REJECTED`:
+      return {
+        ...state,
       }
     default:
       return state

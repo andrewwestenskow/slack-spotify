@@ -29,7 +29,7 @@ const AlbumTrack = props => {
             access_token={props.access_token}
             deviceId={props.deviceId}
             uri={props.context}
-            offset={info.track_number - 1}
+            offset={props.trackNumber}
             type="album"
             style={{ background: 'none', transition: 'none' }}
           />

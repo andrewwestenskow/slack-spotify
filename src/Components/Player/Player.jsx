@@ -4,6 +4,7 @@ import analyze from 'rgbaster'
 import spotify from '../../assets/spotify.png'
 import PlayerControls from './PlayerControls'
 import VolumeWidget from './VolumeWidget'
+import { refreshAuth } from '../../ducks/authReducer'
 
 const Player = props => {
   const { playerState } = props
@@ -26,19 +27,21 @@ const Player = props => {
 
   return (
     <div className="Player" style={{ ...style }}>
-      {props.current.album ? (
-        <img
-          src={props.current.album.images[0].url}
-          alt=""
-          className="album-art"
-        />
-      ) : (
-        <img src={spotify} alt="" className="album-art" />
-      )}
       {props.current.name ? (
         <div className="track-info-hold">
-          <p className="player-title">{props.current.name}</p>
-          <p className="player-artist">{props.current.artists[0].name}</p>
+          {props.current.album ? (
+            <img
+              src={props.current.album.images[0].url}
+              alt=""
+              className="album-art"
+            />
+          ) : (
+            <img src={spotify} alt="" className="album-art" />
+          )}
+          <div className="track-info-text-hold">
+            <p className="player-title">{props.current.name}</p>
+            <p className="player-artist">{props.current.artists[0].name}</p>
+          </div>
         </div>
       ) : (
         <div className="track-info-hold"></div>
@@ -50,10 +53,11 @@ const Player = props => {
         access_token={props.access_token}
         deviceId={props.deviceId}
       />
+      <button onClick={props.refreshAuth}>Refresh</button>
       <VolumeWidget player={props.player} playerState={playerState} />
-      <div className="device-info-hold">
+      {/* <div className="device-info-hold">
         <p>YUH</p>
-      </div>
+      </div> */}
     </div>
   )
 }
@@ -62,4 +66,7 @@ const mapStateToProps = state => {
   return state.nowPlaying
 }
 
-export default connect(mapStateToProps)(Player)
+export default connect(
+  mapStateToProps,
+  { refreshAuth }
+)(Player)

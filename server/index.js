@@ -5,6 +5,7 @@ const app = express()
 const session = require('express-session')
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 const spotifyAuthCtrl = require('./controllers/spotifyAuthController')
+const slackAuthController = require('./controllers/slackAuthController')
 
 app.use(express.json())
 app.use(
@@ -26,10 +27,13 @@ app.post('/callback', spotifyAuthCtrl.callback)
 app.post('/refresh', spotifyAuthCtrl.refresh)
 app.get('/session', spotifyAuthCtrl.sessionCheck)
 app.post('/token', spotifyAuthCtrl.checkLocalToken)
+
+//*SLACK ENDPOINTS
+app.get('/slack/login', slackAuthController.login)
+
+//! ALL ENDPOINTS ABOVE THIS LINE!!!!!
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))
 })
-
-//*SPOTIFY CONTROL ENDPOINTS
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`))

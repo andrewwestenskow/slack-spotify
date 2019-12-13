@@ -19,7 +19,7 @@ const Sidebar = props => {
       >
         <img className="sidebar-nav-image" src={spotify} alt="" />
       </NavLink>
-      <NavLink
+      {/* <NavLink
         isActive={(match, location) => {
           if (location.pathname.includes('slack')) {
             return true
@@ -42,7 +42,7 @@ const Sidebar = props => {
         to="/user/discord/main"
       >
         <img className="sidebar-nav-image" src={discord} alt="" />
-      </NavLink>
+      </NavLink> */}
     </nav>
   )
 }

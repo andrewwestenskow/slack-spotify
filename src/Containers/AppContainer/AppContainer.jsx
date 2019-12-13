@@ -7,7 +7,7 @@ const AppContainer = props => {
   return (
     <>
       <Header />
-      {/* <Sidebar /> */}
+      <Sidebar />
       <div className="app-children">{props.children}</div>
       <PlayerWidget />
     </>

@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import spotify from '../../assets/spotify.png'
-import slack from '../../assets/slack.svg'
-import discord from '../../assets/discord.png'
+// import slack from '../../assets/slack.svg'
+// import discord from '../../assets/discord.png'
 
 const Sidebar = props => {
   return (

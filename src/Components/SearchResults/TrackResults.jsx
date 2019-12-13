@@ -25,7 +25,7 @@ const TrackResults = props => {
             onClick={props.clearSearch}
             className="result-image"
             src={spotify}
-            style={{ backgroundImage: `url(${element.album.images[0].url})` }}
+            style={{ backgroundImage: `url(${spotify})` }}
           >
             <PlayWidget
               access_token={props.access_token}

@@ -16,20 +16,22 @@ const Login = props => {
     <div className="Login">
       <div className="login-info-hold">
         <h1>
-          All of your services
+          Spotify...
           <br />
-          in one place
+          simplified
         </h1>
       </div>
       <button className="login-button" onClick={login}>
         Log in with Spotify
       </button>
-      <h2 className="login-currently-supported">Apps currently supported:</h2>
-      <div className="login-available-apps">
+      <h2 className="login-currently-supported">
+        A Spotify app broken down to basics.
+      </h2>
+      {/* <div className="login-available-apps">
         <AvailableApp name="Spotify" image={spotify_login} />
         <AvailableApp name="Slack" image={slack_login} />
         <AvailableApp name="Discord" image={discord_login} />
-      </div>
+      </div> */}
     </div>
   )
 }

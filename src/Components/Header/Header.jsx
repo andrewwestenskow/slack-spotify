@@ -46,7 +46,7 @@ const Header = props => {
           onChange={e => handleSearch(e)}
           type="text"
         />
-        <button onClick={deleteCode}>Reset code</button>
+        {/* <button onClick={deleteCode}>Reset code</button> */}
         <UserDetails />
       </div>
       {searchResults.tracks && (

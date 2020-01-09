@@ -11,7 +11,7 @@
   @media screen and (max-width: $first-break) {
     justify-content: flex-end;
     flex-direction: row-reverse;
-    padding-left: 0;
+    padding: 5px 15px;
   }
   input {
     border-radius: 10px;
@@ -49,5 +49,12 @@
     @media screen and (max-width: $first-break) {
       margin: 0 15px;
     }
+  }
+}
+
+.home-icon {
+  display: none;
+  @media screen and (max-width: $first-break) {
+    display: block;
   }
 }

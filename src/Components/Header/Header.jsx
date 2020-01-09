@@ -3,6 +3,8 @@ import SearchResultsContainer from '../../Containers/SearchResults/SearchResults
 import UserDetails from './UserDetails'
 import { search } from '../../functions/fetch'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import HomeIcon from '@material-ui/icons/Home'
 import { refreshAuth } from '../../ducks/authReducer'
 
 const Header = props => {
@@ -48,6 +50,10 @@ const Header = props => {
         />
         {/* <button onClick={deleteCode}>Reset code</button> */}
         <UserDetails />
+        <HomeIcon
+          onClick={() => props.history.push('/user/spotify/dashboard')}
+          className="home-icon"
+        />
       </div>
       {searchResults.tracks && (
         <div className="search-container-hold">
@@ -64,7 +70,9 @@ const Header = props => {
 const mapStateToProps = state => {
   return { auth: state.auth, spotify: state.spotify }
 }
-export default connect(
-  mapStateToProps,
-  { refreshAuth }
-)(Header)
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { refreshAuth }
+  )(Header)
+)

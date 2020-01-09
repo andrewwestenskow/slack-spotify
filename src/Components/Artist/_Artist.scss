@@ -6,21 +6,33 @@
   .artist-info {
     width: 100%;
     display: flex;
+    @media screen and (max-width: $first-break) {
+      flex-direction: column;
+    }
     .artist-info-main {
       width: 50%;
       display: flex;
       flex-direction: column;
       padding-left: 10px;
+      @media screen and (max-width: $first-break) {
+        width: 100%;
+      }
       .artist-info-head {
         width: 100%;
         height: 25%;
         display: flex;
         padding: 5px;
         max-height: 200px;
+        @media screen and (max-width: $first-break) {
+          height: 150px;
+        }
         .artist-info-image {
           height: 100%;
           width: auto;
           border-radius: 500px;
+          @media screen and (max-width: $first-break) {
+            max-width: 150px;
+          }
         }
         .artist-info-head-text {
           margin-left: 25px;
@@ -30,6 +42,9 @@
           .artist-info-name {
             color: white;
             font-size: 3rem;
+            @media screen and (max-width: $first-break) {
+              font-size: 2rem;
+            }
           }
           .artist-info-followers {
             font-size: 1.5rem;
@@ -50,14 +65,22 @@
               color: white;
               border: 1px solid white;
             }
+            @media screen and (max-width: $first-break) {
+              font-size: 1.2rem;
+              width: 150px;
+            }
           }
         }
       }
     }
+
     .artist-info-top-tracks {
       width: 50%;
       display: flex;
       flex-direction: column;
+      @media screen and (max-width: $first-break) {
+        display: none;
+      }
       .top-tracks-header {
         color: white;
         font-size: 2rem;
@@ -73,6 +96,15 @@
         .result {
           margin: 10px;
         }
+      }
+    }
+
+    .mobile-top-tracks {
+      @extend .artist-info-top-tracks;
+      display: none;
+      @media screen and (max-width: $first-break) {
+        width: 100%;
+        display: block;
       }
     }
 

@@ -87,6 +87,10 @@ const Artist = props => {
               </button>
             </div>
           </div>
+          <div className="mobile-top-tracks">
+            <p className="top-tracks-header">Top songs</p>
+            {topMappedTracks}
+          </div>
           <div className="artist-info-albums-hold">
             <p className="artist-albums-header">Albums</p>
             <div className="artist-info-albums">{artistAlbumsMap}</div>

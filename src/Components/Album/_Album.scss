@@ -7,11 +7,18 @@
     width: 100%;
     height: 250px;
     display: flex;
+    @media screen and (max-width: $first-break) {
+      height: 120px;
+    }
     @include white-border;
     .album-info-image {
       height: 250px;
       width: 250px;
       background-size: cover;
+      @media screen and (max-width: $first-break) {
+        height: 100px;
+        width: 100px;
+      }
       &:hover {
         .Play-Widget {
           opacity: 100;
@@ -30,6 +37,9 @@
         .album-info-title {
           font-size: 2.5rem;
           font-weight: 700;
+          @media screen and (max-width: $first-break) {
+            font-size: 1.2rem;
+          }
         }
         .album-info-artist {
           font-size: 1.2rem;
@@ -53,7 +63,7 @@
     }
     @media screen and (max-width: $first-break) {
       width: 100%;
-      padding-bottom: 50px;
+      padding-bottom: 100px;
     }
   }
 }

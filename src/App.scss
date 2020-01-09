@@ -26,4 +26,8 @@
   top: $header-height;
   position: fixed;
   overflow-y: scroll;
+  @media screen and (max-width: $first-break) {
+    left: 0;
+    width: 100vw;
+  }
 }

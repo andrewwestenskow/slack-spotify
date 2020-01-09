@@ -20,6 +20,7 @@ $gradient-down: linear-gradient(
   #343434
 );
 $spotify-green: #18d860;
+$first-break: 600px;
 
 @mixin spotify-scrollbar {
   ::-webkit-scrollbar {

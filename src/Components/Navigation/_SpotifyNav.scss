@@ -9,6 +9,9 @@
     padding: 5px 15px;
     font-size: 2rem;
     font-weight: 700;
+    @media screen and (max-width: $first-break) {
+      font-size: 1rem;
+    }
   }
   .spotify-nav-link-active {
     @include link-cleanup;
@@ -17,5 +20,8 @@
     font-weight: 700;
     color: $spotify-green;
     text-decoration: underline;
+    @media screen and (max-width: $first-break) {
+      font-size: 1rem;
+    }
   }
 }

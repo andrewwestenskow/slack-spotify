@@ -8,6 +8,11 @@
   padding-left: $sidebar-width;
   justify-content: space-between;
   padding-right: 10px;
+  @media screen and (max-width: $first-break) {
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    padding-left: 0;
+  }
   input {
     border-radius: 10px;
     width: 200px;
@@ -33,10 +38,16 @@
     color: white;
     font-size: 1.2rem;
     padding-right: 10px;
+    @media screen and (max-width: $first-break) {
+      display: none;
+    }
   }
   .profile-picture {
     max-height: 80%;
     width: auto;
     border-radius: 50px;
+    @media screen and (max-width: $first-break) {
+      margin: 0 15px;
+    }
   }
 }

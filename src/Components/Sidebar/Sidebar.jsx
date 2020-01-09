@@ -19,30 +19,6 @@ const Sidebar = props => {
       >
         <img className="sidebar-nav-image" src={spotify} alt="" />
       </NavLink>
-      {/* <NavLink
-        isActive={(match, location) => {
-          if (location.pathname.includes('slack')) {
-            return true
-          }
-        }}
-        activeClassName="sidebar-nav-active"
-        className="sidebar-nav"
-        to="/user/slack/main"
-      >
-        <img className="sidebar-nav-image" src={slack} alt="" />
-      </NavLink>
-      <NavLink
-        isActive={(match, location) => {
-          if (location.pathname.includes('discord')) {
-            return true
-          }
-        }}
-        activeClassName="sidebar-nav-active"
-        className="sidebar-nav"
-        to="/user/discord/main"
-      >
-        <img className="sidebar-nav-image" src={discord} alt="" />
-      </NavLink> */}
     </nav>
   )
 }

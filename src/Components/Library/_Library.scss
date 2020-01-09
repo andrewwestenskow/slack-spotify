@@ -13,9 +13,20 @@
 .Library-Album {
   padding: 25px;
   width: 250px;
+  @media screen and (max-width: $first-break) {
+    display: flex;
+    padding: 0;
+    max-height: 75px;
+    width: 100vw;
+    margin-bottom: 15px;
+  }
   .library-album-art {
     height: 200px;
     width: 200px;
+    @media screen and (max-width: $first-break) {
+      max-height: 75px;
+      max-width: 75px;
+    }
     background-size: cover;
     &:hover {
       .Play-Widget {
@@ -27,6 +38,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    @media screen and (max-width: $first-break) {
+      padding-left: 5px;
+      justify-content: center;
+    }
     .library-album-album {
       @include link-cleanup;
       padding: 6px 0;
@@ -41,8 +56,8 @@
   }
 }
 
-.Library-Artists{
-  .library-artists-hold{
+.Library-Artists {
+  .library-artists-hold {
     display: flex;
     flex-wrap: wrap;
   }

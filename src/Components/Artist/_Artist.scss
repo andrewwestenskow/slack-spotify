@@ -188,15 +188,25 @@
       color: white;
       font-size: 2rem;
       margin-bottom: 5px;
+      @media screen and (max-width: $first-break) {
+        font-size: 1.2rem;
+      }
     }
     .artist-album-release {
       color: white;
       font-size: 1.54rem;
+      @media screen and (max-width: $first-break) {
+        font-size: 1rem;
+        padding-top: 5px;
+      }
     }
     .artist-album-tracks {
       color: white;
       font-size: 1.5rem;
       text-transform: capitalize;
+      @media screen and (max-width: $first-break) {
+        font-size: 1rem;
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ const LibraryArtists = props => {
   const mappedArtists = info.map(element => {
     return (
       <TopArtistResult
+        extraClass="Library-Artist"
         style={{ padding: '10px' }}
         key={element.id}
         info={element}

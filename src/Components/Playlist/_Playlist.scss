@@ -7,9 +7,16 @@
     display: flex;
     width: 100%;
     height: 250px;
+    @media screen and (max-width: $first-break) {
+      height: 100px;
+    }
     .playlist-info-image {
       height: 250px;
       width: 250px;
+      @media screen and (max-width: $first-break) {
+        height: 100px;
+        width: 100px;
+      }
       background-size: cover;
       &:hover {
         .Play-Widget {
@@ -28,6 +35,9 @@
         .playlist-info-title {
           font-size: 2.5rem;
           font-weight: 700;
+          @media screen and (max-width: $first-break) {
+            font-size: 1.2rem;
+          }
         }
       }
     }
@@ -41,6 +51,12 @@
     border-bottom: white 1px solid;
     padding-bottom: 5px;
     color: white;
+    @media screen and (max-width: $first-break) {
+      width: 95%;
+      position: sticky;
+      top: 0;
+      background-image: $gradient-up;
+    }
     .playlist-tracks-header-left {
       display: flex;
       flex: 1;
@@ -61,6 +77,9 @@
   }
   .playlist-tracks-hold {
     width: 80%;
+    @media screen and (max-width: $first-break) {
+      width: 95%;
+    }
   }
 }
 
@@ -94,6 +113,11 @@
       padding-left: 15px;
       display: flex;
       flex: 1;
+      @media screen and (max-width: $first-break) {
+        align-items: center;
+        text-align: left;
+        font-size: 0.8rem;
+      }
       .playlist-track-track-name {
         width: 33%;
       }
@@ -104,6 +128,8 @@
       .playlist-track-album {
         width: 33%;
         @include link-cleanup;
+        @media screen and (max-width: $first-break) {
+        }
       }
     }
   }

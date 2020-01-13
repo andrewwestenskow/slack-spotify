@@ -1,9 +1,25 @@
+.Search-Results-Container {
+  display: flex;
+  width: 100%;
+  @media screen and (max-width: $first-break) {
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    background-image: $gradient-up;
+    height: 50vh;
+    overflow-y: scroll;
+  }
+}
+
 .result-column {
   width: 100%;
 }
 
 .result-section {
   width: 33%;
+  @media screen and (max-width: $first-break) {
+    width: 100%;
+  }
 }
 
 .result-header {

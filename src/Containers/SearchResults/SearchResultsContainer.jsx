@@ -6,13 +6,7 @@ import { connect } from 'react-redux'
 
 const SearchResultsContainer = props => {
   return (
-    <div
-      className="SearchResultsContainer"
-      style={{
-        width: '100%',
-        display: 'flex',
-      }}
-    >
+    <div className="Search-Results-Container">
       <TrackResults
         clearSearch={props.clearSearch}
         access_token={props.auth.access_token}

@@ -3,6 +3,7 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const session = require('express-session')
+const socket = require('socket.io')
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 const spotifyAuthCtrl = require('./controllers/spotifyAuthController')
 const slackAuthController = require('./controllers/slackAuthController')
@@ -18,6 +19,15 @@ app.use(
     },
   })
 )
+const server = app.listen(SERVER_PORT, () =>
+  console.log(`listening on port ${SERVER_PORT}`)
+)
+
+const io = socket(server)
+
+io.on('connection', socket => {
+  console.log('Socket connected')
+})
 
 app.use(express.static(`${__dirname}/../build`))
 
@@ -35,5 +45,3 @@ app.get('/slack/login', slackAuthController.login)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))
 })
-
-app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`))

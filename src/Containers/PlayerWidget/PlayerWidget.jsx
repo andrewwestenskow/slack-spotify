@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import Player from '../../Components/Player/Player'
+import io from 'socket.io-client'
 import { connect } from 'react-redux'
 import { setPlayer } from '../../ducks/spotifyReducer'
 import { setNowPlaying } from '../../ducks/nowPlaingReducer'
@@ -8,9 +9,18 @@ import { refreshAuth } from '../../ducks/authReducer'
 const PlayerWidget = props => {
   const [player, setPlayer] = React.useState(undefined)
   const [playerState, setPlayerState] = React.useState({})
-  const checkForPlayer = () => {
-    const { access_token } = props
+  const { access_token } = props
+  const socket = useMemo(
+    () =>
+      io.connect(null, {
+        reconnection: true,
+        reconnectionDelay: 500,
+        reconnectionAttempts: 10,
+      }),
+    []
+  )
 
+  const checkForPlayer = () => {
     if (window.Spotify !== null && !player && access_token) {
       const newPlayer = new window.Spotify.Player({
         name: 'Humidify',
@@ -29,6 +39,7 @@ const PlayerWidget = props => {
 
       newPlayer.on('ready', data => {
         setPlayer(newPlayer)
+        socket.emit('player ready')
         props.setPlayer({ player: newPlayer, deviceId: data.device_id })
       })
 

@@ -8,7 +8,7 @@ import { refreshAuth } from '../../ducks/authReducer'
 const PlayerWidget = props => {
   const [player, setPlayer] = React.useState(undefined)
   const [playerState, setPlayerState] = React.useState({})
-  const { access_token } = props
+  const { access_token, socket, userId, refresh_token } = props
 
   const checkForPlayer = () => {
     if (window.Spotify !== null && !player && access_token) {
@@ -40,6 +40,7 @@ const PlayerWidget = props => {
       newPlayer.on('authentication_error', e => {
         console.error(e)
         console.log('AUTHENTICATION ERROR FIX THIS BUG')
+        socket.emit('auth error', { userId, access_token, refresh_token })
       })
       newPlayer.on('account_error', e => {
         console.error(e)
@@ -55,7 +56,6 @@ const PlayerWidget = props => {
 
       // Playback status updates
       newPlayer.on('player_state_changed', state => {
-        console.log(props)
         if (state) {
           document.title = `${state.track_window.current_track.artists[0].name} - ${state.track_window.current_track.name}`
           let favicon = document.querySelector("link[rel*='icon']")
@@ -78,6 +78,7 @@ const PlayerWidget = props => {
   return (
     <div style={{ position: 'fixed', bottom: 0 }}>
       {props.children}
+      <button onClick={() => socket.emit('test', userId)}>TEST SOCKET</button>
       <Player
         access_token={props.access_token}
         nowPlaying={props.nowPlaying}
@@ -96,6 +97,7 @@ const mapStateToProps = state => {
     deviceId: state.spotify.deviceId,
     nowPlaying: state.nowPlaying,
     userId: state.user.id,
+    socket: state.socket.socket,
   }
 }
 export default connect(

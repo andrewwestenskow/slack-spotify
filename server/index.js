@@ -35,6 +35,10 @@ io.on('connection', socket => {
     io.to(userId).emit('connection confirmed', userId)
   })
 
+  socket.on('auth error', data => {
+    io.to(data.userId).emit('auth error', data)
+  })
+
   socket.on('socket join', userId => {
     console.log(`Joined ${userId}`)
     socket.join(userId)

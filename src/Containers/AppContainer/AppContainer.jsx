@@ -31,6 +31,11 @@ const AppContainer = props => {
     setConnectionConfirmed(true)
   })
 
+  socket.on('auth error', data => {
+    console.log('Confirm auth error')
+    console.log(data)
+  })
+
   return (
     <>
       <Header />

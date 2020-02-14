@@ -4,6 +4,7 @@ import spotifyReducer from './ducks/spotifyReducer'
 import nowPlayingReducer from './ducks/nowPlaingReducer'
 import userReducer from './ducks/userReducer'
 import libraryReducer from './ducks/libraryReducer'
+import socketReducer from './ducks/socketReducer'
 import { devToolsEnhancer } from 'redux-devtools-extension'
 import promiseMiddleware from 'redux-promise-middleware'
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   nowPlaying: nowPlayingReducer,
   user: userReducer,
   library: libraryReducer,
+  socket: socketReducer,
 })
 
 const store = createStore(

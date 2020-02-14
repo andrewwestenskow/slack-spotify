@@ -1,6 +1,5 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import Player from '../../Components/Player/Player'
-import io from 'socket.io-client'
 import { connect } from 'react-redux'
 import { setPlayer } from '../../ducks/spotifyReducer'
 import { setNowPlaying } from '../../ducks/nowPlaingReducer'
@@ -10,15 +9,6 @@ const PlayerWidget = props => {
   const [player, setPlayer] = React.useState(undefined)
   const [playerState, setPlayerState] = React.useState({})
   const { access_token } = props
-  const socket = useMemo(
-    () =>
-      io.connect(null, {
-        reconnection: true,
-        reconnectionDelay: 500,
-        reconnectionAttempts: 10,
-      }),
-    []
-  )
 
   const checkForPlayer = () => {
     if (window.Spotify !== null && !player && access_token) {
@@ -39,7 +29,6 @@ const PlayerWidget = props => {
 
       newPlayer.on('ready', data => {
         setPlayer(newPlayer)
-        socket.emit('player ready')
         props.setPlayer({ player: newPlayer, deviceId: data.device_id })
       })
 
@@ -51,9 +40,6 @@ const PlayerWidget = props => {
       newPlayer.on('authentication_error', e => {
         console.error(e)
         console.log('AUTHENTICATION ERROR FIX THIS BUG')
-        props.refreshAuth()
-        newPlayer.disconnect()
-        checkForPlayer()
       })
       newPlayer.on('account_error', e => {
         console.error(e)
@@ -69,6 +55,7 @@ const PlayerWidget = props => {
 
       // Playback status updates
       newPlayer.on('player_state_changed', state => {
+        console.log(props)
         if (state) {
           document.title = `${state.track_window.current_track.artists[0].name} - ${state.track_window.current_track.name}`
           let favicon = document.querySelector("link[rel*='icon']")
@@ -108,6 +95,7 @@ const mapStateToProps = state => {
     refresh_token: state.auth.refresh_token,
     deviceId: state.spotify.deviceId,
     nowPlaying: state.nowPlaying,
+    userId: state.user.id,
   }
 }
 export default connect(

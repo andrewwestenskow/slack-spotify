@@ -26,7 +26,20 @@ const server = app.listen(SERVER_PORT, () =>
 const io = socket(server)
 
 io.on('connection', socket => {
-  console.log('Socket connected')
+  socket.on('disconnect', () => {
+    console.log(`Socket disconnected`)
+  })
+
+  socket.on('test', userId => {
+    console.log('test')
+    io.to(userId).emit('connection confirmed', userId)
+  })
+
+  socket.on('socket join', userId => {
+    console.log(`Joined ${userId}`)
+    socket.join(userId)
+    io.to(userId).emit('connection confirmed', 'CONFIRMED')
+  })
 })
 
 app.use(express.static(`${__dirname}/../build`))

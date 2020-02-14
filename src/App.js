@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
+
 import routes from './routes'
 import './App.scss'
 import axios from 'axios'
+
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setAuth } from './ducks/authReducer'
@@ -57,7 +59,7 @@ function App(props) {
 }
 
 const mapStateToProps = state => {
-  return state.auth
+  return { ...state.auth, user: { ...state.user } }
 }
 
 export default connect(

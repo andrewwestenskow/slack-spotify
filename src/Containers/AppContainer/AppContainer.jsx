@@ -4,6 +4,7 @@ import PlayerWidget from '../PlayerWidget/PlayerWidget'
 import Header from '../../Components/Header/Header'
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import { setSocket, setConnectionConfirmed } from '../../ducks/socketReducer'
+import { refreshAuth } from '../../ducks/authReducer'
 import { connect } from 'react-redux'
 
 const AppContainer = props => {
@@ -12,6 +13,7 @@ const AppContainer = props => {
     connectionConfirmed,
     setSocket,
     setConnectionConfirmed,
+    refreshAuth,
   } = props
 
   const [socket] = useState(useSocket()[0])
@@ -34,6 +36,7 @@ const AppContainer = props => {
   socket.on('auth error', data => {
     console.log('Confirm auth error')
     console.log(data)
+    refreshAuth()
   })
 
   return (
@@ -55,5 +58,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setSocket, setConnectionConfirmed }
+  { setSocket, setConnectionConfirmed, refreshAuth }
 )(AppContainer)

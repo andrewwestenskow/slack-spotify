@@ -48,10 +48,8 @@ const PlayerWidget = props => {
       })
       newPlayer.on('playback_error', e => {
         console.error(e)
-        props.refreshAuth()
-        newPlayer.disconnect()
-        checkForPlayer()
         console.log('PLAYBACK ERROR')
+        socket.emit('auth error', { userId, access_token, refresh_token })
       })
 
       // Playback status updates

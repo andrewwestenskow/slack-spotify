@@ -17,17 +17,13 @@ const Header = props => {
 
   const handleSearch = async e => {
     if (e.target.value) {
-      try {
-        setSearchTerm(e.target.value)
-        const results = await search(e.target.value, props.auth.access_token)
-        setSearchResults(results)
-      } catch (error) {
-        props.refreshAuth().then(() => {
-          search(e.target.value, props.auth.access_token).then(results => {
-            setSearchResults(results)
-          })
-        })
-      }
+      setSearchTerm(e.target.value)
+      const results = await search(
+        e.target.value,
+        props.auth.access_token,
+        props.auth.refresh_token
+      )
+      setSearchResults(results)
     } else {
       setSearchTerm('')
       setSearchResults({})

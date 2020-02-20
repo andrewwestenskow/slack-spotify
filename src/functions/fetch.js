@@ -1,15 +1,26 @@
+import globalCatch from './globalCatch'
 const axios = require('axios')
 const { trackTime, albumTime } = require('./conversion')
 
-export const search = async (searchTerm, access_token) => {
+export const search = async (searchTerm, access_token, refresh_token) => {
   const term = encodeURIComponent(searchTerm.trim())
   const options = {
     url: `https://api.spotify.com/v1/search?q=${term}&type=track,artist,album&market=us&limit=10`,
     method: 'GET',
-    headers: { Authorization: `Bearer ${access_token}` },
+    headers: { Authorization: `Bearer ${access_token}a` },
   }
-  const { data: searchResults } = await axios(options)
-  return searchResults
+  try {
+    const { data: searchResults } = await axios(options)
+    return searchResults
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      options
+    )
+    const { data: searchResults } = await axios(updatedOptions)
+    return searchResults
+  }
 }
 
 export const fetchDashboardInfo = async access_token => {

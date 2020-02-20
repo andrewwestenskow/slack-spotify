@@ -7,8 +7,9 @@ export const search = async (searchTerm, access_token, refresh_token) => {
   const options = {
     url: `https://api.spotify.com/v1/search?q=${term}&type=track,artist,album&market=us&limit=10`,
     method: 'GET',
-    headers: { Authorization: `Bearer ${access_token}a` },
+    headers: { Authorization: `Bearer ${access_token}` },
   }
+
   try {
     const { data: searchResults } = await axios(options)
     return searchResults
@@ -23,34 +24,66 @@ export const search = async (searchTerm, access_token, refresh_token) => {
   }
 }
 
-export const fetchDashboardInfo = async access_token => {
+export const fetchDashboardInfo = async (access_token, refresh_token) => {
+  let topArtists
+  let recent
+  let inLibrary
+  let featured
+  let myPlaylists
+
+  //? FETCH TOP ARTISTS WITH GLOBAL CATCH
+
   const topOptions = {
     url: 'https://api.spotify.com/v1/me/top/artists',
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
+
+  try {
+    //data.items
+    const {
+      data: { items: topArtistItems },
+    } = await axios(topOptions)
+    topArtists = topArtistItems
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      topOptions
+    )
+    const {
+      data: { items: topArtistItems },
+    } = await axios(updatedOptions)
+    topArtists = topArtistItems
+  }
+
+  //? FETCH RECENT ALBUMS WITH GLOBAL CATCH
+
   const recentOptions = {
     url: 'https://api.spotify.com/v1/me/player/recently-played?limit=50',
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
-  const featuredOptions = {
-    url: 'https://api.spotify.com/v1/browse/featured-playlists',
-    method: 'GET',
-    headers: { Authorization: `Bearer ${access_token}` },
+
+  try {
+    const {
+      data: { items: recentItems },
+    } = await axios(recentOptions)
+    recent = recentItems
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      recentOptions
+    )
+    const {
+      data: { items: recentItems },
+    } = await axios(updatedOptions)
+    recent = recentItems
   }
 
-  const playlistOptions = {
-    url: 'https://api.spotify.com/v1/me/playlists?limit=50',
-    method: 'GET',
-    headers: { Authorization: `Bearer ${access_token}` },
-  }
-  const {
-    data: { items: topArtists },
-  } = await axios(topOptions)
-  const {
-    data: { items: recent },
-  } = await axios(recentOptions)
+  //? DETERMINE IF RECENTLY PLAYED ARE CURRENTLY IN LIBRARY WITH GLOBAL CATCH
+
   const newRecent = recent.reduce((acc, element) => {
     const index = acc.findIndex(
       el => el.track.album.name === element.track.album.name
@@ -64,6 +97,7 @@ export const fetchDashboardInfo = async access_token => {
   const idsToCheck = newRecent.map(element => {
     return element.track.album.id
   })
+
   const checkOptions = {
     url: `https://api.spotify.com/v1/me/albums/contains?ids=${idsToCheck.join(
       ','
@@ -71,20 +105,80 @@ export const fetchDashboardInfo = async access_token => {
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
-  const { data: inLibrary } = await axios(checkOptions)
+
+  try {
+    const { data: checkOptionsItems } = await axios(checkOptions)
+    inLibrary = checkOptionsItems
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      checkOptions
+    )
+    const { data: checkOptionsItems } = await axios(updatedOptions)
+    inLibrary = checkOptionsItems
+  }
+
+  //APPLY IN LIBRARY PROPERTY TO RECENT OBJECTS
   const libraryCheckRecent = newRecent.map((element, index) => {
     element.inLibrary = inLibrary[index]
     return element
   })
-  const {
-    data: {
-      playlists: { items: featured },
-    },
-  } = await axios(featuredOptions)
 
-  const {
-    data: { items: myPlaylists },
-  } = await axios(playlistOptions)
+  //? FETCH FEATURED PLAYLISTS WITH GLOBAL CATCH
+
+  const featuredOptions = {
+    url: 'https://api.spotify.com/v1/browse/featured-playlists',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${access_token}` },
+  }
+
+  try {
+    const {
+      data: {
+        playlists: { items: featuredItems },
+      },
+    } = await axios(featuredOptions)
+    featured = featuredItems
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      featuredOptions
+    )
+    const {
+      data: {
+        playlists: { items: featuredItems },
+      },
+    } = await axios(updatedOptions)
+    featured = featuredItems
+  }
+
+  //? FETCH MY PLAYLISTS WITH GLOBAL CATCH
+
+  const playlistOptions = {
+    url: 'https://api.spotify.com/v1/me/playlists?limit=50',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${access_token}` },
+  }
+
+  try {
+    const {
+      data: { items: playlistItems },
+    } = await axios(playlistOptions)
+    myPlaylists = playlistItems
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      playlistOptions
+    )
+    const {
+      data: { items: playlistItems },
+    } = await axios(updatedOptions)
+    myPlaylists = playlistItems
+  }
+
   return { topArtists, recent: libraryCheckRecent, featured, myPlaylists }
 }
 

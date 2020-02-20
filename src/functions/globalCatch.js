@@ -23,5 +23,6 @@ export default async (access_token, refresh_token, optionsObj) => {
       refresh_token: updatedRefreshToken || refresh_token,
     },
   }
+  console.log(returnObj)
   return returnObj
 }

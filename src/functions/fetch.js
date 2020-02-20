@@ -182,57 +182,97 @@ export const fetchDashboardInfo = async (access_token, refresh_token) => {
   return { topArtists, recent: libraryCheckRecent, featured, myPlaylists }
 }
 
-export const getNowPlaying = async access_token => {
+export const getNowPlaying = async (access_token, refresh_token) => {
   const options = {
     url: 'https://api.spotify.com/v1/me/player/currently-playing',
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
 
-  const { data: nowPlaying } = await axios(options)
-  return nowPlaying
+  try {
+    const { data: nowPlaying } = await axios(options)
+    return nowPlaying
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      options
+    )
+    const { data: nowPlaying } = await axios(updatedOptions)
+    return nowPlaying
+  }
 }
 
-export const getPlayerInfo = async access_token => {
+export const getPlayerInfo = async (access_token, refresh_token) => {
   const options = {
     url: 'https://api.spotify.com/v1/me/player',
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
 
-  const { data: playerInfo } = await axios(options)
-  return playerInfo
+  try {
+    const { data: playerInfo } = await axios(options)
+    return playerInfo
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      options
+    )
+    const { data: playerInfo } = await axios(updatedOptions)
+    return playerInfo
+  }
 }
 
-export const getArtist = async (access_token, id) => {
+export const getArtist = async (access_token, refresh_token, artistId) => {
+  let artistInfo
+  let albums
+  let inLibrary
+  let topTracks
+  let relatedArtists
+  let follows
+
+  //? GET GENERAL ARTIST INFO WITH GLOBAL CATCH
   const options = {
-    url: `https://api.spotify.com/v1/artists/${id}`,
+    url: `https://api.spotify.com/v1/artists/${artistId}`,
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
 
+  try {
+    const { data: artistInfoData } = await axios(options)
+    artistInfo = artistInfoData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      options
+    )
+    const { data: artistInfoData } = await axios(updatedOptions)
+    artistInfo = artistInfoData
+  }
+
+  //?GET ARTISTS ALBUMS WITH GLOBAL CATCH
   const albumsOptions = {
-    url: `https://api.spotify.com/v1/artists/${id}/albums?include_groups=album,single&country=us&limit=50`,
+    url: `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album,single&country=us&limit=50`,
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
 
-  const topSongOptions = {
-    url: `https://api.spotify.com/v1/artists/${id}/top-tracks?country=us`,
-    method: 'GET',
-    headers: { Authorization: `Bearer ${access_token}` },
+  try {
+    const { data: albumsData } = await axios(albumsOptions)
+    albums = albumsData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      albumsOptions
+    )
+    const { data: albumsData } = await axios(updatedOptions)
+    albums = albumsData
   }
 
-  const relatedOptions = {
-    url: `https://api.spotify.com/v1/artists/${id}/related-artists`,
-    method: 'GET',
-    headers: { Authorization: `Bearer ${access_token}` },
-  }
-
-  const { data: artistInfo } = await axios(options)
-  const { data: albums } = await axios(albumsOptions)
-  const { data: topTracks } = await axios(topSongOptions)
-  const { data: relatedArtists } = await axios(relatedOptions)
+  //? CHECKS IF ALBUMS ARE IN USER LIBRARY
   const idsToCheck = albums.items.map(element => {
     return element.id
   })
@@ -244,7 +284,20 @@ export const getArtist = async (access_token, id) => {
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
-  const { data: inLibrary } = await axios(checkOptions)
+
+  try {
+    const { data: inLibraryData } = await axios(checkOptions)
+    inLibrary = inLibraryData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      checkOptions
+    )
+    const { data: inLibraryData } = await axios(updatedOptions)
+    inLibrary = inLibraryData
+  }
+
   const artistAlbumLibraryCheck = albums.items.map((element, index) => {
     element.inLibrary = inLibrary[index]
     return element
@@ -252,14 +305,30 @@ export const getArtist = async (access_token, id) => {
 
   let lastArtistAlbums = []
 
+  //? ACCOUNTS FOR ARTISTS THAT HAVE A LOT OF ALBUMS
   if (albums.next) {
+    let secondAlbums
+    let secondLibraryCheck
+
     const secondOptions = {
       url: albums.next,
       method: 'GET',
       headers: { Authorization: `Bearer ${access_token}` },
     }
 
-    const { data: secondAlbums } = await axios(secondOptions)
+    try {
+      const { data: secondAlbumsData } = await axios(secondOptions)
+      secondAlbums = secondAlbumsData
+    } catch {
+      const { updatedOptions } = await globalCatch(
+        access_token,
+        refresh_token,
+        secondOptions
+      )
+      const { data: secondAlbumsData } = await axios(updatedOptions)
+      secondAlbums = secondAlbumsData
+    }
+
     const secondIds = secondAlbums.items.map(element => {
       return element.id
     })
@@ -271,7 +340,18 @@ export const getArtist = async (access_token, id) => {
       headers: { Authorization: `Bearer ${access_token}` },
     }
 
-    const { data: secondLibraryCheck } = await axios(secondCheckOptions)
+    try {
+      const { data: secondLibraryCheckData } = await axios(secondCheckOptions)
+      secondLibraryCheck = secondLibraryCheckData
+    } catch {
+      const { updatedOptions } = await globalCatch(
+        access_token,
+        refresh_token,
+        secondCheckOptions
+      )
+      const { data: secondLibraryCheckData } = await axios(updatedOptions)
+      secondLibraryCheck = secondLibraryCheckData
+    }
 
     const secondFormattedAlbums = secondAlbums.items.map((element, index) => {
       element.inLibrary = secondLibraryCheck[index]
@@ -283,15 +363,70 @@ export const getArtist = async (access_token, id) => {
     lastArtistAlbums = [...artistAlbumLibraryCheck]
   }
 
+  //?GET ARTISTS TOP SONGS WITH GLOBAL CATCH
+  const topSongOptions = {
+    url: `https://api.spotify.com/v1/artists/${artistId}/top-tracks?country=us`,
+    method: 'GET',
+    headers: { Authorization: `Bearer ${access_token}` },
+  }
+
+  try {
+    const { data: topTracksData } = await axios(topSongOptions)
+    topTracks = topTracksData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      topSongOptions
+    )
+    const { data: topTracksData } = await axios(updatedOptions)
+    topTracks = topTracksData
+  }
+
+  //?GET RELATED ARTISTS WITH GLOBAL CATCH
+  const relatedOptions = {
+    url: `https://api.spotify.com/v1/artists/${artistId}/related-artists`,
+    method: 'GET',
+    headers: { Authorization: `Bearer ${access_token}` },
+  }
+
+  try {
+    const { data: relatedArtistsData } = await axios(relatedOptions)
+    relatedArtists = relatedArtistsData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      relatedOptions
+    )
+    const { data: relatedArtistsData } = await axios(updatedOptions)
+    relatedArtists = relatedArtistsData
+  }
+
+  //? CHECK IF USER FOLLOWS ARTIST
+
   const artistFollowOptions = {
     url: `https://api.spotify.com/v1/me/following/contains?type=artist&ids=${artistInfo.id}`,
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
 
-  const {
-    data: [follows],
-  } = await axios(artistFollowOptions)
+  try {
+    const {
+      data: [followsData],
+    } = await axios(artistFollowOptions)
+    follows = followsData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      artistFollowOptions
+    )
+    const {
+      data: [followsData],
+    } = await axios(updatedOptions)
+    follows = followsData
+  }
 
   artistInfo.inLibrary = follows
 

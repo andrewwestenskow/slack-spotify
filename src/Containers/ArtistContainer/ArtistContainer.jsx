@@ -9,10 +9,11 @@ const ArtistContainer = props => {
   const [artist, setArtist] = useState({})
   const [change, setChange] = useState(false)
   useEffect(() => {
-    getArtist(props.access_token, id).then(res => {
-      setArtist(res)
-    })
-  }, [id, props.access_token, change])
+    props.access_token &&
+      getArtist(props.access_token, props.refresh_token, id).then(res => {
+        setArtist(res)
+      })
+  }, [id, props.access_token, change, props.refresh_token])
 
   const toggleChange = () => {
     setChange(!change)
@@ -35,6 +36,7 @@ const ArtistContainer = props => {
 const mapStateToProps = state => {
   return {
     access_token: state.auth.access_token,
+    refresh_token: state.auth.refresh_token,
     deviceId: state.spotify.deviceId,
   }
 }

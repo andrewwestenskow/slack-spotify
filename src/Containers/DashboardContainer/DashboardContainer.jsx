@@ -10,12 +10,13 @@ const DashboardContainer = props => {
   const [myPlaylists, setMyPlaylists] = useState([])
   const [change, setChange] = useState(false)
   useEffect(() => {
-    fetchDashboardInfo(props.access_token, props.refresh_token).then(res => {
-      setTopArtists(res.topArtists)
-      setRecent(res.recent)
-      setFeatured(res.featured)
-      setMyPlaylists(res.myPlaylists)
-    })
+    props.access_token &&
+      fetchDashboardInfo(props.access_token, props.refresh_token).then(res => {
+        setTopArtists(res.topArtists)
+        setRecent(res.recent)
+        setFeatured(res.featured)
+        setMyPlaylists(res.myPlaylists)
+      })
   }, [props.access_token, change, props.refresh_token])
   const toggleChange = () => {
     setChange(!change)

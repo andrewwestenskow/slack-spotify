@@ -439,14 +439,28 @@ export const getArtist = async (access_token, refresh_token, artistId) => {
   return artist
 }
 
-export const getAlbum = async (access_token, id) => {
+export const getAlbum = async (access_token, refresh_token, id) => {
+  let album
+  let inLibrary
+
   const options = {
     url: `https://api.spotify.com/v1/albums/${id}`,
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
 
-  const { data: album } = await axios(options)
+  try {
+    const { data: albumData } = await axios(options)
+    album = albumData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      options
+    )
+    const { data: albumData } = await axios(updatedOptions)
+    album = albumData
+  }
 
   const totalTime = album.tracks.items.reduce((acc, element) => {
     return (acc += element.duration_ms)
@@ -470,7 +484,19 @@ export const getAlbum = async (access_token, id) => {
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
-  const { data: inLibrary } = await axios(checkOptions)
+
+  try {
+    const { data: inLibraryData } = await axios(checkOptions)
+    inLibrary = inLibraryData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      checkOptions
+    )
+    const { data: inLibraryData } = await axios(updatedOptions)
+    inLibrary = inLibraryData
+  }
 
   album.inLibrary = inLibrary[0]
 

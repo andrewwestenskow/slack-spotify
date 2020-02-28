@@ -13,7 +13,7 @@ const PlayerWidget = props => {
   const checkForPlayer = () => {
     if (window.Spotify !== null && !player && access_token) {
       const newPlayer = new window.Spotify.Player({
-        name: 'Humidify',
+        name: 'Carve',
         getOAuthToken: cb => {
           cb(access_token)
         },
@@ -28,6 +28,7 @@ const PlayerWidget = props => {
         })
 
       newPlayer.on('ready', data => {
+        console.log('player ready')
         setPlayer(newPlayer)
         props.setPlayer({ player: newPlayer, deviceId: data.device_id })
       })
@@ -98,7 +99,8 @@ const mapStateToProps = state => {
     socket: state.socket.socket,
   }
 }
-export default connect(
-  mapStateToProps,
-  { setPlayer, setNowPlaying, refreshAuth }
-)(PlayerWidget)
+export default connect(mapStateToProps, {
+  setPlayer,
+  setNowPlaying,
+  refreshAuth,
+})(PlayerWidget)

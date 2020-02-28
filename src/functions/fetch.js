@@ -503,7 +503,9 @@ export const getAlbum = async (access_token, refresh_token, id) => {
   return album
 }
 
-export const getPlaylist = async (access_token, id, userId) => {
+export const getPlaylist = async (access_token, refresh_token, id, userId) => {
+  let playlist
+
   let nextUrl = null
   const playlistOptions = {
     url: `https://api.spotify.com/v1/playlists/${id}`,
@@ -511,18 +513,41 @@ export const getPlaylist = async (access_token, id, userId) => {
     headers: { Authorization: `Bearer ${access_token}` },
   }
 
-  const { data: playlist } = await axios(playlistOptions)
+  try {
+    const { data: playlistData } = await axios(playlistOptions)
+    playlist = playlistData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      playlistOptions
+    )
+    const { data: playlistData } = await axios(updatedOptions)
+    playlist = playlistData
+  }
 
   nextUrl = playlist.tracks.next
 
   while (nextUrl !== null) {
+    let moreTracks
     const nextTracksOptions = {
       url: nextUrl,
       method: 'GET',
       headers: { Authorization: `Bearer ${access_token}` },
     }
 
-    const { data: moreTracks } = await axios(nextTracksOptions)
+    try {
+      const { data: moreTracksData } = await axios(nextTracksOptions)
+      moreTracks = moreTracksData
+    } catch {
+      const { updatedOptions } = await globalCatch(
+        access_token,
+        refresh_token,
+        nextTracksOptions
+      )
+      const { data: moreTracksData } = await axios(updatedOptions)
+      moreTracks = moreTracksData
+    }
 
     playlist.tracks.items = [...playlist.tracks.items, ...moreTracks.items]
 
@@ -545,15 +570,29 @@ export const getPlaylist = async (access_token, id, userId) => {
   playlist.length = albumTime(playlistLength)
 
   if (userId) {
+    let follows
     const followOptions = {
       url: `https://api.spotify.com/v1/playlists/${playlist.id}/followers/contains?ids=${userId}`,
       method: 'GET',
       headers: { Authorization: `Bearer ${access_token}` },
     }
 
-    const {
-      data: [follows],
-    } = await axios(followOptions)
+    try {
+      const {
+        data: [followsData],
+      } = await axios(followOptions)
+      follows = followsData
+    } catch {
+      const { updatedOptions } = await globalCatch(
+        access_token,
+        refresh_token,
+        followOptions
+      )
+      const {
+        data: [followsData],
+      } = await axios(updatedOptions)
+      follows = followsData
+    }
 
     playlist.inLibrary = follows
     return playlist

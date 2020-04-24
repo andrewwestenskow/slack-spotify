@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-
+import { hideContextMenu } from './ducks/contextMenuReducer'
+import ContextMenu from './Components/ContextMenu/ContextMenu'
 import routes from './routes'
 import './App.scss'
 import axios from 'axios'
@@ -55,14 +56,18 @@ function App(props) {
     handleRender()
   }
 
-  return <div className="App">{routes}</div>
+  return (
+    <div onClick={() => hideContextMenu()} className="App">
+      {routes}
+      {props.show && <ContextMenu />}
+    </div>
+  )
 }
 
-const mapStateToProps = state => {
-  return { ...state.auth, user: { ...state.user } }
+const mapStateToProps = (state) => {
+  return { ...state.auth, user: { ...state.user }, ...state.contextMenu }
 }
 
-export default connect(
-  mapStateToProps,
-  { setAuth, setUser }
-)(withRouter(App))
+export default connect(mapStateToProps, { setAuth, setUser, hideContextMenu })(
+  withRouter(App)
+)

@@ -1,10 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { showContextMenu } from '../../ducks/contextMenuReducer'
 import * as Icon from 'react-feather'
 import { handlePlay } from '../../functions/playback'
 import { addToLibrary, removeFromLibrary } from '../../functions/library'
 
-const PlayWidget = props => {
-  const handleChange = action => {
+const PlayWidget = (props) => {
+  const handleContextChange = (e) => {
+    props.showContextMenu(e.pageX, e.pageY)
+  }
+
+  const handleChange = (action) => {
     if (action === 'add') {
       addToLibrary(props).then(() => {
         props.toggleChange()
@@ -40,9 +46,15 @@ const PlayWidget = props => {
         size={50}
       />
       {props.showMore ? (
-        <Icon.MoreHorizontal size={30} className="play-circle" />
+        <Icon.MoreHorizontal
+          onClick={(e) => handleContextChange(e)}
+          size={30}
+          className="play-circle"
+        />
       ) : null}
     </div>
   )
 }
-export default PlayWidget
+
+const mapStateToProps = (state) => state.contextMenu
+export default connect(mapStateToProps, { showContextMenu })(PlayWidget)

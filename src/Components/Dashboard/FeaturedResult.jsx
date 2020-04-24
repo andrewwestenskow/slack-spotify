@@ -1,13 +1,18 @@
 import React from 'react'
+import spotify from '../../assets/spotify.png'
 import PlayWidget from '../PlayWidget/PlayWidget'
 import { Link } from 'react-router-dom'
 
-const FeaturedResult = props => {
+const FeaturedResult = (props) => {
   const { info } = props
   return (
     <div className="result-hold">
       <div
-        style={{ backgroundImage: `url(${info.images[0].url})` }}
+        style={{
+          backgroundImage: info.images[0]
+            ? `url(${info.images[0].url})`
+            : spotify,
+        }}
         className="result"
       >
         <PlayWidget

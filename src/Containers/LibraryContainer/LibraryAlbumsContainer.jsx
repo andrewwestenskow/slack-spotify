@@ -5,7 +5,7 @@ import { getLibraryAlbums } from '../../functions/fetch'
 import { setAlbums } from '../../ducks/libraryReducer'
 import usePrevious from '../../functions/usePrevious'
 
-const LibraryAlbumsContainer = props => {
+const LibraryAlbumsContainer = (props) => {
   const [albums, setAlbums] = useState([])
   const [toggle, setToggle] = useState(false)
   const memoSetAlbums = useCallback(props.setAlbums, [props.albums, toggle])
@@ -14,16 +14,22 @@ const LibraryAlbumsContainer = props => {
     prevToggle = false
   }
   useEffect(() => {
-    console.log(toggle, prevToggle)
     if (props.albums.length === 0 || toggle !== prevToggle) {
-      getLibraryAlbums(props.access_token).then(res => {
+      getLibraryAlbums(props.access_token, props.refresh_token).then((res) => {
         memoSetAlbums(res.items)
         setAlbums(res.items)
       })
     } else {
       setAlbums(props.albums)
     }
-  }, [props.access_token, toggle, props.albums, memoSetAlbums, prevToggle])
+  }, [
+    props.access_token,
+    props.refresh_token,
+    toggle,
+    props.albums,
+    memoSetAlbums,
+    prevToggle,
+  ])
 
   const toggleChange = () => {
     setToggle(!toggle)
@@ -38,14 +44,12 @@ const LibraryAlbumsContainer = props => {
   )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     access_token: state.auth.access_token,
+    refresh_token: state.auth.refresh_token,
     deviceId: state.spotify.deviceId,
     albums: state.library.albums,
   }
 }
-export default connect(
-  mapStateToProps,
-  { setAlbums }
-)(LibraryAlbumsContainer)
+export default connect(mapStateToProps, { setAlbums })(LibraryAlbumsContainer)

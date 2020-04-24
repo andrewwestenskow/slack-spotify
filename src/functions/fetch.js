@@ -86,7 +86,7 @@ export const fetchDashboardInfo = async (access_token, refresh_token) => {
 
   const newRecent = recent.reduce((acc, element) => {
     const index = acc.findIndex(
-      el => el.track.album.name === element.track.album.name
+      (el) => el.track.album.name === element.track.album.name
     )
     if (index === -1) {
       return [...acc, element]
@@ -94,7 +94,7 @@ export const fetchDashboardInfo = async (access_token, refresh_token) => {
       return acc
     }
   }, [])
-  const idsToCheck = newRecent.map(element => {
+  const idsToCheck = newRecent.map((element) => {
     return element.track.album.id
   })
 
@@ -273,7 +273,7 @@ export const getArtist = async (access_token, refresh_token, artistId) => {
   }
 
   //? CHECKS IF ALBUMS ARE IN USER LIBRARY
-  const idsToCheck = albums.items.map(element => {
+  const idsToCheck = albums.items.map((element) => {
     return element.id
   })
 
@@ -329,7 +329,7 @@ export const getArtist = async (access_token, refresh_token, artistId) => {
       secondAlbums = secondAlbumsData
     }
 
-    const secondIds = secondAlbums.items.map(element => {
+    const secondIds = secondAlbums.items.map((element) => {
       return element.id
     })
     const secondCheckOptions = {
@@ -468,7 +468,7 @@ export const getAlbum = async (access_token, refresh_token, id) => {
 
   album.tracks.formatted = []
 
-  album.tracks.items.forEach(element => {
+  album.tracks.items.forEach((element) => {
     element.length = trackTime(element.duration_ms)
     if (album.tracks.formatted[element.disc_number - 1]) {
       album.tracks.formatted[element.disc_number - 1].push(element)
@@ -554,7 +554,7 @@ export const getPlaylist = async (access_token, refresh_token, id, userId) => {
     nextUrl = moreTracks.next
   }
 
-  const notNull = playlist.tracks.items.filter(element => {
+  const notNull = playlist.tracks.items.filter((element) => {
     if (element.track) {
       return true
     } else {
@@ -601,8 +601,9 @@ export const getPlaylist = async (access_token, refresh_token, id, userId) => {
   }
 }
 
-export const getLibraryAlbums = async access_token => {
+export const getLibraryAlbums = async (access_token, refresh_token) => {
   let nextUrl = null
+  let albums
 
   const options = {
     url: 'https://api.spotify.com/v1/me/albums?limit=50',
@@ -610,7 +611,18 @@ export const getLibraryAlbums = async access_token => {
     headers: { Authorization: `Bearer ${access_token}` },
   }
 
-  const { data: albums } = await axios(options)
+  try {
+    const { data: albumsData } = await axios(options)
+    albums = albumsData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      options
+    )
+    const { data: albumsData } = await axios(updatedOptions)
+    albums = albumsData
+  }
 
   nextUrl = albums.next
 
@@ -626,7 +638,7 @@ export const getLibraryAlbums = async access_token => {
     nextUrl = moreAlbums.next
   }
 
-  albums.items.forEach(element => {
+  albums.items.forEach((element) => {
     element.album.inLibrary = true
   })
 
@@ -641,18 +653,34 @@ export const getLibraryAlbums = async access_token => {
   return albums
 }
 
-export const getFollowedArtists = async access_token => {
+export const getFollowedArtists = async (access_token, refresh_token) => {
+  let followedArtists
   const options = {
     url: 'https://api.spotify.com/v1/me/following?type=artist&limit=50',
     method: 'GET',
     headers: { Authorization: `Bearer ${access_token}` },
   }
 
-  const {
-    data: {
-      artists: { items: followedArtists },
-    },
-  } = await axios(options)
+  try {
+    const {
+      data: {
+        artists: { items: followedArtistsData },
+      },
+    } = await axios(options)
+    followedArtists = followedArtistsData
+  } catch {
+    const { updatedOptions } = await globalCatch(
+      access_token,
+      refresh_token,
+      options
+    )
+    const {
+      data: {
+        artists: { items: followedArtistsData },
+      },
+    } = await axios(updatedOptions)
+    followedArtists = followedArtistsData
+  }
 
   const sortedFollowedArtists = followedArtists.sort((a, b) => {
     if (a.name > b.name) {

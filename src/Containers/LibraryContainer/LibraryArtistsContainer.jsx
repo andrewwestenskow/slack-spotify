@@ -4,14 +4,13 @@ import { connect } from 'react-redux'
 import { SpotifyLoading } from '../../Components/Loading/Loading'
 import { getFollowedArtists } from '../../functions/fetch'
 
-const LibraryArtistsContainer = props => {
+const LibraryArtistsContainer = (props) => {
   const [artists, setArtists] = useState([])
   useEffect(() => {
-    getFollowedArtists(props.access_token).then(res => {
-      console.log(res)
+    getFollowedArtists(props.access_token, props.refresh_token).then((res) => {
       setArtists(res)
     })
-  }, [props.access_token])
+  }, [props.access_token, props.refresh_token])
 
   if (artists.length > 0) {
     return <LibraryArtists info={artists} />
@@ -20,9 +19,10 @@ const LibraryArtistsContainer = props => {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     access_token: state.auth.access_token,
+    refresh_token: state.auth.refresh_token,
     deviceId: state.spotify.deviceId,
   }
 }
